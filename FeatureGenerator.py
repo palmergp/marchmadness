@@ -33,6 +33,7 @@ name_dict = {
 
 
 def reformat_name(name):
+    """Fixes names with multiple spellings"""
     try:
         name = name_dict[name]
     except KeyError:
