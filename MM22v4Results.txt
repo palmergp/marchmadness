@@ -1,0 +1,76 @@
+Round of 64
+Gonzaga +10
+Memphis +10+++
+New Mexico State +10+++
+Arkansas +10
+Notre Dame +10+++
+texas tech +10
+michigan state +10
+Duke +10
+Baylor +10
+Marquette ---
+Indiana -
+UCLA +10
+Virginia Tech -
+Purdue +10
+San Fran -
+Kentucky -
+Arizona +10
+seton hall -
+Houston +10
+chattanooga -
+colorado state ---
+Tennessee +10
+loyola chicago -
+Villanova +10
+Kansas +10
+creighton +10
+Iowa -
+South Dakota State -
+LSU -
+Wisconsin +10
+Miami +10
+Auburn +10   200 total
+
+Round 2
+memphis -
+new mexico state -
+texas tech +20
+michigan state -
+baylor -
+UCLA +20
+purdue +20
+Kentucky -
+arizona +20
+houston +20
+tennessee -
+villanova +20
+kansas +20
+Iowa -
+LSU -
+Miami +20   360 total
+
+Sweet Sixteen
+new mexico state -
+texas tech -
+baylor -
+kentucky -
+houston +40
+villanova +40
+kansas +40
+LSU - 480 total
+
+Elite Eight
+texas tech -
+baylor -
+villanova +80
+kansas +80     640 total
+
+Final Four
+texas tech -
+kansas+160  800 total
+
+Championship
+Kansas + 320
+
+FINAL TOTAL: 1120

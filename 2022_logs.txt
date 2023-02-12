@@ -1,0 +1,4527 @@
+C:\Users\gppal\PycharmProjects\marchmadness\venv\Scripts\python.exe C:/Users/gppal/PycharmProjects/marchmadness/MatchupPredictor.py
+Starting 2022 March Madness Predictor!
+Loading 2022 team data...
+Team Data loaded
+Team1 Name: Gonzaga
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for Gonzaga
+Team2 Name: Georgia State
+Team2 Seed: 16
+Fetching team data...
+Successfully loaded 2022 stats for Georgia State
+Round: 1
+Formatting data for prediction
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Making prediction
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be Gonzaga
+Probability split:
+	Gonzaga: 0.9511235354741768
+	Georgia State: 0.04887646452582336
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: Boise State
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for Boise State
+Team2 Name: Memphis
+Team2 Seed: 9
+Fetching team data...
+Successfully loaded 2022 stats for Memphis
+Round: 1
+Formatting data for prediction
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Johnathan Lawson (johnathan-lawson-1) due to no data
+Skipping Nikc Merriweather (nikc-merriweather-1) due to no data
+Skipping Sam Onu (sam-onu-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Johnathan Lawson (johnathan-lawson-1) due to no data
+Skipping Nikc Merriweather (nikc-merriweather-1) due to no data
+Skipping Sam Onu (sam-onu-1) due to no data
+Making prediction
+Skipping Johnathan Lawson (johnathan-lawson-1) due to no data
+Skipping Nikc Merriweather (nikc-merriweather-1) due to no data
+Skipping Sam Onu (sam-onu-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Johnathan Lawson (johnathan-lawson-1) due to no data
+Skipping Nikc Merriweather (nikc-merriweather-1) due to no data
+Skipping Sam Onu (sam-onu-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be Boise State
+Probability split:
+	Boise State: 0.9613391909878214
+	Memphis: 0.038660809012178735
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: Connecticut
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for Connecticut
+Team2 Name: new mexico state
+Team2 Seed: 12
+Fetching team data...
+Successfully loaded 2022 stats for new mexico state
+Round: 1
+Formatting data for prediction
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping Jorge Moreno (jorge-moreno-1) due to no data
+Skipping Shakiru Odunewu (shakiru-odunewu-1) due to no data
+Skipping Kiran Oliver (kiran-oliver-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping Jorge Moreno (jorge-moreno-1) due to no data
+Skipping Shakiru Odunewu (shakiru-odunewu-1) due to no data
+Skipping Kiran Oliver (kiran-oliver-1) due to no data
+Making prediction
+Skipping Jorge Moreno (jorge-moreno-1) due to no data
+Skipping Shakiru Odunewu (shakiru-odunewu-1) due to no data
+Skipping Kiran Oliver (kiran-oliver-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping Jorge Moreno (jorge-moreno-1) due to no data
+Skipping Shakiru Odunewu (shakiru-odunewu-1) due to no data
+Skipping Kiran Oliver (kiran-oliver-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be Connecticut
+Probability split:
+	Connecticut: 0.7934194736765949
+	new mexico state: 0.20658052632340498
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: arkansas
+Team1 Seed: 4
+Fetching team stats...
+Successfully loaded 2022 stats for arkansas
+Team2 Name: vermont
+Team2 Seed: 13
+Fetching team data...
+Successfully loaded 2022 stats for vermont
+Round: 1
+Formatting data for prediction
+Skipping Sam Alamutu (sam-alamutu-1) due to no data
+Skipping Michel Ndayishimiye (michel-ndayishimiye-1) due to no data
+Skipping Sam Alamutu (sam-alamutu-1) due to no data
+Skipping Michel Ndayishimiye (michel-ndayishimiye-1) due to no data
+Making prediction
+Skipping Sam Alamutu (sam-alamutu-1) due to no data
+Skipping Michel Ndayishimiye (michel-ndayishimiye-1) due to no data
+Skipping Sam Alamutu (sam-alamutu-1) due to no data
+Skipping Michel Ndayishimiye (michel-ndayishimiye-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be arkansas
+Probability split:
+	arkansas: 0.7388060430400138
+	vermont: 0.261193956959986
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: rutgers
+Team1 Seed: 11
+Fetching team stats...
+Successfully loaded 2022 stats for rutgers
+Team2 Name: notre dame
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for notre dame
+Round: 1
+Formatting data for prediction
+Skipping Andrew Fulin (andrew-fulin-1) due to no data
+Skipping Logan Stephens (logan-stephens-1) due to no data
+Skipping Alex Wade (alex-wade-1) due to no data
+Skipping Andrew Fulin (andrew-fulin-1) due to no data
+Skipping Logan Stephens (logan-stephens-1) due to no data
+Skipping Alex Wade (alex-wade-1) due to no data
+Making prediction
+Skipping Alex Wade (alex-wade-1) due to no data
+Skipping Andrew Fulin (andrew-fulin-1) due to no data
+Skipping Logan Stephens (logan-stephens-1) due to no data
+Skipping Alex Wade (alex-wade-1) due to no data
+Skipping Andrew Fulin (andrew-fulin-1) due to no data
+Skipping Logan Stephens (logan-stephens-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be notre dame
+Probability split:
+	rutgers: 0.29142539591565547
+	notre dame: 0.7085746040843446
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: alabama
+Team1 Seed: 6
+Fetching team stats...
+Successfully loaded 2022 stats for alabama
+Team2 Name: notre dame
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for notre dame
+Round: 1
+Formatting data for prediction
+Skipping Alex Wade (alex-wade-1) due to no data
+Skipping Alex Wade (alex-wade-1) due to no data
+Making prediction
+Skipping Alex Wade (alex-wade-1) due to no data
+Skipping Alex Wade (alex-wade-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be alabama
+Probability split:
+	alabama: 0.6357420805107865
+	notre dame: 0.3642579194892134
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: texas tech
+Team1 Seed: 3
+Fetching team stats...
+Successfully loaded 2022 stats for texas tech
+Team2 Name: montana state
+Team2 Seed: 14
+Fetching team data...
+Successfully loaded 2022 stats for montana state
+Round: 1
+Formatting data for prediction
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping Alex Germer (alex-germer-1) due to no data
+Skipping Jasper Reinalda (jasper-reinalda-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping Alex Germer (alex-germer-1) due to no data
+Skipping Jasper Reinalda (jasper-reinalda-1) due to no data
+Making prediction
+Skipping Alex Germer (alex-germer-1) due to no data
+Skipping Jasper Reinalda (jasper-reinalda-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping Alex Germer (alex-germer-1) due to no data
+Skipping Jasper Reinalda (jasper-reinalda-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be texas tech
+Probability split:
+	texas tech: 0.9459285480534092
+	montana state: 0.05407145194659079
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: michigan state
+Team1 Seed: 7
+Fetching team stats...
+Successfully loaded 2022 stats for michigan state
+Team2 Name: davidson
+Team2 Seed: 10
+Fetching team data...
+Successfully loaded 2022 stats for davidson
+Round: 1
+Formatting data for prediction
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Making prediction
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be michigan state
+Probability split:
+	michigan state: 0.7384064419879516
+	davidson: 0.2615935580120485
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: duke
+Team1 Seed: 2
+Fetching team stats...
+Successfully loaded 2022 stats for duke
+Team2 Name: csu fullerton
+Team2 Seed: 15
+Fetching team data...
+Unable to load csu fullerton. Make sure it is spelled like it is in the following list:
+Abilene Christian (ABILENE-CHRISTIAN)
+Air Force (AIR-FORCE)
+Akron (AKRON)
+Alabama A&M (ALABAMA-AM)
+UAB (ALABAMA-BIRMINGHAM)
+Alabama State (ALABAMA-STATE)
+Alabama (ALABAMA)
+Albany (NY) (ALBANY-NY)
+Alcorn State (ALCORN-STATE)
+American (AMERICAN)
+Appalachian State (APPALACHIAN-STATE)
+Arizona State (ARIZONA-STATE)
+Arizona (ARIZONA)
+Little Rock (ARKANSAS-LITTLE-ROCK)
+Arkansas-Pine Bluff (ARKANSAS-PINE-BLUFF)
+Arkansas State (ARKANSAS-STATE)
+Arkansas (ARKANSAS)
+Army (ARMY)
+Auburn (AUBURN)
+Austin Peay (AUSTIN-PEAY)
+Ball State (BALL-STATE)
+Baylor (BAYLOR)
+Bellarmine (BELLARMINE)
+Belmont (BELMONT)
+Bethune-Cookman (BETHUNE-COOKMAN)
+Binghamton (BINGHAMTON)
+Boise State (BOISE-STATE)
+Boston College (BOSTON-COLLEGE)
+Boston University (BOSTON-UNIVERSITY)
+Bowling Green State (BOWLING-GREEN-STATE)
+Bradley (BRADLEY)
+Brigham Young (BRIGHAM-YOUNG)
+Brown (BROWN)
+Bryant (BRYANT)
+Bucknell (BUCKNELL)
+Buffalo (BUFFALO)
+Butler (BUTLER)
+Cal Poly (CAL-POLY)
+Cal State Bakersfield (CAL-STATE-BAKERSFIELD)
+Cal State Fullerton (CAL-STATE-FULLERTON)
+Cal State Northridge (CAL-STATE-NORTHRIDGE)
+California Baptist (CALIFORNIA-BAPTIST)
+UC Davis (CALIFORNIA-DAVIS)
+UC Irvine (CALIFORNIA-IRVINE)
+UC Riverside (CALIFORNIA-RIVERSIDE)
+UC San Diego (CALIFORNIA-SAN-DIEGO)
+UC Santa Barbara (CALIFORNIA-SANTA-BARBARA)
+California (CALIFORNIA)
+Campbell (CAMPBELL)
+Canisius (CANISIUS)
+Central Arkansas (CENTRAL-ARKANSAS)
+Central Connecticut State (CENTRAL-CONNECTICUT-STATE)
+Central Florida (CENTRAL-FLORIDA)
+Central Michigan (CENTRAL-MICHIGAN)
+Charleston Southern (CHARLESTON-SOUTHERN)
+Charlotte (CHARLOTTE)
+Chattanooga (CHATTANOOGA)
+Chicago State (CHICAGO-STATE)
+Cincinnati (CINCINNATI)
+The Citadel (CITADEL)
+Clemson (CLEMSON)
+Cleveland State (CLEVELAND-STATE)
+Coastal Carolina (COASTAL-CAROLINA)
+Colgate (COLGATE)
+College of Charleston (COLLEGE-OF-CHARLESTON)
+Colorado State (COLORADO-STATE)
+Colorado (COLORADO)
+Columbia (COLUMBIA)
+Connecticut (CONNECTICUT)
+Coppin State (COPPIN-STATE)
+Cornell (CORNELL)
+Creighton (CREIGHTON)
+Dartmouth (DARTMOUTH)
+Davidson (DAVIDSON)
+Dayton (DAYTON)
+Delaware State (DELAWARE-STATE)
+Delaware (DELAWARE)
+Denver (DENVER)
+DePaul (DEPAUL)
+Detroit Mercy (DETROIT-MERCY)
+Dixie State (DIXIE-STATE)
+Drake (DRAKE)
+Drexel (DREXEL)
+Duke (DUKE)
+Duquesne (DUQUESNE)
+East Carolina (EAST-CAROLINA)
+East Tennessee State (EAST-TENNESSEE-STATE)
+Eastern Illinois (EASTERN-ILLINOIS)
+Eastern Kentucky (EASTERN-KENTUCKY)
+Eastern Michigan (EASTERN-MICHIGAN)
+Eastern Washington (EASTERN-WASHINGTON)
+Elon (ELON)
+Evansville (EVANSVILLE)
+Fairfield (FAIRFIELD)
+Fairleigh Dickinson (FAIRLEIGH-DICKINSON)
+Florida A&M (FLORIDA-AM)
+Florida Atlantic (FLORIDA-ATLANTIC)
+Florida Gulf Coast (FLORIDA-GULF-COAST)
+Florida International (FLORIDA-INTERNATIONAL)
+Florida State (FLORIDA-STATE)
+Florida (FLORIDA)
+Fordham (FORDHAM)
+Fresno State (FRESNO-STATE)
+Furman (FURMAN)
+Gardner-Webb (GARDNER-WEBB)
+George Mason (GEORGE-MASON)
+George Washington (GEORGE-WASHINGTON)
+Georgetown (GEORGETOWN)
+Georgia Southern (GEORGIA-SOUTHERN)
+Georgia State (GEORGIA-STATE)
+Georgia Tech (GEORGIA-TECH)
+Georgia (GEORGIA)
+Gonzaga (GONZAGA)
+Grambling (GRAMBLING)
+Grand Canyon (GRAND-CANYON)
+Green Bay (GREEN-BAY)
+Hampton (HAMPTON)
+Hartford (HARTFORD)
+Harvard (HARVARD)
+Hawaii (HAWAII)
+High Point (HIGH-POINT)
+Hofstra (HOFSTRA)
+Holy Cross (HOLY-CROSS)
+Houston Baptist (HOUSTON-BAPTIST)
+Houston (HOUSTON)
+Howard (HOWARD)
+Idaho State (IDAHO-STATE)
+Idaho (IDAHO)
+Illinois-Chicago (ILLINOIS-CHICAGO)
+Illinois State (ILLINOIS-STATE)
+Illinois (ILLINOIS)
+Incarnate Word (INCARNATE-WORD)
+Indiana State (INDIANA-STATE)
+Indiana (INDIANA)
+Iona (IONA)
+Iowa State (IOWA-STATE)
+Iowa (IOWA)
+Purdue-Fort Wayne (IPFW)
+IUPUI (IUPUI)
+Jackson State (JACKSON-STATE)
+Jacksonville State (JACKSONVILLE-STATE)
+Jacksonville (JACKSONVILLE)
+James Madison (JAMES-MADISON)
+Kansas State (KANSAS-STATE)
+Kansas (KANSAS)
+Kennesaw State (KENNESAW-STATE)
+Kent State (KENT-STATE)
+Kentucky (KENTUCKY)
+La Salle (LA-SALLE)
+Lafayette (LAFAYETTE)
+Lamar (LAMAR)
+Lehigh (LEHIGH)
+Liberty (LIBERTY)
+Lipscomb (LIPSCOMB)
+Long Beach State (LONG-BEACH-STATE)
+Long Island University (LONG-ISLAND-UNIVERSITY)
+Longwood (LONGWOOD)
+Louisiana (LOUISIANA-LAFAYETTE)
+Louisiana-Monroe (LOUISIANA-MONROE)
+Louisiana State (LOUISIANA-STATE)
+Louisiana Tech (LOUISIANA-TECH)
+Louisville (LOUISVILLE)
+Loyola (IL) (LOYOLA-IL)
+Loyola Marymount (LOYOLA-MARYMOUNT)
+Loyola (MD) (LOYOLA-MD)
+Maine (MAINE)
+Manhattan (MANHATTAN)
+Marist (MARIST)
+Marquette (MARQUETTE)
+Marshall (MARSHALL)
+Maryland-Baltimore County (MARYLAND-BALTIMORE-COUNTY)
+Maryland-Eastern Shore (MARYLAND-EASTERN-SHORE)
+Maryland (MARYLAND)
+Massachusetts-Lowell (MASSACHUSETTS-LOWELL)
+Massachusetts (MASSACHUSETTS)
+McNeese State (MCNEESE-STATE)
+Memphis (MEMPHIS)
+Mercer (MERCER)
+Merrimack (MERRIMACK)
+Miami (FL) (MIAMI-FL)
+Miami (OH) (MIAMI-OH)
+Michigan State (MICHIGAN-STATE)
+Michigan (MICHIGAN)
+Middle Tennessee (MIDDLE-TENNESSEE)
+Milwaukee (MILWAUKEE)
+Minnesota (MINNESOTA)
+Mississippi State (MISSISSIPPI-STATE)
+Mississippi Valley State (MISSISSIPPI-VALLEY-STATE)
+Mississippi (MISSISSIPPI)
+Kansas City (MISSOURI-KANSAS-CITY)
+Missouri State (MISSOURI-STATE)
+Missouri (MISSOURI)
+Monmouth (MONMOUTH)
+Montana State (MONTANA-STATE)
+Montana (MONTANA)
+Morehead State (MOREHEAD-STATE)
+Morgan State (MORGAN-STATE)
+Mount St. Mary's (MOUNT-ST-MARYS)
+Murray State (MURRAY-STATE)
+Navy (NAVY)
+Omaha (NEBRASKA-OMAHA)
+Nebraska (NEBRASKA)
+Nevada-Las Vegas (NEVADA-LAS-VEGAS)
+Nevada (NEVADA)
+New Hampshire (NEW-HAMPSHIRE)
+New Mexico State (NEW-MEXICO-STATE)
+New Mexico (NEW-MEXICO)
+New Orleans (NEW-ORLEANS)
+Niagara (NIAGARA)
+Nicholls State (NICHOLLS-STATE)
+NJIT (NJIT)
+Norfolk State (NORFOLK-STATE)
+North Alabama (NORTH-ALABAMA)
+UNC Asheville (NORTH-CAROLINA-ASHEVILLE)
+North Carolina A&T (NORTH-CAROLINA-AT)
+North Carolina Central (NORTH-CAROLINA-CENTRAL)
+UNC Greensboro (NORTH-CAROLINA-GREENSBORO)
+NC State (NORTH-CAROLINA-STATE)
+UNC Wilmington (NORTH-CAROLINA-WILMINGTON)
+North Carolina (NORTH-CAROLINA)
+North Dakota State (NORTH-DAKOTA-STATE)
+North Dakota (NORTH-DAKOTA)
+North Florida (NORTH-FLORIDA)
+North Texas (NORTH-TEXAS)
+Northeastern (NORTHEASTERN)
+Northern Arizona (NORTHERN-ARIZONA)
+Northern Colorado (NORTHERN-COLORADO)
+Northern Illinois (NORTHERN-ILLINOIS)
+Northern Iowa (NORTHERN-IOWA)
+Northern Kentucky (NORTHERN-KENTUCKY)
+Northwestern State (NORTHWESTERN-STATE)
+Northwestern (NORTHWESTERN)
+Notre Dame (NOTRE-DAME)
+Oakland (OAKLAND)
+Ohio State (OHIO-STATE)
+Ohio (OHIO)
+Oklahoma State (OKLAHOMA-STATE)
+Oklahoma (OKLAHOMA)
+Old Dominion (OLD-DOMINION)
+Oral Roberts (ORAL-ROBERTS)
+Oregon State (OREGON-STATE)
+Oregon (OREGON)
+Pacific (PACIFIC)
+Penn State (PENN-STATE)
+Pennsylvania (PENNSYLVANIA)
+Pepperdine (PEPPERDINE)
+Pittsburgh (PITTSBURGH)
+Portland State (PORTLAND-STATE)
+Portland (PORTLAND)
+Prairie View (PRAIRIE-VIEW)
+Presbyterian (PRESBYTERIAN)
+Princeton (PRINCETON)
+Providence (PROVIDENCE)
+Purdue (PURDUE)
+Quinnipiac (QUINNIPIAC)
+Radford (RADFORD)
+Rhode Island (RHODE-ISLAND)
+Rice (RICE)
+Richmond (RICHMOND)
+Rider (RIDER)
+Robert Morris (ROBERT-MORRIS)
+Rutgers (RUTGERS)
+Sacramento State (SACRAMENTO-STATE)
+Sacred Heart (SACRED-HEART)
+Saint Francis (PA) (SAINT-FRANCIS-PA)
+Saint Joseph's (SAINT-JOSEPHS)
+Saint Louis (SAINT-LOUIS)
+Saint Mary's (CA) (SAINT-MARYS-CA)
+Saint Peter's (SAINT-PETERS)
+Sam Houston State (SAM-HOUSTON-STATE)
+Samford (SAMFORD)
+San Diego State (SAN-DIEGO-STATE)
+San Diego (SAN-DIEGO)
+San Francisco (SAN-FRANCISCO)
+San Jose State (SAN-JOSE-STATE)
+Santa Clara (SANTA-CLARA)
+Seattle (SEATTLE)
+Seton Hall (SETON-HALL)
+Siena (SIENA)
+South Alabama (SOUTH-ALABAMA)
+South Carolina State (SOUTH-CAROLINA-STATE)
+South Carolina Upstate (SOUTH-CAROLINA-UPSTATE)
+South Carolina (SOUTH-CAROLINA)
+South Dakota State (SOUTH-DAKOTA-STATE)
+South Dakota (SOUTH-DAKOTA)
+South Florida (SOUTH-FLORIDA)
+Southeast Missouri State (SOUTHEAST-MISSOURI-STATE)
+Southeastern Louisiana (SOUTHEASTERN-LOUISIANA)
+Southern California (SOUTHERN-CALIFORNIA)
+SIU Edwardsville (SOUTHERN-ILLINOIS-EDWARDSVILLE)
+Southern Illinois (SOUTHERN-ILLINOIS)
+Southern Methodist (SOUTHERN-METHODIST)
+Southern Mississippi (SOUTHERN-MISSISSIPPI)
+Southern Utah (SOUTHERN-UTAH)
+Southern (SOUTHERN)
+St. Bonaventure (ST-BONAVENTURE)
+St. Francis (NY) (ST-FRANCIS-NY)
+St. John's (NY) (ST-JOHNS-NY)
+St. Thomas (MN) (ST-THOMAS-MN)
+Stanford (STANFORD)
+Stephen F. Austin (STEPHEN-F-AUSTIN)
+Stetson (STETSON)
+Stony Brook (STONY-BROOK)
+Syracuse (SYRACUSE)
+Tarleton State (TARLETON-STATE)
+Temple (TEMPLE)
+Tennessee-Martin (TENNESSEE-MARTIN)
+Tennessee State (TENNESSEE-STATE)
+Tennessee Tech (TENNESSEE-TECH)
+Tennessee (TENNESSEE)
+Texas A&M-Corpus Christi (TEXAS-AM-CORPUS-CHRISTI)
+Texas A&M (TEXAS-AM)
+UT Arlington (TEXAS-ARLINGTON)
+TCU (TEXAS-CHRISTIAN)
+UTEP (TEXAS-EL-PASO)
+Texas-Rio Grande Valley (TEXAS-PAN-AMERICAN)
+UTSA (TEXAS-SAN-ANTONIO)
+Texas Southern (TEXAS-SOUTHERN)
+Texas State (TEXAS-STATE)
+Texas Tech (TEXAS-TECH)
+Texas (TEXAS)
+Toledo (TOLEDO)
+Towson (TOWSON)
+Troy (TROY)
+Tulane (TULANE)
+Tulsa (TULSA)
+UCLA (UCLA)
+Utah State (UTAH-STATE)
+Utah Valley (UTAH-VALLEY)
+Utah (UTAH)
+Valparaiso (VALPARAISO)
+Vanderbilt (VANDERBILT)
+Vermont (VERMONT)
+Villanova (VILLANOVA)
+Virginia Commonwealth (VIRGINIA-COMMONWEALTH)
+VMI (VIRGINIA-MILITARY-INSTITUTE)
+Virginia Tech (VIRGINIA-TECH)
+Virginia (VIRGINIA)
+Wagner (WAGNER)
+Wake Forest (WAKE-FOREST)
+Washington State (WASHINGTON-STATE)
+Washington (WASHINGTON)
+Weber State (WEBER-STATE)
+West Virginia (WEST-VIRGINIA)
+Western Carolina (WESTERN-CAROLINA)
+Western Illinois (WESTERN-ILLINOIS)
+Western Kentucky (WESTERN-KENTUCKY)
+Western Michigan (WESTERN-MICHIGAN)
+Wichita State (WICHITA-STATE)
+William & Mary (WILLIAM-MARY)
+Winthrop (WINTHROP)
+Wisconsin (WISCONSIN)
+Wofford (WOFFORD)
+Wright State (WRIGHT-STATE)
+Wyoming (WYOMING)
+Xavier (XAVIER)
+Yale (YALE)
+Youngstown State (YOUNGSTOWN-STATE)
+Team2 Name: CAL-STATE-FULLERTON
+Team2 Seed: 15
+Fetching team data...
+Successfully loaded 2022 stats for CAL-STATE-FULLERTON
+Round: 1
+Formatting data for prediction
+Making prediction
+Making prediction
+
+-------------------------------------
+The winner will be duke
+Probability split:
+	duke: 0.979818904814606
+	CAL-STATE-FULLERTON: 0.02018109518539408
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: baylor
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for baylor
+Team2 Name: norfolk state
+Team2 Seed: 16
+Fetching team data...
+Successfully loaded 2022 stats for norfolk state
+Round: 1
+Formatting data for prediction
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Making prediction
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be baylor
+Probability split:
+	baylor: 0.99560526199279
+	norfolk state: 0.004394738007210054
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: North Carolina
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for North Carolina
+Team2 Name: Marquette
+Team2 Seed: 9
+Fetching team data...
+Successfully loaded 2022 stats for Marquette
+Round: 1
+Formatting data for prediction
+Skipping Keeyan Itejere (keeyan-itejere-1) due to no data
+Skipping Keeyan Itejere (keeyan-itejere-1) due to no data
+Making prediction
+Skipping Keeyan Itejere (keeyan-itejere-1) due to no data
+Skipping Keeyan Itejere (keeyan-itejere-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be North Carolina
+Probability split:
+	North Carolina: 0.7508139391978882
+	Marquette: 0.2491860608021118
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: Wyoming
+Team1 Seed: 12
+Fetching team stats...
+Successfully loaded 2022 stats for Wyoming
+Team2 Name: Indiana
+Team2 Seed: 12
+Fetching team data...
+Successfully loaded 2022 stats for Indiana
+Round: 1
+Formatting data for prediction
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Shaan Burke (shaan-burke-1) due to no data
+Skipping Sebastien Scott (sebastien-scott-1) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Shaan Burke (shaan-burke-1) due to no data
+Skipping Sebastien Scott (sebastien-scott-1) due to no data
+Making prediction
+Skipping Shaan Burke (shaan-burke-1) due to no data
+Skipping Sebastien Scott (sebastien-scott-1) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Shaan Burke (shaan-burke-1) due to no data
+Skipping Sebastien Scott (sebastien-scott-1) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be Wyoming
+Probability split:
+	Wyoming: 0.6554826125642136
+	Indiana: 0.34451738743578636
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: Saint Marys
+Team1 Seed: 5
+Fetching team stats...
+Unable to load Saint Marys. Make sure it is spelled like it is in the following list:
+Abilene Christian (ABILENE-CHRISTIAN)
+Air Force (AIR-FORCE)
+Akron (AKRON)
+Alabama A&M (ALABAMA-AM)
+UAB (ALABAMA-BIRMINGHAM)
+Alabama State (ALABAMA-STATE)
+Alabama (ALABAMA)
+Albany (NY) (ALBANY-NY)
+Alcorn State (ALCORN-STATE)
+American (AMERICAN)
+Appalachian State (APPALACHIAN-STATE)
+Arizona State (ARIZONA-STATE)
+Arizona (ARIZONA)
+Little Rock (ARKANSAS-LITTLE-ROCK)
+Arkansas-Pine Bluff (ARKANSAS-PINE-BLUFF)
+Arkansas State (ARKANSAS-STATE)
+Arkansas (ARKANSAS)
+Army (ARMY)
+Auburn (AUBURN)
+Austin Peay (AUSTIN-PEAY)
+Ball State (BALL-STATE)
+Baylor (BAYLOR)
+Bellarmine (BELLARMINE)
+Belmont (BELMONT)
+Bethune-Cookman (BETHUNE-COOKMAN)
+Binghamton (BINGHAMTON)
+Boise State (BOISE-STATE)
+Boston College (BOSTON-COLLEGE)
+Boston University (BOSTON-UNIVERSITY)
+Bowling Green State (BOWLING-GREEN-STATE)
+Bradley (BRADLEY)
+Brigham Young (BRIGHAM-YOUNG)
+Brown (BROWN)
+Bryant (BRYANT)
+Bucknell (BUCKNELL)
+Buffalo (BUFFALO)
+Butler (BUTLER)
+Cal Poly (CAL-POLY)
+Cal State Bakersfield (CAL-STATE-BAKERSFIELD)
+Cal State Fullerton (CAL-STATE-FULLERTON)
+Cal State Northridge (CAL-STATE-NORTHRIDGE)
+California Baptist (CALIFORNIA-BAPTIST)
+UC Davis (CALIFORNIA-DAVIS)
+UC Irvine (CALIFORNIA-IRVINE)
+UC Riverside (CALIFORNIA-RIVERSIDE)
+UC San Diego (CALIFORNIA-SAN-DIEGO)
+UC Santa Barbara (CALIFORNIA-SANTA-BARBARA)
+California (CALIFORNIA)
+Campbell (CAMPBELL)
+Canisius (CANISIUS)
+Central Arkansas (CENTRAL-ARKANSAS)
+Central Connecticut State (CENTRAL-CONNECTICUT-STATE)
+Central Florida (CENTRAL-FLORIDA)
+Central Michigan (CENTRAL-MICHIGAN)
+Charleston Southern (CHARLESTON-SOUTHERN)
+Charlotte (CHARLOTTE)
+Chattanooga (CHATTANOOGA)
+Chicago State (CHICAGO-STATE)
+Cincinnati (CINCINNATI)
+The Citadel (CITADEL)
+Clemson (CLEMSON)
+Cleveland State (CLEVELAND-STATE)
+Coastal Carolina (COASTAL-CAROLINA)
+Colgate (COLGATE)
+College of Charleston (COLLEGE-OF-CHARLESTON)
+Colorado State (COLORADO-STATE)
+Colorado (COLORADO)
+Columbia (COLUMBIA)
+Connecticut (CONNECTICUT)
+Coppin State (COPPIN-STATE)
+Cornell (CORNELL)
+Creighton (CREIGHTON)
+Dartmouth (DARTMOUTH)
+Davidson (DAVIDSON)
+Dayton (DAYTON)
+Delaware State (DELAWARE-STATE)
+Delaware (DELAWARE)
+Denver (DENVER)
+DePaul (DEPAUL)
+Detroit Mercy (DETROIT-MERCY)
+Dixie State (DIXIE-STATE)
+Drake (DRAKE)
+Drexel (DREXEL)
+Duke (DUKE)
+Duquesne (DUQUESNE)
+East Carolina (EAST-CAROLINA)
+East Tennessee State (EAST-TENNESSEE-STATE)
+Eastern Illinois (EASTERN-ILLINOIS)
+Eastern Kentucky (EASTERN-KENTUCKY)
+Eastern Michigan (EASTERN-MICHIGAN)
+Eastern Washington (EASTERN-WASHINGTON)
+Elon (ELON)
+Evansville (EVANSVILLE)
+Fairfield (FAIRFIELD)
+Fairleigh Dickinson (FAIRLEIGH-DICKINSON)
+Florida A&M (FLORIDA-AM)
+Florida Atlantic (FLORIDA-ATLANTIC)
+Florida Gulf Coast (FLORIDA-GULF-COAST)
+Florida International (FLORIDA-INTERNATIONAL)
+Florida State (FLORIDA-STATE)
+Florida (FLORIDA)
+Fordham (FORDHAM)
+Fresno State (FRESNO-STATE)
+Furman (FURMAN)
+Gardner-Webb (GARDNER-WEBB)
+George Mason (GEORGE-MASON)
+George Washington (GEORGE-WASHINGTON)
+Georgetown (GEORGETOWN)
+Georgia Southern (GEORGIA-SOUTHERN)
+Georgia State (GEORGIA-STATE)
+Georgia Tech (GEORGIA-TECH)
+Georgia (GEORGIA)
+Gonzaga (GONZAGA)
+Grambling (GRAMBLING)
+Grand Canyon (GRAND-CANYON)
+Green Bay (GREEN-BAY)
+Hampton (HAMPTON)
+Hartford (HARTFORD)
+Harvard (HARVARD)
+Hawaii (HAWAII)
+High Point (HIGH-POINT)
+Hofstra (HOFSTRA)
+Holy Cross (HOLY-CROSS)
+Houston Baptist (HOUSTON-BAPTIST)
+Houston (HOUSTON)
+Howard (HOWARD)
+Idaho State (IDAHO-STATE)
+Idaho (IDAHO)
+Illinois-Chicago (ILLINOIS-CHICAGO)
+Illinois State (ILLINOIS-STATE)
+Illinois (ILLINOIS)
+Incarnate Word (INCARNATE-WORD)
+Indiana State (INDIANA-STATE)
+Indiana (INDIANA)
+Iona (IONA)
+Iowa State (IOWA-STATE)
+Iowa (IOWA)
+Purdue-Fort Wayne (IPFW)
+IUPUI (IUPUI)
+Jackson State (JACKSON-STATE)
+Jacksonville State (JACKSONVILLE-STATE)
+Jacksonville (JACKSONVILLE)
+James Madison (JAMES-MADISON)
+Kansas State (KANSAS-STATE)
+Kansas (KANSAS)
+Kennesaw State (KENNESAW-STATE)
+Kent State (KENT-STATE)
+Kentucky (KENTUCKY)
+La Salle (LA-SALLE)
+Lafayette (LAFAYETTE)
+Lamar (LAMAR)
+Lehigh (LEHIGH)
+Liberty (LIBERTY)
+Lipscomb (LIPSCOMB)
+Long Beach State (LONG-BEACH-STATE)
+Long Island University (LONG-ISLAND-UNIVERSITY)
+Longwood (LONGWOOD)
+Louisiana (LOUISIANA-LAFAYETTE)
+Louisiana-Monroe (LOUISIANA-MONROE)
+Louisiana State (LOUISIANA-STATE)
+Louisiana Tech (LOUISIANA-TECH)
+Louisville (LOUISVILLE)
+Loyola (IL) (LOYOLA-IL)
+Loyola Marymount (LOYOLA-MARYMOUNT)
+Loyola (MD) (LOYOLA-MD)
+Maine (MAINE)
+Manhattan (MANHATTAN)
+Marist (MARIST)
+Marquette (MARQUETTE)
+Marshall (MARSHALL)
+Maryland-Baltimore County (MARYLAND-BALTIMORE-COUNTY)
+Maryland-Eastern Shore (MARYLAND-EASTERN-SHORE)
+Maryland (MARYLAND)
+Massachusetts-Lowell (MASSACHUSETTS-LOWELL)
+Massachusetts (MASSACHUSETTS)
+McNeese State (MCNEESE-STATE)
+Memphis (MEMPHIS)
+Mercer (MERCER)
+Merrimack (MERRIMACK)
+Miami (FL) (MIAMI-FL)
+Miami (OH) (MIAMI-OH)
+Michigan State (MICHIGAN-STATE)
+Michigan (MICHIGAN)
+Middle Tennessee (MIDDLE-TENNESSEE)
+Milwaukee (MILWAUKEE)
+Minnesota (MINNESOTA)
+Mississippi State (MISSISSIPPI-STATE)
+Mississippi Valley State (MISSISSIPPI-VALLEY-STATE)
+Mississippi (MISSISSIPPI)
+Kansas City (MISSOURI-KANSAS-CITY)
+Missouri State (MISSOURI-STATE)
+Missouri (MISSOURI)
+Monmouth (MONMOUTH)
+Montana State (MONTANA-STATE)
+Montana (MONTANA)
+Morehead State (MOREHEAD-STATE)
+Morgan State (MORGAN-STATE)
+Mount St. Mary's (MOUNT-ST-MARYS)
+Murray State (MURRAY-STATE)
+Navy (NAVY)
+Omaha (NEBRASKA-OMAHA)
+Nebraska (NEBRASKA)
+Nevada-Las Vegas (NEVADA-LAS-VEGAS)
+Nevada (NEVADA)
+New Hampshire (NEW-HAMPSHIRE)
+New Mexico State (NEW-MEXICO-STATE)
+New Mexico (NEW-MEXICO)
+New Orleans (NEW-ORLEANS)
+Niagara (NIAGARA)
+Nicholls State (NICHOLLS-STATE)
+NJIT (NJIT)
+Norfolk State (NORFOLK-STATE)
+North Alabama (NORTH-ALABAMA)
+UNC Asheville (NORTH-CAROLINA-ASHEVILLE)
+North Carolina A&T (NORTH-CAROLINA-AT)
+North Carolina Central (NORTH-CAROLINA-CENTRAL)
+UNC Greensboro (NORTH-CAROLINA-GREENSBORO)
+NC State (NORTH-CAROLINA-STATE)
+UNC Wilmington (NORTH-CAROLINA-WILMINGTON)
+North Carolina (NORTH-CAROLINA)
+North Dakota State (NORTH-DAKOTA-STATE)
+North Dakota (NORTH-DAKOTA)
+North Florida (NORTH-FLORIDA)
+North Texas (NORTH-TEXAS)
+Northeastern (NORTHEASTERN)
+Northern Arizona (NORTHERN-ARIZONA)
+Northern Colorado (NORTHERN-COLORADO)
+Northern Illinois (NORTHERN-ILLINOIS)
+Northern Iowa (NORTHERN-IOWA)
+Northern Kentucky (NORTHERN-KENTUCKY)
+Northwestern State (NORTHWESTERN-STATE)
+Northwestern (NORTHWESTERN)
+Notre Dame (NOTRE-DAME)
+Oakland (OAKLAND)
+Ohio State (OHIO-STATE)
+Ohio (OHIO)
+Oklahoma State (OKLAHOMA-STATE)
+Oklahoma (OKLAHOMA)
+Old Dominion (OLD-DOMINION)
+Oral Roberts (ORAL-ROBERTS)
+Oregon State (OREGON-STATE)
+Oregon (OREGON)
+Pacific (PACIFIC)
+Penn State (PENN-STATE)
+Pennsylvania (PENNSYLVANIA)
+Pepperdine (PEPPERDINE)
+Pittsburgh (PITTSBURGH)
+Portland State (PORTLAND-STATE)
+Portland (PORTLAND)
+Prairie View (PRAIRIE-VIEW)
+Presbyterian (PRESBYTERIAN)
+Princeton (PRINCETON)
+Providence (PROVIDENCE)
+Purdue (PURDUE)
+Quinnipiac (QUINNIPIAC)
+Radford (RADFORD)
+Rhode Island (RHODE-ISLAND)
+Rice (RICE)
+Richmond (RICHMOND)
+Rider (RIDER)
+Robert Morris (ROBERT-MORRIS)
+Rutgers (RUTGERS)
+Sacramento State (SACRAMENTO-STATE)
+Sacred Heart (SACRED-HEART)
+Saint Francis (PA) (SAINT-FRANCIS-PA)
+Saint Joseph's (SAINT-JOSEPHS)
+Saint Louis (SAINT-LOUIS)
+Saint Mary's (CA) (SAINT-MARYS-CA)
+Saint Peter's (SAINT-PETERS)
+Sam Houston State (SAM-HOUSTON-STATE)
+Samford (SAMFORD)
+San Diego State (SAN-DIEGO-STATE)
+San Diego (SAN-DIEGO)
+San Francisco (SAN-FRANCISCO)
+San Jose State (SAN-JOSE-STATE)
+Santa Clara (SANTA-CLARA)
+Seattle (SEATTLE)
+Seton Hall (SETON-HALL)
+Siena (SIENA)
+South Alabama (SOUTH-ALABAMA)
+South Carolina State (SOUTH-CAROLINA-STATE)
+South Carolina Upstate (SOUTH-CAROLINA-UPSTATE)
+South Carolina (SOUTH-CAROLINA)
+South Dakota State (SOUTH-DAKOTA-STATE)
+South Dakota (SOUTH-DAKOTA)
+South Florida (SOUTH-FLORIDA)
+Southeast Missouri State (SOUTHEAST-MISSOURI-STATE)
+Southeastern Louisiana (SOUTHEASTERN-LOUISIANA)
+Southern California (SOUTHERN-CALIFORNIA)
+SIU Edwardsville (SOUTHERN-ILLINOIS-EDWARDSVILLE)
+Southern Illinois (SOUTHERN-ILLINOIS)
+Southern Methodist (SOUTHERN-METHODIST)
+Southern Mississippi (SOUTHERN-MISSISSIPPI)
+Southern Utah (SOUTHERN-UTAH)
+Southern (SOUTHERN)
+St. Bonaventure (ST-BONAVENTURE)
+St. Francis (NY) (ST-FRANCIS-NY)
+St. John's (NY) (ST-JOHNS-NY)
+St. Thomas (MN) (ST-THOMAS-MN)
+Stanford (STANFORD)
+Stephen F. Austin (STEPHEN-F-AUSTIN)
+Stetson (STETSON)
+Stony Brook (STONY-BROOK)
+Syracuse (SYRACUSE)
+Tarleton State (TARLETON-STATE)
+Temple (TEMPLE)
+Tennessee-Martin (TENNESSEE-MARTIN)
+Tennessee State (TENNESSEE-STATE)
+Tennessee Tech (TENNESSEE-TECH)
+Tennessee (TENNESSEE)
+Texas A&M-Corpus Christi (TEXAS-AM-CORPUS-CHRISTI)
+Texas A&M (TEXAS-AM)
+UT Arlington (TEXAS-ARLINGTON)
+TCU (TEXAS-CHRISTIAN)
+UTEP (TEXAS-EL-PASO)
+Texas-Rio Grande Valley (TEXAS-PAN-AMERICAN)
+UTSA (TEXAS-SAN-ANTONIO)
+Texas Southern (TEXAS-SOUTHERN)
+Texas State (TEXAS-STATE)
+Texas Tech (TEXAS-TECH)
+Texas (TEXAS)
+Toledo (TOLEDO)
+Towson (TOWSON)
+Troy (TROY)
+Tulane (TULANE)
+Tulsa (TULSA)
+UCLA (UCLA)
+Utah State (UTAH-STATE)
+Utah Valley (UTAH-VALLEY)
+Utah (UTAH)
+Valparaiso (VALPARAISO)
+Vanderbilt (VANDERBILT)
+Vermont (VERMONT)
+Villanova (VILLANOVA)
+Virginia Commonwealth (VIRGINIA-COMMONWEALTH)
+VMI (VIRGINIA-MILITARY-INSTITUTE)
+Virginia Tech (VIRGINIA-TECH)
+Virginia (VIRGINIA)
+Wagner (WAGNER)
+Wake Forest (WAKE-FOREST)
+Washington State (WASHINGTON-STATE)
+Washington (WASHINGTON)
+Weber State (WEBER-STATE)
+West Virginia (WEST-VIRGINIA)
+Western Carolina (WESTERN-CAROLINA)
+Western Illinois (WESTERN-ILLINOIS)
+Western Kentucky (WESTERN-KENTUCKY)
+Western Michigan (WESTERN-MICHIGAN)
+Wichita State (WICHITA-STATE)
+William & Mary (WILLIAM-MARY)
+Winthrop (WINTHROP)
+Wisconsin (WISCONSIN)
+Wofford (WOFFORD)
+Wright State (WRIGHT-STATE)
+Wyoming (WYOMING)
+Xavier (XAVIER)
+Yale (YALE)
+Youngstown State (YOUNGSTOWN-STATE)
+Team1 Name: SAINT-MARYS-CA
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for SAINT-MARYS-CA
+Team2 Name: Wyoming
+Team2 Seed: 12
+Fetching team data...
+Successfully loaded 2022 stats for Wyoming
+Round: 1
+Formatting data for prediction
+Skipping Yigit Arcan (yigit-arcan-1) due to no data
+Skipping Chris Howell (chris-howell-3) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Yigit Arcan (yigit-arcan-1) due to no data
+Skipping Chris Howell (chris-howell-3) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Making prediction
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Yigit Arcan (yigit-arcan-1) due to no data
+Skipping Chris Howell (chris-howell-3) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Yigit Arcan (yigit-arcan-1) due to no data
+Skipping Chris Howell (chris-howell-3) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be Wyoming
+Probability split:
+	SAINT-MARYS-CA: 0.3480107822814934
+	Wyoming: 0.6519892177185067
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: ucla
+Team1 Seed: 4
+Fetching team stats...
+Successfully loaded 2022 stats for ucla
+Team2 Name: akron
+Team2 Seed: 13
+Fetching team data...
+Successfully loaded 2022 stats for akron
+Round: 1
+Formatting data for prediction
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Nate Johnson (nate-johnson-8) due to no data
+Skipping Pat Mayfield (pat-mayfield-1) due to no data
+Skipping Kobe Mitchell (kobe-mitchell-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Nate Johnson (nate-johnson-8) due to no data
+Skipping Pat Mayfield (pat-mayfield-1) due to no data
+Skipping Kobe Mitchell (kobe-mitchell-1) due to no data
+Making prediction
+Skipping Nate Johnson (nate-johnson-8) due to no data
+Skipping Pat Mayfield (pat-mayfield-1) due to no data
+Skipping Kobe Mitchell (kobe-mitchell-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Nate Johnson (nate-johnson-8) due to no data
+Skipping Pat Mayfield (pat-mayfield-1) due to no data
+Skipping Kobe Mitchell (kobe-mitchell-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be ucla
+Probability split:
+	ucla: 0.7700786259613956
+	akron: 0.2299213740386043
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: texas
+Team1 Seed: 6
+Fetching team stats...
+Successfully loaded 2022 stats for texas
+Team2 Name: virginia tech
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for virginia tech
+Round: 1
+Formatting data for prediction
+Skipping Cole Bott (cole-bott-1) due to no data
+Skipping Gavin Perryman (gavin-perryman-1) due to no data
+Skipping Cole Bott (cole-bott-1) due to no data
+Skipping Gavin Perryman (gavin-perryman-1) due to no data
+Making prediction
+Skipping Cole Bott (cole-bott-1) due to no data
+Skipping Gavin Perryman (gavin-perryman-1) due to no data
+Skipping Cole Bott (cole-bott-1) due to no data
+Skipping Gavin Perryman (gavin-perryman-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be virginia tech
+Probability split:
+	texas: 0.1560707492602657
+	virginia tech: 0.8439292507397342
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: purdue
+Team1 Seed: 3
+Fetching team stats...
+Successfully loaded 2022 stats for purdue
+Team2 Name: yale
+Team2 Seed: 14
+Fetching team data...
+Successfully loaded 2022 stats for yale
+Round: 1
+Formatting data for prediction
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Making prediction
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be purdue
+Probability split:
+	purdue: 0.9891335654185298
+	yale: 0.010866434581470167
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: murray state
+Team1 Seed: 7
+Fetching team stats...
+Successfully loaded 2022 stats for murray state
+Team2 Name: san francisco
+Team2 Seed: 10
+Fetching team data...
+Successfully loaded 2022 stats for san francisco
+Round: 1
+Formatting data for prediction
+Skipping Elijah Farr (elijah-farr-1) due to no data
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Skipping Elijah Farr (elijah-farr-1) due to no data
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Making prediction
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Skipping Elijah Farr (elijah-farr-1) due to no data
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Skipping Elijah Farr (elijah-farr-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be san francisco
+Probability split:
+	murray state: 0.24120622405813893
+	san francisco: 0.7587937759418609
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: kentucky
+Team1 Seed: 2
+Fetching team stats...
+Successfully loaded 2022 stats for kentucky
+Team2 Name: saint peters
+Team2 Seed: 15
+Fetching team data...
+Successfully loaded 2022 stats for saint peters
+Round: 1
+Formatting data for prediction
+Skipping Brent Bland (brent-bland-1) due to no data
+Skipping Jerry Ngopot (jerry-ngopot-1) due to no data
+Skipping Mouhamed Sow (mouhamed-sow-1) due to no data
+Skipping Brent Bland (brent-bland-1) due to no data
+Skipping Jerry Ngopot (jerry-ngopot-1) due to no data
+Skipping Mouhamed Sow (mouhamed-sow-1) due to no data
+Making prediction
+Skipping Brent Bland (brent-bland-1) due to no data
+Skipping Jerry Ngopot (jerry-ngopot-1) due to no data
+Skipping Mouhamed Sow (mouhamed-sow-1) due to no data
+Skipping Brent Bland (brent-bland-1) due to no data
+Skipping Jerry Ngopot (jerry-ngopot-1) due to no data
+Skipping Mouhamed Sow (mouhamed-sow-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be kentucky
+Probability split:
+	kentucky: 0.9771193666572926
+	saint peters: 0.02288063334270747
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: seton hall
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for seton hall
+Team2 Name: tcu
+Team2 Seed: 9
+Fetching team data...
+Unable to load tcu. Make sure it is spelled like it is in the following list:
+Abilene Christian (ABILENE-CHRISTIAN)
+Air Force (AIR-FORCE)
+Akron (AKRON)
+Alabama A&M (ALABAMA-AM)
+UAB (ALABAMA-BIRMINGHAM)
+Alabama State (ALABAMA-STATE)
+Alabama (ALABAMA)
+Albany (NY) (ALBANY-NY)
+Alcorn State (ALCORN-STATE)
+American (AMERICAN)
+Appalachian State (APPALACHIAN-STATE)
+Arizona State (ARIZONA-STATE)
+Arizona (ARIZONA)
+Little Rock (ARKANSAS-LITTLE-ROCK)
+Arkansas-Pine Bluff (ARKANSAS-PINE-BLUFF)
+Arkansas State (ARKANSAS-STATE)
+Arkansas (ARKANSAS)
+Army (ARMY)
+Auburn (AUBURN)
+Austin Peay (AUSTIN-PEAY)
+Ball State (BALL-STATE)
+Baylor (BAYLOR)
+Bellarmine (BELLARMINE)
+Belmont (BELMONT)
+Bethune-Cookman (BETHUNE-COOKMAN)
+Binghamton (BINGHAMTON)
+Boise State (BOISE-STATE)
+Boston College (BOSTON-COLLEGE)
+Boston University (BOSTON-UNIVERSITY)
+Bowling Green State (BOWLING-GREEN-STATE)
+Bradley (BRADLEY)
+Brigham Young (BRIGHAM-YOUNG)
+Brown (BROWN)
+Bryant (BRYANT)
+Bucknell (BUCKNELL)
+Buffalo (BUFFALO)
+Butler (BUTLER)
+Cal Poly (CAL-POLY)
+Cal State Bakersfield (CAL-STATE-BAKERSFIELD)
+Cal State Fullerton (CAL-STATE-FULLERTON)
+Cal State Northridge (CAL-STATE-NORTHRIDGE)
+California Baptist (CALIFORNIA-BAPTIST)
+UC Davis (CALIFORNIA-DAVIS)
+UC Irvine (CALIFORNIA-IRVINE)
+UC Riverside (CALIFORNIA-RIVERSIDE)
+UC San Diego (CALIFORNIA-SAN-DIEGO)
+UC Santa Barbara (CALIFORNIA-SANTA-BARBARA)
+California (CALIFORNIA)
+Campbell (CAMPBELL)
+Canisius (CANISIUS)
+Central Arkansas (CENTRAL-ARKANSAS)
+Central Connecticut State (CENTRAL-CONNECTICUT-STATE)
+Central Florida (CENTRAL-FLORIDA)
+Central Michigan (CENTRAL-MICHIGAN)
+Charleston Southern (CHARLESTON-SOUTHERN)
+Charlotte (CHARLOTTE)
+Chattanooga (CHATTANOOGA)
+Chicago State (CHICAGO-STATE)
+Cincinnati (CINCINNATI)
+The Citadel (CITADEL)
+Clemson (CLEMSON)
+Cleveland State (CLEVELAND-STATE)
+Coastal Carolina (COASTAL-CAROLINA)
+Colgate (COLGATE)
+College of Charleston (COLLEGE-OF-CHARLESTON)
+Colorado State (COLORADO-STATE)
+Colorado (COLORADO)
+Columbia (COLUMBIA)
+Connecticut (CONNECTICUT)
+Coppin State (COPPIN-STATE)
+Cornell (CORNELL)
+Creighton (CREIGHTON)
+Dartmouth (DARTMOUTH)
+Davidson (DAVIDSON)
+Dayton (DAYTON)
+Delaware State (DELAWARE-STATE)
+Delaware (DELAWARE)
+Denver (DENVER)
+DePaul (DEPAUL)
+Detroit Mercy (DETROIT-MERCY)
+Dixie State (DIXIE-STATE)
+Drake (DRAKE)
+Drexel (DREXEL)
+Duke (DUKE)
+Duquesne (DUQUESNE)
+East Carolina (EAST-CAROLINA)
+East Tennessee State (EAST-TENNESSEE-STATE)
+Eastern Illinois (EASTERN-ILLINOIS)
+Eastern Kentucky (EASTERN-KENTUCKY)
+Eastern Michigan (EASTERN-MICHIGAN)
+Eastern Washington (EASTERN-WASHINGTON)
+Elon (ELON)
+Evansville (EVANSVILLE)
+Fairfield (FAIRFIELD)
+Fairleigh Dickinson (FAIRLEIGH-DICKINSON)
+Florida A&M (FLORIDA-AM)
+Florida Atlantic (FLORIDA-ATLANTIC)
+Florida Gulf Coast (FLORIDA-GULF-COAST)
+Florida International (FLORIDA-INTERNATIONAL)
+Florida State (FLORIDA-STATE)
+Florida (FLORIDA)
+Fordham (FORDHAM)
+Fresno State (FRESNO-STATE)
+Furman (FURMAN)
+Gardner-Webb (GARDNER-WEBB)
+George Mason (GEORGE-MASON)
+George Washington (GEORGE-WASHINGTON)
+Georgetown (GEORGETOWN)
+Georgia Southern (GEORGIA-SOUTHERN)
+Georgia State (GEORGIA-STATE)
+Georgia Tech (GEORGIA-TECH)
+Georgia (GEORGIA)
+Gonzaga (GONZAGA)
+Grambling (GRAMBLING)
+Grand Canyon (GRAND-CANYON)
+Green Bay (GREEN-BAY)
+Hampton (HAMPTON)
+Hartford (HARTFORD)
+Harvard (HARVARD)
+Hawaii (HAWAII)
+High Point (HIGH-POINT)
+Hofstra (HOFSTRA)
+Holy Cross (HOLY-CROSS)
+Houston Baptist (HOUSTON-BAPTIST)
+Houston (HOUSTON)
+Howard (HOWARD)
+Idaho State (IDAHO-STATE)
+Idaho (IDAHO)
+Illinois-Chicago (ILLINOIS-CHICAGO)
+Illinois State (ILLINOIS-STATE)
+Illinois (ILLINOIS)
+Incarnate Word (INCARNATE-WORD)
+Indiana State (INDIANA-STATE)
+Indiana (INDIANA)
+Iona (IONA)
+Iowa State (IOWA-STATE)
+Iowa (IOWA)
+Purdue-Fort Wayne (IPFW)
+IUPUI (IUPUI)
+Jackson State (JACKSON-STATE)
+Jacksonville State (JACKSONVILLE-STATE)
+Jacksonville (JACKSONVILLE)
+James Madison (JAMES-MADISON)
+Kansas State (KANSAS-STATE)
+Kansas (KANSAS)
+Kennesaw State (KENNESAW-STATE)
+Kent State (KENT-STATE)
+Kentucky (KENTUCKY)
+La Salle (LA-SALLE)
+Lafayette (LAFAYETTE)
+Lamar (LAMAR)
+Lehigh (LEHIGH)
+Liberty (LIBERTY)
+Lipscomb (LIPSCOMB)
+Long Beach State (LONG-BEACH-STATE)
+Long Island University (LONG-ISLAND-UNIVERSITY)
+Longwood (LONGWOOD)
+Louisiana (LOUISIANA-LAFAYETTE)
+Louisiana-Monroe (LOUISIANA-MONROE)
+Louisiana State (LOUISIANA-STATE)
+Louisiana Tech (LOUISIANA-TECH)
+Louisville (LOUISVILLE)
+Loyola (IL) (LOYOLA-IL)
+Loyola Marymount (LOYOLA-MARYMOUNT)
+Loyola (MD) (LOYOLA-MD)
+Maine (MAINE)
+Manhattan (MANHATTAN)
+Marist (MARIST)
+Marquette (MARQUETTE)
+Marshall (MARSHALL)
+Maryland-Baltimore County (MARYLAND-BALTIMORE-COUNTY)
+Maryland-Eastern Shore (MARYLAND-EASTERN-SHORE)
+Maryland (MARYLAND)
+Massachusetts-Lowell (MASSACHUSETTS-LOWELL)
+Massachusetts (MASSACHUSETTS)
+McNeese State (MCNEESE-STATE)
+Memphis (MEMPHIS)
+Mercer (MERCER)
+Merrimack (MERRIMACK)
+Miami (FL) (MIAMI-FL)
+Miami (OH) (MIAMI-OH)
+Michigan State (MICHIGAN-STATE)
+Michigan (MICHIGAN)
+Middle Tennessee (MIDDLE-TENNESSEE)
+Milwaukee (MILWAUKEE)
+Minnesota (MINNESOTA)
+Mississippi State (MISSISSIPPI-STATE)
+Mississippi Valley State (MISSISSIPPI-VALLEY-STATE)
+Mississippi (MISSISSIPPI)
+Kansas City (MISSOURI-KANSAS-CITY)
+Missouri State (MISSOURI-STATE)
+Missouri (MISSOURI)
+Monmouth (MONMOUTH)
+Montana State (MONTANA-STATE)
+Montana (MONTANA)
+Morehead State (MOREHEAD-STATE)
+Morgan State (MORGAN-STATE)
+Mount St. Mary's (MOUNT-ST-MARYS)
+Murray State (MURRAY-STATE)
+Navy (NAVY)
+Omaha (NEBRASKA-OMAHA)
+Nebraska (NEBRASKA)
+Nevada-Las Vegas (NEVADA-LAS-VEGAS)
+Nevada (NEVADA)
+New Hampshire (NEW-HAMPSHIRE)
+New Mexico State (NEW-MEXICO-STATE)
+New Mexico (NEW-MEXICO)
+New Orleans (NEW-ORLEANS)
+Niagara (NIAGARA)
+Nicholls State (NICHOLLS-STATE)
+NJIT (NJIT)
+Norfolk State (NORFOLK-STATE)
+North Alabama (NORTH-ALABAMA)
+UNC Asheville (NORTH-CAROLINA-ASHEVILLE)
+North Carolina A&T (NORTH-CAROLINA-AT)
+North Carolina Central (NORTH-CAROLINA-CENTRAL)
+UNC Greensboro (NORTH-CAROLINA-GREENSBORO)
+NC State (NORTH-CAROLINA-STATE)
+UNC Wilmington (NORTH-CAROLINA-WILMINGTON)
+North Carolina (NORTH-CAROLINA)
+North Dakota State (NORTH-DAKOTA-STATE)
+North Dakota (NORTH-DAKOTA)
+North Florida (NORTH-FLORIDA)
+North Texas (NORTH-TEXAS)
+Northeastern (NORTHEASTERN)
+Northern Arizona (NORTHERN-ARIZONA)
+Northern Colorado (NORTHERN-COLORADO)
+Northern Illinois (NORTHERN-ILLINOIS)
+Northern Iowa (NORTHERN-IOWA)
+Northern Kentucky (NORTHERN-KENTUCKY)
+Northwestern State (NORTHWESTERN-STATE)
+Northwestern (NORTHWESTERN)
+Notre Dame (NOTRE-DAME)
+Oakland (OAKLAND)
+Ohio State (OHIO-STATE)
+Ohio (OHIO)
+Oklahoma State (OKLAHOMA-STATE)
+Oklahoma (OKLAHOMA)
+Old Dominion (OLD-DOMINION)
+Oral Roberts (ORAL-ROBERTS)
+Oregon State (OREGON-STATE)
+Oregon (OREGON)
+Pacific (PACIFIC)
+Penn State (PENN-STATE)
+Pennsylvania (PENNSYLVANIA)
+Pepperdine (PEPPERDINE)
+Pittsburgh (PITTSBURGH)
+Portland State (PORTLAND-STATE)
+Portland (PORTLAND)
+Prairie View (PRAIRIE-VIEW)
+Presbyterian (PRESBYTERIAN)
+Princeton (PRINCETON)
+Providence (PROVIDENCE)
+Purdue (PURDUE)
+Quinnipiac (QUINNIPIAC)
+Radford (RADFORD)
+Rhode Island (RHODE-ISLAND)
+Rice (RICE)
+Richmond (RICHMOND)
+Rider (RIDER)
+Robert Morris (ROBERT-MORRIS)
+Rutgers (RUTGERS)
+Sacramento State (SACRAMENTO-STATE)
+Sacred Heart (SACRED-HEART)
+Saint Francis (PA) (SAINT-FRANCIS-PA)
+Saint Joseph's (SAINT-JOSEPHS)
+Saint Louis (SAINT-LOUIS)
+Saint Mary's (CA) (SAINT-MARYS-CA)
+Saint Peter's (SAINT-PETERS)
+Sam Houston State (SAM-HOUSTON-STATE)
+Samford (SAMFORD)
+San Diego State (SAN-DIEGO-STATE)
+San Diego (SAN-DIEGO)
+San Francisco (SAN-FRANCISCO)
+San Jose State (SAN-JOSE-STATE)
+Santa Clara (SANTA-CLARA)
+Seattle (SEATTLE)
+Seton Hall (SETON-HALL)
+Siena (SIENA)
+South Alabama (SOUTH-ALABAMA)
+South Carolina State (SOUTH-CAROLINA-STATE)
+South Carolina Upstate (SOUTH-CAROLINA-UPSTATE)
+South Carolina (SOUTH-CAROLINA)
+South Dakota State (SOUTH-DAKOTA-STATE)
+South Dakota (SOUTH-DAKOTA)
+South Florida (SOUTH-FLORIDA)
+Southeast Missouri State (SOUTHEAST-MISSOURI-STATE)
+Southeastern Louisiana (SOUTHEASTERN-LOUISIANA)
+Southern California (SOUTHERN-CALIFORNIA)
+SIU Edwardsville (SOUTHERN-ILLINOIS-EDWARDSVILLE)
+Southern Illinois (SOUTHERN-ILLINOIS)
+Southern Methodist (SOUTHERN-METHODIST)
+Southern Mississippi (SOUTHERN-MISSISSIPPI)
+Southern Utah (SOUTHERN-UTAH)
+Southern (SOUTHERN)
+St. Bonaventure (ST-BONAVENTURE)
+St. Francis (NY) (ST-FRANCIS-NY)
+St. John's (NY) (ST-JOHNS-NY)
+St. Thomas (MN) (ST-THOMAS-MN)
+Stanford (STANFORD)
+Stephen F. Austin (STEPHEN-F-AUSTIN)
+Stetson (STETSON)
+Stony Brook (STONY-BROOK)
+Syracuse (SYRACUSE)
+Tarleton State (TARLETON-STATE)
+Temple (TEMPLE)
+Tennessee-Martin (TENNESSEE-MARTIN)
+Tennessee State (TENNESSEE-STATE)
+Tennessee Tech (TENNESSEE-TECH)
+Tennessee (TENNESSEE)
+Texas A&M-Corpus Christi (TEXAS-AM-CORPUS-CHRISTI)
+Texas A&M (TEXAS-AM)
+UT Arlington (TEXAS-ARLINGTON)
+TCU (TEXAS-CHRISTIAN)
+UTEP (TEXAS-EL-PASO)
+Texas-Rio Grande Valley (TEXAS-PAN-AMERICAN)
+UTSA (TEXAS-SAN-ANTONIO)
+Texas Southern (TEXAS-SOUTHERN)
+Texas State (TEXAS-STATE)
+Texas Tech (TEXAS-TECH)
+Texas (TEXAS)
+Toledo (TOLEDO)
+Towson (TOWSON)
+Troy (TROY)
+Tulane (TULANE)
+Tulsa (TULSA)
+UCLA (UCLA)
+Utah State (UTAH-STATE)
+Utah Valley (UTAH-VALLEY)
+Utah (UTAH)
+Valparaiso (VALPARAISO)
+Vanderbilt (VANDERBILT)
+Vermont (VERMONT)
+Villanova (VILLANOVA)
+Virginia Commonwealth (VIRGINIA-COMMONWEALTH)
+VMI (VIRGINIA-MILITARY-INSTITUTE)
+Virginia Tech (VIRGINIA-TECH)
+Virginia (VIRGINIA)
+Wagner (WAGNER)
+Wake Forest (WAKE-FOREST)
+Washington State (WASHINGTON-STATE)
+Washington (WASHINGTON)
+Weber State (WEBER-STATE)
+West Virginia (WEST-VIRGINIA)
+Western Carolina (WESTERN-CAROLINA)
+Western Illinois (WESTERN-ILLINOIS)
+Western Kentucky (WESTERN-KENTUCKY)
+Western Michigan (WESTERN-MICHIGAN)
+Wichita State (WICHITA-STATE)
+William & Mary (WILLIAM-MARY)
+Winthrop (WINTHROP)
+Wisconsin (WISCONSIN)
+Wofford (WOFFORD)
+Wright State (WRIGHT-STATE)
+Wyoming (WYOMING)
+Xavier (XAVIER)
+Yale (YALE)
+Youngstown State (YOUNGSTOWN-STATE)
+Team2 Name: texas christian
+Team2 Seed: 9
+Fetching team data...
+Successfully loaded 2022 stats for texas christian
+Round: 1
+Formatting data for prediction
+Skipping Ryan Conway (ryan-conway-1) due to no data
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Skipping Ryan Conway (ryan-conway-1) due to no data
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Making prediction
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Skipping Ryan Conway (ryan-conway-1) due to no data
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Skipping Ryan Conway (ryan-conway-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be texas christian
+Probability split:
+	seton hall: 0.47389718179426243
+	texas christian: 0.5261028182057376
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: houston
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for houston
+Team2 Name: alabama birmingham
+Team2 Seed: 12
+Fetching team data...
+Successfully loaded 2022 stats for alabama birmingham
+Round: 1
+Formatting data for prediction
+Making prediction
+Making prediction
+
+-------------------------------------
+The winner will be houston
+Probability split:
+	houston: 0.8576809266556186
+	alabama birmingham: 0.14231907334438143
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: illinois
+Team1 Seed: 4
+Fetching team stats...
+Successfully loaded 2022 stats for illinois
+Team2 Name: chattanooga
+Team2 Seed: 13
+Fetching team data...
+Successfully loaded 2022 stats for chattanooga
+Round: 1
+Formatting data for prediction
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Making prediction
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be chattanooga
+Probability split:
+	illinois: 0.2690702422365856
+	chattanooga: 0.7309297577634144
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: colorado state
+Team1 Seed: 6
+Fetching team stats...
+Successfully loaded 2022 stats for colorado state
+Team2 Name: michigan
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for michigan
+Round: 1
+Formatting data for prediction
+Skipping Jalen Scott (jalen-scott-1) due to no data
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Skipping Jalen Scott (jalen-scott-1) due to no data
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Making prediction
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Skipping Jalen Scott (jalen-scott-1) due to no data
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Skipping Jalen Scott (jalen-scott-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be michigan
+Probability split:
+	colorado state: 0.3639168117303491
+	michigan: 0.6360831882696507
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: tennessee
+Team1 Seed: 3
+Fetching team stats...
+Successfully loaded 2022 stats for tennessee
+Team2 Name: longwood
+Team2 Seed: 14
+Fetching team data...
+Successfully loaded 2022 stats for longwood
+Round: 1
+Formatting data for prediction
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Making prediction
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be tennessee
+Probability split:
+	tennessee: 0.9519452582391525
+	longwood: 0.04805474176084745
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: ohio state
+Team1 Seed: 7
+Fetching team stats...
+Successfully loaded 2022 stats for ohio state
+Team2 Name: loyola chicago
+Team2 Seed: 10
+Fetching team data...
+Unable to load loyola chicago. Make sure it is spelled like it is in the following list:
+Abilene Christian (ABILENE-CHRISTIAN)
+Air Force (AIR-FORCE)
+Akron (AKRON)
+Alabama A&M (ALABAMA-AM)
+UAB (ALABAMA-BIRMINGHAM)
+Alabama State (ALABAMA-STATE)
+Alabama (ALABAMA)
+Albany (NY) (ALBANY-NY)
+Alcorn State (ALCORN-STATE)
+American (AMERICAN)
+Appalachian State (APPALACHIAN-STATE)
+Arizona State (ARIZONA-STATE)
+Arizona (ARIZONA)
+Little Rock (ARKANSAS-LITTLE-ROCK)
+Arkansas-Pine Bluff (ARKANSAS-PINE-BLUFF)
+Arkansas State (ARKANSAS-STATE)
+Arkansas (ARKANSAS)
+Army (ARMY)
+Auburn (AUBURN)
+Austin Peay (AUSTIN-PEAY)
+Ball State (BALL-STATE)
+Baylor (BAYLOR)
+Bellarmine (BELLARMINE)
+Belmont (BELMONT)
+Bethune-Cookman (BETHUNE-COOKMAN)
+Binghamton (BINGHAMTON)
+Boise State (BOISE-STATE)
+Boston College (BOSTON-COLLEGE)
+Boston University (BOSTON-UNIVERSITY)
+Bowling Green State (BOWLING-GREEN-STATE)
+Bradley (BRADLEY)
+Brigham Young (BRIGHAM-YOUNG)
+Brown (BROWN)
+Bryant (BRYANT)
+Bucknell (BUCKNELL)
+Buffalo (BUFFALO)
+Butler (BUTLER)
+Cal Poly (CAL-POLY)
+Cal State Bakersfield (CAL-STATE-BAKERSFIELD)
+Cal State Fullerton (CAL-STATE-FULLERTON)
+Cal State Northridge (CAL-STATE-NORTHRIDGE)
+California Baptist (CALIFORNIA-BAPTIST)
+UC Davis (CALIFORNIA-DAVIS)
+UC Irvine (CALIFORNIA-IRVINE)
+UC Riverside (CALIFORNIA-RIVERSIDE)
+UC San Diego (CALIFORNIA-SAN-DIEGO)
+UC Santa Barbara (CALIFORNIA-SANTA-BARBARA)
+California (CALIFORNIA)
+Campbell (CAMPBELL)
+Canisius (CANISIUS)
+Central Arkansas (CENTRAL-ARKANSAS)
+Central Connecticut State (CENTRAL-CONNECTICUT-STATE)
+Central Florida (CENTRAL-FLORIDA)
+Central Michigan (CENTRAL-MICHIGAN)
+Charleston Southern (CHARLESTON-SOUTHERN)
+Charlotte (CHARLOTTE)
+Chattanooga (CHATTANOOGA)
+Chicago State (CHICAGO-STATE)
+Cincinnati (CINCINNATI)
+The Citadel (CITADEL)
+Clemson (CLEMSON)
+Cleveland State (CLEVELAND-STATE)
+Coastal Carolina (COASTAL-CAROLINA)
+Colgate (COLGATE)
+College of Charleston (COLLEGE-OF-CHARLESTON)
+Colorado State (COLORADO-STATE)
+Colorado (COLORADO)
+Columbia (COLUMBIA)
+Connecticut (CONNECTICUT)
+Coppin State (COPPIN-STATE)
+Cornell (CORNELL)
+Creighton (CREIGHTON)
+Dartmouth (DARTMOUTH)
+Davidson (DAVIDSON)
+Dayton (DAYTON)
+Delaware State (DELAWARE-STATE)
+Delaware (DELAWARE)
+Denver (DENVER)
+DePaul (DEPAUL)
+Detroit Mercy (DETROIT-MERCY)
+Dixie State (DIXIE-STATE)
+Drake (DRAKE)
+Drexel (DREXEL)
+Duke (DUKE)
+Duquesne (DUQUESNE)
+East Carolina (EAST-CAROLINA)
+East Tennessee State (EAST-TENNESSEE-STATE)
+Eastern Illinois (EASTERN-ILLINOIS)
+Eastern Kentucky (EASTERN-KENTUCKY)
+Eastern Michigan (EASTERN-MICHIGAN)
+Eastern Washington (EASTERN-WASHINGTON)
+Elon (ELON)
+Evansville (EVANSVILLE)
+Fairfield (FAIRFIELD)
+Fairleigh Dickinson (FAIRLEIGH-DICKINSON)
+Florida A&M (FLORIDA-AM)
+Florida Atlantic (FLORIDA-ATLANTIC)
+Florida Gulf Coast (FLORIDA-GULF-COAST)
+Florida International (FLORIDA-INTERNATIONAL)
+Florida State (FLORIDA-STATE)
+Florida (FLORIDA)
+Fordham (FORDHAM)
+Fresno State (FRESNO-STATE)
+Furman (FURMAN)
+Gardner-Webb (GARDNER-WEBB)
+George Mason (GEORGE-MASON)
+George Washington (GEORGE-WASHINGTON)
+Georgetown (GEORGETOWN)
+Georgia Southern (GEORGIA-SOUTHERN)
+Georgia State (GEORGIA-STATE)
+Georgia Tech (GEORGIA-TECH)
+Georgia (GEORGIA)
+Gonzaga (GONZAGA)
+Grambling (GRAMBLING)
+Grand Canyon (GRAND-CANYON)
+Green Bay (GREEN-BAY)
+Hampton (HAMPTON)
+Hartford (HARTFORD)
+Harvard (HARVARD)
+Hawaii (HAWAII)
+High Point (HIGH-POINT)
+Hofstra (HOFSTRA)
+Holy Cross (HOLY-CROSS)
+Houston Baptist (HOUSTON-BAPTIST)
+Houston (HOUSTON)
+Howard (HOWARD)
+Idaho State (IDAHO-STATE)
+Idaho (IDAHO)
+Illinois-Chicago (ILLINOIS-CHICAGO)
+Illinois State (ILLINOIS-STATE)
+Illinois (ILLINOIS)
+Incarnate Word (INCARNATE-WORD)
+Indiana State (INDIANA-STATE)
+Indiana (INDIANA)
+Iona (IONA)
+Iowa State (IOWA-STATE)
+Iowa (IOWA)
+Purdue-Fort Wayne (IPFW)
+IUPUI (IUPUI)
+Jackson State (JACKSON-STATE)
+Jacksonville State (JACKSONVILLE-STATE)
+Jacksonville (JACKSONVILLE)
+James Madison (JAMES-MADISON)
+Kansas State (KANSAS-STATE)
+Kansas (KANSAS)
+Kennesaw State (KENNESAW-STATE)
+Kent State (KENT-STATE)
+Kentucky (KENTUCKY)
+La Salle (LA-SALLE)
+Lafayette (LAFAYETTE)
+Lamar (LAMAR)
+Lehigh (LEHIGH)
+Liberty (LIBERTY)
+Lipscomb (LIPSCOMB)
+Long Beach State (LONG-BEACH-STATE)
+Long Island University (LONG-ISLAND-UNIVERSITY)
+Longwood (LONGWOOD)
+Louisiana (LOUISIANA-LAFAYETTE)
+Louisiana-Monroe (LOUISIANA-MONROE)
+Louisiana State (LOUISIANA-STATE)
+Louisiana Tech (LOUISIANA-TECH)
+Louisville (LOUISVILLE)
+Loyola (IL) (LOYOLA-IL)
+Loyola Marymount (LOYOLA-MARYMOUNT)
+Loyola (MD) (LOYOLA-MD)
+Maine (MAINE)
+Manhattan (MANHATTAN)
+Marist (MARIST)
+Marquette (MARQUETTE)
+Marshall (MARSHALL)
+Maryland-Baltimore County (MARYLAND-BALTIMORE-COUNTY)
+Maryland-Eastern Shore (MARYLAND-EASTERN-SHORE)
+Maryland (MARYLAND)
+Massachusetts-Lowell (MASSACHUSETTS-LOWELL)
+Massachusetts (MASSACHUSETTS)
+McNeese State (MCNEESE-STATE)
+Memphis (MEMPHIS)
+Mercer (MERCER)
+Merrimack (MERRIMACK)
+Miami (FL) (MIAMI-FL)
+Miami (OH) (MIAMI-OH)
+Michigan State (MICHIGAN-STATE)
+Michigan (MICHIGAN)
+Middle Tennessee (MIDDLE-TENNESSEE)
+Milwaukee (MILWAUKEE)
+Minnesota (MINNESOTA)
+Mississippi State (MISSISSIPPI-STATE)
+Mississippi Valley State (MISSISSIPPI-VALLEY-STATE)
+Mississippi (MISSISSIPPI)
+Kansas City (MISSOURI-KANSAS-CITY)
+Missouri State (MISSOURI-STATE)
+Missouri (MISSOURI)
+Monmouth (MONMOUTH)
+Montana State (MONTANA-STATE)
+Montana (MONTANA)
+Morehead State (MOREHEAD-STATE)
+Morgan State (MORGAN-STATE)
+Mount St. Mary's (MOUNT-ST-MARYS)
+Murray State (MURRAY-STATE)
+Navy (NAVY)
+Omaha (NEBRASKA-OMAHA)
+Nebraska (NEBRASKA)
+Nevada-Las Vegas (NEVADA-LAS-VEGAS)
+Nevada (NEVADA)
+New Hampshire (NEW-HAMPSHIRE)
+New Mexico State (NEW-MEXICO-STATE)
+New Mexico (NEW-MEXICO)
+New Orleans (NEW-ORLEANS)
+Niagara (NIAGARA)
+Nicholls State (NICHOLLS-STATE)
+NJIT (NJIT)
+Norfolk State (NORFOLK-STATE)
+North Alabama (NORTH-ALABAMA)
+UNC Asheville (NORTH-CAROLINA-ASHEVILLE)
+North Carolina A&T (NORTH-CAROLINA-AT)
+North Carolina Central (NORTH-CAROLINA-CENTRAL)
+UNC Greensboro (NORTH-CAROLINA-GREENSBORO)
+NC State (NORTH-CAROLINA-STATE)
+UNC Wilmington (NORTH-CAROLINA-WILMINGTON)
+North Carolina (NORTH-CAROLINA)
+North Dakota State (NORTH-DAKOTA-STATE)
+North Dakota (NORTH-DAKOTA)
+North Florida (NORTH-FLORIDA)
+North Texas (NORTH-TEXAS)
+Northeastern (NORTHEASTERN)
+Northern Arizona (NORTHERN-ARIZONA)
+Northern Colorado (NORTHERN-COLORADO)
+Northern Illinois (NORTHERN-ILLINOIS)
+Northern Iowa (NORTHERN-IOWA)
+Northern Kentucky (NORTHERN-KENTUCKY)
+Northwestern State (NORTHWESTERN-STATE)
+Northwestern (NORTHWESTERN)
+Notre Dame (NOTRE-DAME)
+Oakland (OAKLAND)
+Ohio State (OHIO-STATE)
+Ohio (OHIO)
+Oklahoma State (OKLAHOMA-STATE)
+Oklahoma (OKLAHOMA)
+Old Dominion (OLD-DOMINION)
+Oral Roberts (ORAL-ROBERTS)
+Oregon State (OREGON-STATE)
+Oregon (OREGON)
+Pacific (PACIFIC)
+Penn State (PENN-STATE)
+Pennsylvania (PENNSYLVANIA)
+Pepperdine (PEPPERDINE)
+Pittsburgh (PITTSBURGH)
+Portland State (PORTLAND-STATE)
+Portland (PORTLAND)
+Prairie View (PRAIRIE-VIEW)
+Presbyterian (PRESBYTERIAN)
+Princeton (PRINCETON)
+Providence (PROVIDENCE)
+Purdue (PURDUE)
+Quinnipiac (QUINNIPIAC)
+Radford (RADFORD)
+Rhode Island (RHODE-ISLAND)
+Rice (RICE)
+Richmond (RICHMOND)
+Rider (RIDER)
+Robert Morris (ROBERT-MORRIS)
+Rutgers (RUTGERS)
+Sacramento State (SACRAMENTO-STATE)
+Sacred Heart (SACRED-HEART)
+Saint Francis (PA) (SAINT-FRANCIS-PA)
+Saint Joseph's (SAINT-JOSEPHS)
+Saint Louis (SAINT-LOUIS)
+Saint Mary's (CA) (SAINT-MARYS-CA)
+Saint Peter's (SAINT-PETERS)
+Sam Houston State (SAM-HOUSTON-STATE)
+Samford (SAMFORD)
+San Diego State (SAN-DIEGO-STATE)
+San Diego (SAN-DIEGO)
+San Francisco (SAN-FRANCISCO)
+San Jose State (SAN-JOSE-STATE)
+Santa Clara (SANTA-CLARA)
+Seattle (SEATTLE)
+Seton Hall (SETON-HALL)
+Siena (SIENA)
+South Alabama (SOUTH-ALABAMA)
+South Carolina State (SOUTH-CAROLINA-STATE)
+South Carolina Upstate (SOUTH-CAROLINA-UPSTATE)
+South Carolina (SOUTH-CAROLINA)
+South Dakota State (SOUTH-DAKOTA-STATE)
+South Dakota (SOUTH-DAKOTA)
+South Florida (SOUTH-FLORIDA)
+Southeast Missouri State (SOUTHEAST-MISSOURI-STATE)
+Southeastern Louisiana (SOUTHEASTERN-LOUISIANA)
+Southern California (SOUTHERN-CALIFORNIA)
+SIU Edwardsville (SOUTHERN-ILLINOIS-EDWARDSVILLE)
+Southern Illinois (SOUTHERN-ILLINOIS)
+Southern Methodist (SOUTHERN-METHODIST)
+Southern Mississippi (SOUTHERN-MISSISSIPPI)
+Southern Utah (SOUTHERN-UTAH)
+Southern (SOUTHERN)
+St. Bonaventure (ST-BONAVENTURE)
+St. Francis (NY) (ST-FRANCIS-NY)
+St. John's (NY) (ST-JOHNS-NY)
+St. Thomas (MN) (ST-THOMAS-MN)
+Stanford (STANFORD)
+Stephen F. Austin (STEPHEN-F-AUSTIN)
+Stetson (STETSON)
+Stony Brook (STONY-BROOK)
+Syracuse (SYRACUSE)
+Tarleton State (TARLETON-STATE)
+Temple (TEMPLE)
+Tennessee-Martin (TENNESSEE-MARTIN)
+Tennessee State (TENNESSEE-STATE)
+Tennessee Tech (TENNESSEE-TECH)
+Tennessee (TENNESSEE)
+Texas A&M-Corpus Christi (TEXAS-AM-CORPUS-CHRISTI)
+Texas A&M (TEXAS-AM)
+UT Arlington (TEXAS-ARLINGTON)
+TCU (TEXAS-CHRISTIAN)
+UTEP (TEXAS-EL-PASO)
+Texas-Rio Grande Valley (TEXAS-PAN-AMERICAN)
+UTSA (TEXAS-SAN-ANTONIO)
+Texas Southern (TEXAS-SOUTHERN)
+Texas State (TEXAS-STATE)
+Texas Tech (TEXAS-TECH)
+Texas (TEXAS)
+Toledo (TOLEDO)
+Towson (TOWSON)
+Troy (TROY)
+Tulane (TULANE)
+Tulsa (TULSA)
+UCLA (UCLA)
+Utah State (UTAH-STATE)
+Utah Valley (UTAH-VALLEY)
+Utah (UTAH)
+Valparaiso (VALPARAISO)
+Vanderbilt (VANDERBILT)
+Vermont (VERMONT)
+Villanova (VILLANOVA)
+Virginia Commonwealth (VIRGINIA-COMMONWEALTH)
+VMI (VIRGINIA-MILITARY-INSTITUTE)
+Virginia Tech (VIRGINIA-TECH)
+Virginia (VIRGINIA)
+Wagner (WAGNER)
+Wake Forest (WAKE-FOREST)
+Washington State (WASHINGTON-STATE)
+Washington (WASHINGTON)
+Weber State (WEBER-STATE)
+West Virginia (WEST-VIRGINIA)
+Western Carolina (WESTERN-CAROLINA)
+Western Illinois (WESTERN-ILLINOIS)
+Western Kentucky (WESTERN-KENTUCKY)
+Western Michigan (WESTERN-MICHIGAN)
+Wichita State (WICHITA-STATE)
+William & Mary (WILLIAM-MARY)
+Winthrop (WINTHROP)
+Wisconsin (WISCONSIN)
+Wofford (WOFFORD)
+Wright State (WRIGHT-STATE)
+Wyoming (WYOMING)
+Xavier (XAVIER)
+Yale (YALE)
+Youngstown State (YOUNGSTOWN-STATE)
+Team2 Name: loyola il
+Team2 Seed: 10
+Fetching team data...
+Successfully loaded 2022 stats for loyola il
+Round: 1
+Formatting data for prediction
+Skipping Kalen Etzler (kalen-etzler-1) due to no data
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Skipping Kalen Etzler (kalen-etzler-1) due to no data
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Making prediction
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Skipping Kalen Etzler (kalen-etzler-1) due to no data
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Skipping Kalen Etzler (kalen-etzler-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be loyola il
+Probability split:
+	ohio state: 0.08051539563691462
+	loyola il: 0.9194846043630853
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: villanova
+Team1 Seed: 2
+Fetching team stats...
+Successfully loaded 2022 stats for villanova
+Team2 Name: delaware
+Team2 Seed: 15
+Fetching team data...
+Successfully loaded 2022 stats for delaware
+Round: 1
+Formatting data for prediction
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Making prediction
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be villanova
+Probability split:
+	villanova: 0.8554557619581162
+	delaware: 0.14454423804188354
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: san diego state
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for san diego state
+Team2 Name: creighton
+Team2 Seed: 9
+Fetching team data...
+Successfully loaded 2022 stats for creighton
+Round: 1
+Formatting data for prediction
+Skipping Demarshay Johnson Jr. (demarshay-johnsonjr-1) due to no data
+Skipping Derek Morhar (derek-morhar-1) due to no data
+Skipping Max Wilson (max-wilson-1) due to no data
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Skipping Demarshay Johnson Jr. (demarshay-johnsonjr-1) due to no data
+Skipping Derek Morhar (derek-morhar-1) due to no data
+Skipping Max Wilson (max-wilson-1) due to no data
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Making prediction
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Skipping Demarshay Johnson Jr. (demarshay-johnsonjr-1) due to no data
+Skipping Derek Morhar (derek-morhar-1) due to no data
+Skipping Max Wilson (max-wilson-1) due to no data
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Skipping Demarshay Johnson Jr. (demarshay-johnsonjr-1) due to no data
+Skipping Derek Morhar (derek-morhar-1) due to no data
+Skipping Max Wilson (max-wilson-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be creighton
+Probability split:
+	san diego state: 0.14847252846269388
+	creighton: 0.851527471537306
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: iowa
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for iowa
+Team2 Name: richmond
+Team2 Seed: 12
+Fetching team data...
+Successfully loaded 2022 stats for richmond
+Round: 1
+Formatting data for prediction
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Malcolm Dread (malcolm-dread-1) due to no data
+Skipping Jason Nelson (jason-nelson-1) due to no data
+Skipping Aidan Noyes (aidan-noyes-1) due to no data
+Skipping Liam Weaver (liam-weaver-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Malcolm Dread (malcolm-dread-1) due to no data
+Skipping Jason Nelson (jason-nelson-1) due to no data
+Skipping Aidan Noyes (aidan-noyes-1) due to no data
+Skipping Liam Weaver (liam-weaver-1) due to no data
+Making prediction
+Skipping Malcolm Dread (malcolm-dread-1) due to no data
+Skipping Jason Nelson (jason-nelson-1) due to no data
+Skipping Aidan Noyes (aidan-noyes-1) due to no data
+Skipping Liam Weaver (liam-weaver-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Malcolm Dread (malcolm-dread-1) due to no data
+Skipping Jason Nelson (jason-nelson-1) due to no data
+Skipping Aidan Noyes (aidan-noyes-1) due to no data
+Skipping Liam Weaver (liam-weaver-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be iowa
+Probability split:
+	iowa: 0.8359388962014113
+	richmond: 0.1640611037985888
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: providence
+Team1 Seed: 4
+Fetching team stats...
+Successfully loaded 2022 stats for providence
+Team2 Name: south dakota state
+Team2 Seed: 13
+Fetching team data...
+Successfully loaded 2022 stats for south dakota state
+Round: 1
+Formatting data for prediction
+Skipping Rafael Castro (rafael-castro-1) due to no data
+Skipping Legend Geeter (legend-geeter-1) due to no data
+Skipping Kieran O'Haire (kieran-ohaire-1) due to no data
+Skipping Broden Lien (broden-lien-1) due to no data
+Skipping Rafael Castro (rafael-castro-1) due to no data
+Skipping Legend Geeter (legend-geeter-1) due to no data
+Skipping Kieran O'Haire (kieran-ohaire-1) due to no data
+Skipping Broden Lien (broden-lien-1) due to no data
+Making prediction
+Skipping Broden Lien (broden-lien-1) due to no data
+Skipping Rafael Castro (rafael-castro-1) due to no data
+Skipping Legend Geeter (legend-geeter-1) due to no data
+Skipping Kieran O'Haire (kieran-ohaire-1) due to no data
+Skipping Broden Lien (broden-lien-1) due to no data
+Skipping Rafael Castro (rafael-castro-1) due to no data
+Skipping Legend Geeter (legend-geeter-1) due to no data
+Skipping Kieran O'Haire (kieran-ohaire-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be south dakota state
+Probability split:
+	providence: 0.25826794824850313
+	south dakota state: 0.7417320517514968
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: lsu
+Team1 Seed: 6
+Fetching team stats...
+Unable to load lsu. Make sure it is spelled like it is in the following list:
+Abilene Christian (ABILENE-CHRISTIAN)
+Air Force (AIR-FORCE)
+Akron (AKRON)
+Alabama A&M (ALABAMA-AM)
+UAB (ALABAMA-BIRMINGHAM)
+Alabama State (ALABAMA-STATE)
+Alabama (ALABAMA)
+Albany (NY) (ALBANY-NY)
+Alcorn State (ALCORN-STATE)
+American (AMERICAN)
+Appalachian State (APPALACHIAN-STATE)
+Arizona State (ARIZONA-STATE)
+Arizona (ARIZONA)
+Little Rock (ARKANSAS-LITTLE-ROCK)
+Arkansas-Pine Bluff (ARKANSAS-PINE-BLUFF)
+Arkansas State (ARKANSAS-STATE)
+Arkansas (ARKANSAS)
+Army (ARMY)
+Auburn (AUBURN)
+Austin Peay (AUSTIN-PEAY)
+Ball State (BALL-STATE)
+Baylor (BAYLOR)
+Bellarmine (BELLARMINE)
+Belmont (BELMONT)
+Bethune-Cookman (BETHUNE-COOKMAN)
+Binghamton (BINGHAMTON)
+Boise State (BOISE-STATE)
+Boston College (BOSTON-COLLEGE)
+Boston University (BOSTON-UNIVERSITY)
+Bowling Green State (BOWLING-GREEN-STATE)
+Bradley (BRADLEY)
+Brigham Young (BRIGHAM-YOUNG)
+Brown (BROWN)
+Bryant (BRYANT)
+Bucknell (BUCKNELL)
+Buffalo (BUFFALO)
+Butler (BUTLER)
+Cal Poly (CAL-POLY)
+Cal State Bakersfield (CAL-STATE-BAKERSFIELD)
+Cal State Fullerton (CAL-STATE-FULLERTON)
+Cal State Northridge (CAL-STATE-NORTHRIDGE)
+California Baptist (CALIFORNIA-BAPTIST)
+UC Davis (CALIFORNIA-DAVIS)
+UC Irvine (CALIFORNIA-IRVINE)
+UC Riverside (CALIFORNIA-RIVERSIDE)
+UC San Diego (CALIFORNIA-SAN-DIEGO)
+UC Santa Barbara (CALIFORNIA-SANTA-BARBARA)
+California (CALIFORNIA)
+Campbell (CAMPBELL)
+Canisius (CANISIUS)
+Central Arkansas (CENTRAL-ARKANSAS)
+Central Connecticut State (CENTRAL-CONNECTICUT-STATE)
+Central Florida (CENTRAL-FLORIDA)
+Central Michigan (CENTRAL-MICHIGAN)
+Charleston Southern (CHARLESTON-SOUTHERN)
+Charlotte (CHARLOTTE)
+Chattanooga (CHATTANOOGA)
+Chicago State (CHICAGO-STATE)
+Cincinnati (CINCINNATI)
+The Citadel (CITADEL)
+Clemson (CLEMSON)
+Cleveland State (CLEVELAND-STATE)
+Coastal Carolina (COASTAL-CAROLINA)
+Colgate (COLGATE)
+College of Charleston (COLLEGE-OF-CHARLESTON)
+Colorado State (COLORADO-STATE)
+Colorado (COLORADO)
+Columbia (COLUMBIA)
+Connecticut (CONNECTICUT)
+Coppin State (COPPIN-STATE)
+Cornell (CORNELL)
+Creighton (CREIGHTON)
+Dartmouth (DARTMOUTH)
+Davidson (DAVIDSON)
+Dayton (DAYTON)
+Delaware State (DELAWARE-STATE)
+Delaware (DELAWARE)
+Denver (DENVER)
+DePaul (DEPAUL)
+Detroit Mercy (DETROIT-MERCY)
+Dixie State (DIXIE-STATE)
+Drake (DRAKE)
+Drexel (DREXEL)
+Duke (DUKE)
+Duquesne (DUQUESNE)
+East Carolina (EAST-CAROLINA)
+East Tennessee State (EAST-TENNESSEE-STATE)
+Eastern Illinois (EASTERN-ILLINOIS)
+Eastern Kentucky (EASTERN-KENTUCKY)
+Eastern Michigan (EASTERN-MICHIGAN)
+Eastern Washington (EASTERN-WASHINGTON)
+Elon (ELON)
+Evansville (EVANSVILLE)
+Fairfield (FAIRFIELD)
+Fairleigh Dickinson (FAIRLEIGH-DICKINSON)
+Florida A&M (FLORIDA-AM)
+Florida Atlantic (FLORIDA-ATLANTIC)
+Florida Gulf Coast (FLORIDA-GULF-COAST)
+Florida International (FLORIDA-INTERNATIONAL)
+Florida State (FLORIDA-STATE)
+Florida (FLORIDA)
+Fordham (FORDHAM)
+Fresno State (FRESNO-STATE)
+Furman (FURMAN)
+Gardner-Webb (GARDNER-WEBB)
+George Mason (GEORGE-MASON)
+George Washington (GEORGE-WASHINGTON)
+Georgetown (GEORGETOWN)
+Georgia Southern (GEORGIA-SOUTHERN)
+Georgia State (GEORGIA-STATE)
+Georgia Tech (GEORGIA-TECH)
+Georgia (GEORGIA)
+Gonzaga (GONZAGA)
+Grambling (GRAMBLING)
+Grand Canyon (GRAND-CANYON)
+Green Bay (GREEN-BAY)
+Hampton (HAMPTON)
+Hartford (HARTFORD)
+Harvard (HARVARD)
+Hawaii (HAWAII)
+High Point (HIGH-POINT)
+Hofstra (HOFSTRA)
+Holy Cross (HOLY-CROSS)
+Houston Baptist (HOUSTON-BAPTIST)
+Houston (HOUSTON)
+Howard (HOWARD)
+Idaho State (IDAHO-STATE)
+Idaho (IDAHO)
+Illinois-Chicago (ILLINOIS-CHICAGO)
+Illinois State (ILLINOIS-STATE)
+Illinois (ILLINOIS)
+Incarnate Word (INCARNATE-WORD)
+Indiana State (INDIANA-STATE)
+Indiana (INDIANA)
+Iona (IONA)
+Iowa State (IOWA-STATE)
+Iowa (IOWA)
+Purdue-Fort Wayne (IPFW)
+IUPUI (IUPUI)
+Jackson State (JACKSON-STATE)
+Jacksonville State (JACKSONVILLE-STATE)
+Jacksonville (JACKSONVILLE)
+James Madison (JAMES-MADISON)
+Kansas State (KANSAS-STATE)
+Kansas (KANSAS)
+Kennesaw State (KENNESAW-STATE)
+Kent State (KENT-STATE)
+Kentucky (KENTUCKY)
+La Salle (LA-SALLE)
+Lafayette (LAFAYETTE)
+Lamar (LAMAR)
+Lehigh (LEHIGH)
+Liberty (LIBERTY)
+Lipscomb (LIPSCOMB)
+Long Beach State (LONG-BEACH-STATE)
+Long Island University (LONG-ISLAND-UNIVERSITY)
+Longwood (LONGWOOD)
+Louisiana (LOUISIANA-LAFAYETTE)
+Louisiana-Monroe (LOUISIANA-MONROE)
+Louisiana State (LOUISIANA-STATE)
+Louisiana Tech (LOUISIANA-TECH)
+Louisville (LOUISVILLE)
+Loyola (IL) (LOYOLA-IL)
+Loyola Marymount (LOYOLA-MARYMOUNT)
+Loyola (MD) (LOYOLA-MD)
+Maine (MAINE)
+Manhattan (MANHATTAN)
+Marist (MARIST)
+Marquette (MARQUETTE)
+Marshall (MARSHALL)
+Maryland-Baltimore County (MARYLAND-BALTIMORE-COUNTY)
+Maryland-Eastern Shore (MARYLAND-EASTERN-SHORE)
+Maryland (MARYLAND)
+Massachusetts-Lowell (MASSACHUSETTS-LOWELL)
+Massachusetts (MASSACHUSETTS)
+McNeese State (MCNEESE-STATE)
+Memphis (MEMPHIS)
+Mercer (MERCER)
+Merrimack (MERRIMACK)
+Miami (FL) (MIAMI-FL)
+Miami (OH) (MIAMI-OH)
+Michigan State (MICHIGAN-STATE)
+Michigan (MICHIGAN)
+Middle Tennessee (MIDDLE-TENNESSEE)
+Milwaukee (MILWAUKEE)
+Minnesota (MINNESOTA)
+Mississippi State (MISSISSIPPI-STATE)
+Mississippi Valley State (MISSISSIPPI-VALLEY-STATE)
+Mississippi (MISSISSIPPI)
+Kansas City (MISSOURI-KANSAS-CITY)
+Missouri State (MISSOURI-STATE)
+Missouri (MISSOURI)
+Monmouth (MONMOUTH)
+Montana State (MONTANA-STATE)
+Montana (MONTANA)
+Morehead State (MOREHEAD-STATE)
+Morgan State (MORGAN-STATE)
+Mount St. Mary's (MOUNT-ST-MARYS)
+Murray State (MURRAY-STATE)
+Navy (NAVY)
+Omaha (NEBRASKA-OMAHA)
+Nebraska (NEBRASKA)
+Nevada-Las Vegas (NEVADA-LAS-VEGAS)
+Nevada (NEVADA)
+New Hampshire (NEW-HAMPSHIRE)
+New Mexico State (NEW-MEXICO-STATE)
+New Mexico (NEW-MEXICO)
+New Orleans (NEW-ORLEANS)
+Niagara (NIAGARA)
+Nicholls State (NICHOLLS-STATE)
+NJIT (NJIT)
+Norfolk State (NORFOLK-STATE)
+North Alabama (NORTH-ALABAMA)
+UNC Asheville (NORTH-CAROLINA-ASHEVILLE)
+North Carolina A&T (NORTH-CAROLINA-AT)
+North Carolina Central (NORTH-CAROLINA-CENTRAL)
+UNC Greensboro (NORTH-CAROLINA-GREENSBORO)
+NC State (NORTH-CAROLINA-STATE)
+UNC Wilmington (NORTH-CAROLINA-WILMINGTON)
+North Carolina (NORTH-CAROLINA)
+North Dakota State (NORTH-DAKOTA-STATE)
+North Dakota (NORTH-DAKOTA)
+North Florida (NORTH-FLORIDA)
+North Texas (NORTH-TEXAS)
+Northeastern (NORTHEASTERN)
+Northern Arizona (NORTHERN-ARIZONA)
+Northern Colorado (NORTHERN-COLORADO)
+Northern Illinois (NORTHERN-ILLINOIS)
+Northern Iowa (NORTHERN-IOWA)
+Northern Kentucky (NORTHERN-KENTUCKY)
+Northwestern State (NORTHWESTERN-STATE)
+Northwestern (NORTHWESTERN)
+Notre Dame (NOTRE-DAME)
+Oakland (OAKLAND)
+Ohio State (OHIO-STATE)
+Ohio (OHIO)
+Oklahoma State (OKLAHOMA-STATE)
+Oklahoma (OKLAHOMA)
+Old Dominion (OLD-DOMINION)
+Oral Roberts (ORAL-ROBERTS)
+Oregon State (OREGON-STATE)
+Oregon (OREGON)
+Pacific (PACIFIC)
+Penn State (PENN-STATE)
+Pennsylvania (PENNSYLVANIA)
+Pepperdine (PEPPERDINE)
+Pittsburgh (PITTSBURGH)
+Portland State (PORTLAND-STATE)
+Portland (PORTLAND)
+Prairie View (PRAIRIE-VIEW)
+Presbyterian (PRESBYTERIAN)
+Princeton (PRINCETON)
+Providence (PROVIDENCE)
+Purdue (PURDUE)
+Quinnipiac (QUINNIPIAC)
+Radford (RADFORD)
+Rhode Island (RHODE-ISLAND)
+Rice (RICE)
+Richmond (RICHMOND)
+Rider (RIDER)
+Robert Morris (ROBERT-MORRIS)
+Rutgers (RUTGERS)
+Sacramento State (SACRAMENTO-STATE)
+Sacred Heart (SACRED-HEART)
+Saint Francis (PA) (SAINT-FRANCIS-PA)
+Saint Joseph's (SAINT-JOSEPHS)
+Saint Louis (SAINT-LOUIS)
+Saint Mary's (CA) (SAINT-MARYS-CA)
+Saint Peter's (SAINT-PETERS)
+Sam Houston State (SAM-HOUSTON-STATE)
+Samford (SAMFORD)
+San Diego State (SAN-DIEGO-STATE)
+San Diego (SAN-DIEGO)
+San Francisco (SAN-FRANCISCO)
+San Jose State (SAN-JOSE-STATE)
+Santa Clara (SANTA-CLARA)
+Seattle (SEATTLE)
+Seton Hall (SETON-HALL)
+Siena (SIENA)
+South Alabama (SOUTH-ALABAMA)
+South Carolina State (SOUTH-CAROLINA-STATE)
+South Carolina Upstate (SOUTH-CAROLINA-UPSTATE)
+South Carolina (SOUTH-CAROLINA)
+South Dakota State (SOUTH-DAKOTA-STATE)
+South Dakota (SOUTH-DAKOTA)
+South Florida (SOUTH-FLORIDA)
+Southeast Missouri State (SOUTHEAST-MISSOURI-STATE)
+Southeastern Louisiana (SOUTHEASTERN-LOUISIANA)
+Southern California (SOUTHERN-CALIFORNIA)
+SIU Edwardsville (SOUTHERN-ILLINOIS-EDWARDSVILLE)
+Southern Illinois (SOUTHERN-ILLINOIS)
+Southern Methodist (SOUTHERN-METHODIST)
+Southern Mississippi (SOUTHERN-MISSISSIPPI)
+Southern Utah (SOUTHERN-UTAH)
+Southern (SOUTHERN)
+St. Bonaventure (ST-BONAVENTURE)
+St. Francis (NY) (ST-FRANCIS-NY)
+St. John's (NY) (ST-JOHNS-NY)
+St. Thomas (MN) (ST-THOMAS-MN)
+Stanford (STANFORD)
+Stephen F. Austin (STEPHEN-F-AUSTIN)
+Stetson (STETSON)
+Stony Brook (STONY-BROOK)
+Syracuse (SYRACUSE)
+Tarleton State (TARLETON-STATE)
+Temple (TEMPLE)
+Tennessee-Martin (TENNESSEE-MARTIN)
+Tennessee State (TENNESSEE-STATE)
+Tennessee Tech (TENNESSEE-TECH)
+Tennessee (TENNESSEE)
+Texas A&M-Corpus Christi (TEXAS-AM-CORPUS-CHRISTI)
+Texas A&M (TEXAS-AM)
+UT Arlington (TEXAS-ARLINGTON)
+TCU (TEXAS-CHRISTIAN)
+UTEP (TEXAS-EL-PASO)
+Texas-Rio Grande Valley (TEXAS-PAN-AMERICAN)
+UTSA (TEXAS-SAN-ANTONIO)
+Texas Southern (TEXAS-SOUTHERN)
+Texas State (TEXAS-STATE)
+Texas Tech (TEXAS-TECH)
+Texas (TEXAS)
+Toledo (TOLEDO)
+Towson (TOWSON)
+Troy (TROY)
+Tulane (TULANE)
+Tulsa (TULSA)
+UCLA (UCLA)
+Utah State (UTAH-STATE)
+Utah Valley (UTAH-VALLEY)
+Utah (UTAH)
+Valparaiso (VALPARAISO)
+Vanderbilt (VANDERBILT)
+Vermont (VERMONT)
+Villanova (VILLANOVA)
+Virginia Commonwealth (VIRGINIA-COMMONWEALTH)
+VMI (VIRGINIA-MILITARY-INSTITUTE)
+Virginia Tech (VIRGINIA-TECH)
+Virginia (VIRGINIA)
+Wagner (WAGNER)
+Wake Forest (WAKE-FOREST)
+Washington State (WASHINGTON-STATE)
+Washington (WASHINGTON)
+Weber State (WEBER-STATE)
+West Virginia (WEST-VIRGINIA)
+Western Carolina (WESTERN-CAROLINA)
+Western Illinois (WESTERN-ILLINOIS)
+Western Kentucky (WESTERN-KENTUCKY)
+Western Michigan (WESTERN-MICHIGAN)
+Wichita State (WICHITA-STATE)
+William & Mary (WILLIAM-MARY)
+Winthrop (WINTHROP)
+Wisconsin (WISCONSIN)
+Wofford (WOFFORD)
+Wright State (WRIGHT-STATE)
+Wyoming (WYOMING)
+Xavier (XAVIER)
+Yale (YALE)
+Youngstown State (YOUNGSTOWN-STATE)
+Team1 Name: louisiana state
+Team1 Seed: 6
+Fetching team stats...
+Successfully loaded 2022 stats for louisiana state
+Team2 Name: iowa state
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for iowa state
+Round: 1
+Formatting data for prediction
+Making prediction
+Making prediction
+
+-------------------------------------
+The winner will be louisiana state
+Probability split:
+	louisiana state: 0.7424680655579557
+	iowa state: 0.25753193444204436
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: wisconsin
+Team1 Seed: 3
+Fetching team stats...
+Successfully loaded 2022 stats for wisconsin
+Team2 Name: colgate
+Team2 Seed: 14
+Fetching team data...
+Successfully loaded 2022 stats for colgate
+Round: 1
+Formatting data for prediction
+Skipping Chris Hodges (chris-hodges-1) due to no data
+Skipping Matthew Mors (matthew-mors-1) due to no data
+Skipping Chris Hodges (chris-hodges-1) due to no data
+Skipping Matthew Mors (matthew-mors-1) due to no data
+Making prediction
+Skipping Chris Hodges (chris-hodges-1) due to no data
+Skipping Matthew Mors (matthew-mors-1) due to no data
+Skipping Chris Hodges (chris-hodges-1) due to no data
+Skipping Matthew Mors (matthew-mors-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be colgate
+Probability split:
+	wisconsin: 0.24471123407189982
+	colgate: 0.7552887659281001
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: southern california
+Team1 Seed: 7
+Fetching team stats...
+Successfully loaded 2022 stats for southern california
+Team2 Name: miami
+Team2 Seed: 10
+Fetching team data...
+Unable to load miami. Make sure it is spelled like it is in the following list:
+Abilene Christian (ABILENE-CHRISTIAN)
+Air Force (AIR-FORCE)
+Akron (AKRON)
+Alabama A&M (ALABAMA-AM)
+UAB (ALABAMA-BIRMINGHAM)
+Alabama State (ALABAMA-STATE)
+Alabama (ALABAMA)
+Albany (NY) (ALBANY-NY)
+Alcorn State (ALCORN-STATE)
+American (AMERICAN)
+Appalachian State (APPALACHIAN-STATE)
+Arizona State (ARIZONA-STATE)
+Arizona (ARIZONA)
+Little Rock (ARKANSAS-LITTLE-ROCK)
+Arkansas-Pine Bluff (ARKANSAS-PINE-BLUFF)
+Arkansas State (ARKANSAS-STATE)
+Arkansas (ARKANSAS)
+Army (ARMY)
+Auburn (AUBURN)
+Austin Peay (AUSTIN-PEAY)
+Ball State (BALL-STATE)
+Baylor (BAYLOR)
+Bellarmine (BELLARMINE)
+Belmont (BELMONT)
+Bethune-Cookman (BETHUNE-COOKMAN)
+Binghamton (BINGHAMTON)
+Boise State (BOISE-STATE)
+Boston College (BOSTON-COLLEGE)
+Boston University (BOSTON-UNIVERSITY)
+Bowling Green State (BOWLING-GREEN-STATE)
+Bradley (BRADLEY)
+Brigham Young (BRIGHAM-YOUNG)
+Brown (BROWN)
+Bryant (BRYANT)
+Bucknell (BUCKNELL)
+Buffalo (BUFFALO)
+Butler (BUTLER)
+Cal Poly (CAL-POLY)
+Cal State Bakersfield (CAL-STATE-BAKERSFIELD)
+Cal State Fullerton (CAL-STATE-FULLERTON)
+Cal State Northridge (CAL-STATE-NORTHRIDGE)
+California Baptist (CALIFORNIA-BAPTIST)
+UC Davis (CALIFORNIA-DAVIS)
+UC Irvine (CALIFORNIA-IRVINE)
+UC Riverside (CALIFORNIA-RIVERSIDE)
+UC San Diego (CALIFORNIA-SAN-DIEGO)
+UC Santa Barbara (CALIFORNIA-SANTA-BARBARA)
+California (CALIFORNIA)
+Campbell (CAMPBELL)
+Canisius (CANISIUS)
+Central Arkansas (CENTRAL-ARKANSAS)
+Central Connecticut State (CENTRAL-CONNECTICUT-STATE)
+Central Florida (CENTRAL-FLORIDA)
+Central Michigan (CENTRAL-MICHIGAN)
+Charleston Southern (CHARLESTON-SOUTHERN)
+Charlotte (CHARLOTTE)
+Chattanooga (CHATTANOOGA)
+Chicago State (CHICAGO-STATE)
+Cincinnati (CINCINNATI)
+The Citadel (CITADEL)
+Clemson (CLEMSON)
+Cleveland State (CLEVELAND-STATE)
+Coastal Carolina (COASTAL-CAROLINA)
+Colgate (COLGATE)
+College of Charleston (COLLEGE-OF-CHARLESTON)
+Colorado State (COLORADO-STATE)
+Colorado (COLORADO)
+Columbia (COLUMBIA)
+Connecticut (CONNECTICUT)
+Coppin State (COPPIN-STATE)
+Cornell (CORNELL)
+Creighton (CREIGHTON)
+Dartmouth (DARTMOUTH)
+Davidson (DAVIDSON)
+Dayton (DAYTON)
+Delaware State (DELAWARE-STATE)
+Delaware (DELAWARE)
+Denver (DENVER)
+DePaul (DEPAUL)
+Detroit Mercy (DETROIT-MERCY)
+Dixie State (DIXIE-STATE)
+Drake (DRAKE)
+Drexel (DREXEL)
+Duke (DUKE)
+Duquesne (DUQUESNE)
+East Carolina (EAST-CAROLINA)
+East Tennessee State (EAST-TENNESSEE-STATE)
+Eastern Illinois (EASTERN-ILLINOIS)
+Eastern Kentucky (EASTERN-KENTUCKY)
+Eastern Michigan (EASTERN-MICHIGAN)
+Eastern Washington (EASTERN-WASHINGTON)
+Elon (ELON)
+Evansville (EVANSVILLE)
+Fairfield (FAIRFIELD)
+Fairleigh Dickinson (FAIRLEIGH-DICKINSON)
+Florida A&M (FLORIDA-AM)
+Florida Atlantic (FLORIDA-ATLANTIC)
+Florida Gulf Coast (FLORIDA-GULF-COAST)
+Florida International (FLORIDA-INTERNATIONAL)
+Florida State (FLORIDA-STATE)
+Florida (FLORIDA)
+Fordham (FORDHAM)
+Fresno State (FRESNO-STATE)
+Furman (FURMAN)
+Gardner-Webb (GARDNER-WEBB)
+George Mason (GEORGE-MASON)
+George Washington (GEORGE-WASHINGTON)
+Georgetown (GEORGETOWN)
+Georgia Southern (GEORGIA-SOUTHERN)
+Georgia State (GEORGIA-STATE)
+Georgia Tech (GEORGIA-TECH)
+Georgia (GEORGIA)
+Gonzaga (GONZAGA)
+Grambling (GRAMBLING)
+Grand Canyon (GRAND-CANYON)
+Green Bay (GREEN-BAY)
+Hampton (HAMPTON)
+Hartford (HARTFORD)
+Harvard (HARVARD)
+Hawaii (HAWAII)
+High Point (HIGH-POINT)
+Hofstra (HOFSTRA)
+Holy Cross (HOLY-CROSS)
+Houston Baptist (HOUSTON-BAPTIST)
+Houston (HOUSTON)
+Howard (HOWARD)
+Idaho State (IDAHO-STATE)
+Idaho (IDAHO)
+Illinois-Chicago (ILLINOIS-CHICAGO)
+Illinois State (ILLINOIS-STATE)
+Illinois (ILLINOIS)
+Incarnate Word (INCARNATE-WORD)
+Indiana State (INDIANA-STATE)
+Indiana (INDIANA)
+Iona (IONA)
+Iowa State (IOWA-STATE)
+Iowa (IOWA)
+Purdue-Fort Wayne (IPFW)
+IUPUI (IUPUI)
+Jackson State (JACKSON-STATE)
+Jacksonville State (JACKSONVILLE-STATE)
+Jacksonville (JACKSONVILLE)
+James Madison (JAMES-MADISON)
+Kansas State (KANSAS-STATE)
+Kansas (KANSAS)
+Kennesaw State (KENNESAW-STATE)
+Kent State (KENT-STATE)
+Kentucky (KENTUCKY)
+La Salle (LA-SALLE)
+Lafayette (LAFAYETTE)
+Lamar (LAMAR)
+Lehigh (LEHIGH)
+Liberty (LIBERTY)
+Lipscomb (LIPSCOMB)
+Long Beach State (LONG-BEACH-STATE)
+Long Island University (LONG-ISLAND-UNIVERSITY)
+Longwood (LONGWOOD)
+Louisiana (LOUISIANA-LAFAYETTE)
+Louisiana-Monroe (LOUISIANA-MONROE)
+Louisiana State (LOUISIANA-STATE)
+Louisiana Tech (LOUISIANA-TECH)
+Louisville (LOUISVILLE)
+Loyola (IL) (LOYOLA-IL)
+Loyola Marymount (LOYOLA-MARYMOUNT)
+Loyola (MD) (LOYOLA-MD)
+Maine (MAINE)
+Manhattan (MANHATTAN)
+Marist (MARIST)
+Marquette (MARQUETTE)
+Marshall (MARSHALL)
+Maryland-Baltimore County (MARYLAND-BALTIMORE-COUNTY)
+Maryland-Eastern Shore (MARYLAND-EASTERN-SHORE)
+Maryland (MARYLAND)
+Massachusetts-Lowell (MASSACHUSETTS-LOWELL)
+Massachusetts (MASSACHUSETTS)
+McNeese State (MCNEESE-STATE)
+Memphis (MEMPHIS)
+Mercer (MERCER)
+Merrimack (MERRIMACK)
+Miami (FL) (MIAMI-FL)
+Miami (OH) (MIAMI-OH)
+Michigan State (MICHIGAN-STATE)
+Michigan (MICHIGAN)
+Middle Tennessee (MIDDLE-TENNESSEE)
+Milwaukee (MILWAUKEE)
+Minnesota (MINNESOTA)
+Mississippi State (MISSISSIPPI-STATE)
+Mississippi Valley State (MISSISSIPPI-VALLEY-STATE)
+Mississippi (MISSISSIPPI)
+Kansas City (MISSOURI-KANSAS-CITY)
+Missouri State (MISSOURI-STATE)
+Missouri (MISSOURI)
+Monmouth (MONMOUTH)
+Montana State (MONTANA-STATE)
+Montana (MONTANA)
+Morehead State (MOREHEAD-STATE)
+Morgan State (MORGAN-STATE)
+Mount St. Mary's (MOUNT-ST-MARYS)
+Murray State (MURRAY-STATE)
+Navy (NAVY)
+Omaha (NEBRASKA-OMAHA)
+Nebraska (NEBRASKA)
+Nevada-Las Vegas (NEVADA-LAS-VEGAS)
+Nevada (NEVADA)
+New Hampshire (NEW-HAMPSHIRE)
+New Mexico State (NEW-MEXICO-STATE)
+New Mexico (NEW-MEXICO)
+New Orleans (NEW-ORLEANS)
+Niagara (NIAGARA)
+Nicholls State (NICHOLLS-STATE)
+NJIT (NJIT)
+Norfolk State (NORFOLK-STATE)
+North Alabama (NORTH-ALABAMA)
+UNC Asheville (NORTH-CAROLINA-ASHEVILLE)
+North Carolina A&T (NORTH-CAROLINA-AT)
+North Carolina Central (NORTH-CAROLINA-CENTRAL)
+UNC Greensboro (NORTH-CAROLINA-GREENSBORO)
+NC State (NORTH-CAROLINA-STATE)
+UNC Wilmington (NORTH-CAROLINA-WILMINGTON)
+North Carolina (NORTH-CAROLINA)
+North Dakota State (NORTH-DAKOTA-STATE)
+North Dakota (NORTH-DAKOTA)
+North Florida (NORTH-FLORIDA)
+North Texas (NORTH-TEXAS)
+Northeastern (NORTHEASTERN)
+Northern Arizona (NORTHERN-ARIZONA)
+Northern Colorado (NORTHERN-COLORADO)
+Northern Illinois (NORTHERN-ILLINOIS)
+Northern Iowa (NORTHERN-IOWA)
+Northern Kentucky (NORTHERN-KENTUCKY)
+Northwestern State (NORTHWESTERN-STATE)
+Northwestern (NORTHWESTERN)
+Notre Dame (NOTRE-DAME)
+Oakland (OAKLAND)
+Ohio State (OHIO-STATE)
+Ohio (OHIO)
+Oklahoma State (OKLAHOMA-STATE)
+Oklahoma (OKLAHOMA)
+Old Dominion (OLD-DOMINION)
+Oral Roberts (ORAL-ROBERTS)
+Oregon State (OREGON-STATE)
+Oregon (OREGON)
+Pacific (PACIFIC)
+Penn State (PENN-STATE)
+Pennsylvania (PENNSYLVANIA)
+Pepperdine (PEPPERDINE)
+Pittsburgh (PITTSBURGH)
+Portland State (PORTLAND-STATE)
+Portland (PORTLAND)
+Prairie View (PRAIRIE-VIEW)
+Presbyterian (PRESBYTERIAN)
+Princeton (PRINCETON)
+Providence (PROVIDENCE)
+Purdue (PURDUE)
+Quinnipiac (QUINNIPIAC)
+Radford (RADFORD)
+Rhode Island (RHODE-ISLAND)
+Rice (RICE)
+Richmond (RICHMOND)
+Rider (RIDER)
+Robert Morris (ROBERT-MORRIS)
+Rutgers (RUTGERS)
+Sacramento State (SACRAMENTO-STATE)
+Sacred Heart (SACRED-HEART)
+Saint Francis (PA) (SAINT-FRANCIS-PA)
+Saint Joseph's (SAINT-JOSEPHS)
+Saint Louis (SAINT-LOUIS)
+Saint Mary's (CA) (SAINT-MARYS-CA)
+Saint Peter's (SAINT-PETERS)
+Sam Houston State (SAM-HOUSTON-STATE)
+Samford (SAMFORD)
+San Diego State (SAN-DIEGO-STATE)
+San Diego (SAN-DIEGO)
+San Francisco (SAN-FRANCISCO)
+San Jose State (SAN-JOSE-STATE)
+Santa Clara (SANTA-CLARA)
+Seattle (SEATTLE)
+Seton Hall (SETON-HALL)
+Siena (SIENA)
+South Alabama (SOUTH-ALABAMA)
+South Carolina State (SOUTH-CAROLINA-STATE)
+South Carolina Upstate (SOUTH-CAROLINA-UPSTATE)
+South Carolina (SOUTH-CAROLINA)
+South Dakota State (SOUTH-DAKOTA-STATE)
+South Dakota (SOUTH-DAKOTA)
+South Florida (SOUTH-FLORIDA)
+Southeast Missouri State (SOUTHEAST-MISSOURI-STATE)
+Southeastern Louisiana (SOUTHEASTERN-LOUISIANA)
+Southern California (SOUTHERN-CALIFORNIA)
+SIU Edwardsville (SOUTHERN-ILLINOIS-EDWARDSVILLE)
+Southern Illinois (SOUTHERN-ILLINOIS)
+Southern Methodist (SOUTHERN-METHODIST)
+Southern Mississippi (SOUTHERN-MISSISSIPPI)
+Southern Utah (SOUTHERN-UTAH)
+Southern (SOUTHERN)
+St. Bonaventure (ST-BONAVENTURE)
+St. Francis (NY) (ST-FRANCIS-NY)
+St. John's (NY) (ST-JOHNS-NY)
+St. Thomas (MN) (ST-THOMAS-MN)
+Stanford (STANFORD)
+Stephen F. Austin (STEPHEN-F-AUSTIN)
+Stetson (STETSON)
+Stony Brook (STONY-BROOK)
+Syracuse (SYRACUSE)
+Tarleton State (TARLETON-STATE)
+Temple (TEMPLE)
+Tennessee-Martin (TENNESSEE-MARTIN)
+Tennessee State (TENNESSEE-STATE)
+Tennessee Tech (TENNESSEE-TECH)
+Tennessee (TENNESSEE)
+Texas A&M-Corpus Christi (TEXAS-AM-CORPUS-CHRISTI)
+Texas A&M (TEXAS-AM)
+UT Arlington (TEXAS-ARLINGTON)
+TCU (TEXAS-CHRISTIAN)
+UTEP (TEXAS-EL-PASO)
+Texas-Rio Grande Valley (TEXAS-PAN-AMERICAN)
+UTSA (TEXAS-SAN-ANTONIO)
+Texas Southern (TEXAS-SOUTHERN)
+Texas State (TEXAS-STATE)
+Texas Tech (TEXAS-TECH)
+Texas (TEXAS)
+Toledo (TOLEDO)
+Towson (TOWSON)
+Troy (TROY)
+Tulane (TULANE)
+Tulsa (TULSA)
+UCLA (UCLA)
+Utah State (UTAH-STATE)
+Utah Valley (UTAH-VALLEY)
+Utah (UTAH)
+Valparaiso (VALPARAISO)
+Vanderbilt (VANDERBILT)
+Vermont (VERMONT)
+Villanova (VILLANOVA)
+Virginia Commonwealth (VIRGINIA-COMMONWEALTH)
+VMI (VIRGINIA-MILITARY-INSTITUTE)
+Virginia Tech (VIRGINIA-TECH)
+Virginia (VIRGINIA)
+Wagner (WAGNER)
+Wake Forest (WAKE-FOREST)
+Washington State (WASHINGTON-STATE)
+Washington (WASHINGTON)
+Weber State (WEBER-STATE)
+West Virginia (WEST-VIRGINIA)
+Western Carolina (WESTERN-CAROLINA)
+Western Illinois (WESTERN-ILLINOIS)
+Western Kentucky (WESTERN-KENTUCKY)
+Western Michigan (WESTERN-MICHIGAN)
+Wichita State (WICHITA-STATE)
+William & Mary (WILLIAM-MARY)
+Winthrop (WINTHROP)
+Wisconsin (WISCONSIN)
+Wofford (WOFFORD)
+Wright State (WRIGHT-STATE)
+Wyoming (WYOMING)
+Xavier (XAVIER)
+Yale (YALE)
+Youngstown State (YOUNGSTOWN-STATE)
+Team2 Name: miami fl
+Team2 Seed: 10
+Fetching team data...
+Successfully loaded 2022 stats for miami fl
+Round: 1
+Formatting data for prediction
+Skipping Jakai Robinson (jakai-robinson-1) due to no data
+Skipping Jakai Robinson (jakai-robinson-1) due to no data
+Making prediction
+Skipping Jakai Robinson (jakai-robinson-1) due to no data
+Skipping Jakai Robinson (jakai-robinson-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be southern california
+Probability split:
+	southern california: 0.6771368873848504
+	miami fl: 0.32286311261514955
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: auburn
+Team1 Seed: 2
+Fetching team stats...
+Successfully loaded 2022 stats for auburn
+Team2 Name: jacksonville state
+Team2 Seed: 15
+Fetching team data...
+Successfully loaded 2022 stats for jacksonville state
+Round: 1
+Formatting data for prediction
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Skipping Cam Pope (cam-pope-1) due to no data
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Skipping Cam Pope (cam-pope-1) due to no data
+Making prediction
+Skipping Cam Pope (cam-pope-1) due to no data
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Skipping Cam Pope (cam-pope-1) due to no data
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be auburn
+Probability split:
+	auburn: 0.891995571740059
+	jacksonville state: 0.10800442825994117
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: gonzaga
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for gonzaga
+Team2 Name: boise state
+Team2 Seed: 8
+Fetching team data...
+Successfully loaded 2022 stats for boise state
+Round: 2
+Formatting data for prediction
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Making prediction
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be boise state
+Probability split:
+	gonzaga: 0.018172417507275898
+	boise state: 0.9818275824927241
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: boise state
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for boise state
+Team2 Name: gonzaga
+Team2 Seed: 1
+Fetching team data...
+Successfully loaded 2022 stats for gonzaga
+Round: 2
+Formatting data for prediction
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Making prediction
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Colby Brooks (colby-brooks-1) due to no data
+Skipping Abe Eagle (abe-eagle-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be boise state
+Probability split:
+	boise state: 0.9818275824927241
+	gonzaga: 0.018172417507275898
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: connecticut
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for connecticut
+Team2 Name: arkansas
+Team2 Seed: 4
+Fetching team data...
+Successfully loaded 2022 stats for arkansas
+Round: 2
+Formatting data for prediction
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Making prediction
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be connecticut
+Probability split:
+	connecticut: 0.5074811757636966
+	arkansas: 0.49251882423630333
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: alabama
+Team1 Seed: 6
+Fetching team stats...
+Successfully loaded 2022 stats for alabama
+Team2 Name: texas tech
+Team2 Seed: 3
+Fetching team data...
+Successfully loaded 2022 stats for texas tech
+Round: 2
+Formatting data for prediction
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Making prediction
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be texas tech
+Probability split:
+	alabama: 0.14533860307320576
+	texas tech: 0.8546613969267942
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: duke
+Team1 Seed: 2
+Fetching team stats...
+Successfully loaded 2022 stats for duke
+Team2 Name: michigan state
+Team2 Seed: 7
+Fetching team data...
+Successfully loaded 2022 stats for michigan state
+Round: 2
+Formatting data for prediction
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Making prediction
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Skipping Peter Nwoke (peter-nwoke-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be duke
+Probability split:
+	duke: 0.7551560605030372
+	michigan state: 0.2448439394969626
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: baylor
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for baylor
+Team2 Name: north carolina
+Team2 Seed: 8
+Fetching team data...
+Successfully loaded 2022 stats for north carolina
+Round: 2
+Formatting data for prediction
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Making prediction
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be baylor
+Probability split:
+	baylor: 0.8312151895206293
+	north carolina: 0.16878481047937066
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: ucla
+Team1 Seed: 4
+Fetching team stats...
+Successfully loaded 2022 stats for ucla
+Team2 Name: wyoming
+Team2 Seed: 12
+Fetching team data...
+Successfully loaded 2022 stats for wyoming
+Round: 2
+Formatting data for prediction
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Making prediction
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Nate Barnhart (nate-barnhart-1) due to no data
+Skipping Ben Bowen (ben-bowen-1) due to no data
+Skipping Cort Roberson (cort-roberson-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be ucla
+Probability split:
+	ucla: 0.5149820648951454
+	wyoming: 0.4850179351048546
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: virginia tech
+Team1 Seed: 11
+Fetching team stats...
+Successfully loaded 2022 stats for virginia tech
+Team2 Name: purdue
+Team2 Seed: 3
+Fetching team data...
+Successfully loaded 2022 stats for purdue
+Round: 2
+Formatting data for prediction
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Making prediction
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Skipping Trey Kaufman-Renn (trey-kaufman-renn-1) due to no data
+Skipping Brian Waddell (brian-waddell-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be virginia tech
+Probability split:
+	virginia tech: 0.6774936445756485
+	purdue: 0.32250635542435135
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: san francisco
+Team1 Seed: 10
+Fetching team stats...
+Successfully loaded 2022 stats for san francisco
+Team2 Name: kentucky
+Team2 Seed: 2
+Fetching team data...
+Successfully loaded 2022 stats for kentucky
+Round: 2
+Formatting data for prediction
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Making prediction
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Skipping Jake Cioe (jake-cioe-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be kentucky
+Probability split:
+	san francisco: 0.46958550177564584
+	kentucky: 0.5304144982243542
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: arizona
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for arizona
+Team2 Name: texas christian
+Team2 Seed: 9
+Fetching team data...
+Successfully loaded 2022 stats for texas christian
+Round: 2
+Formatting data for prediction
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Making prediction
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Skipping Brandon Childress (brandon-childress-2) due to no data
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be arizona
+Probability split:
+	arizona: 0.8893080567886541
+	texas christian: 0.11069194321134582
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: houston
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for houston
+Team2 Name: chattanooga
+Team2 Seed: 13
+Fetching team data...
+Successfully loaded 2022 stats for chattanooga
+Round: 2
+Formatting data for prediction
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Making prediction
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Skipping Randy Brady (randy-brady-1) due to no data
+Skipping Jacob Radaker (jacob-radaker-1) due to no data
+Skipping Johnny Taylor Jr. (johnny-taylorjr-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be houston
+Probability split:
+	houston: 0.9043078213680221
+	chattanooga: 0.09569217863197786
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: michigan
+Team1 Seed: 11
+Fetching team stats...
+Successfully loaded 2022 stats for michigan
+Team2 Name: tennessee
+Team2 Seed: 3
+Fetching team data...
+Successfully loaded 2022 stats for tennessee
+Round: 2
+Formatting data for prediction
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Making prediction
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Will Tschetter (will-tschetter-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be tennessee
+Probability split:
+	michigan: 0.059231038141034434
+	tennessee: 0.9407689618589656
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: loyola il
+Team1 Seed: 10
+Fetching team stats...
+Successfully loaded 2022 stats for loyola il
+Team2 Name: villanova
+Team2 Seed: 2
+Fetching team data...
+Successfully loaded 2022 stats for villanova
+Round: 2
+Formatting data for prediction
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Making prediction
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Ben Schwieger (ben-schwieger-1) due to no data
+Skipping Will Smythe (will-smythe-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be villanova
+Probability split:
+	loyola il: 0.291649575058136
+	villanova: 0.708350424941864
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: kansas
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for kansas
+Team2 Name: creighton
+Team2 Seed: 9
+Fetching team data...
+Successfully loaded 2022 stats for creighton
+Round: 2
+Formatting data for prediction
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Making prediction
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Skipping Mason Miller (mason-miller-1) due to no data
+Skipping Zander Yates (zander-yates-1) due to no data
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be kansas
+Probability split:
+	kansas: 0.6910210984859191
+	creighton: 0.3089789015140808
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: iowa
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for iowa
+Team2 Name: south dakota state
+Team2 Seed: 13
+Fetching team data...
+Successfully loaded 2022 stats for south dakota state
+Round: 2
+Formatting data for prediction
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Broden Lien (broden-lien-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Broden Lien (broden-lien-1) due to no data
+Making prediction
+Skipping Broden Lien (broden-lien-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Broden Lien (broden-lien-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be iowa
+Probability split:
+	iowa: 0.9357670981856228
+	south dakota state: 0.0642329018143772
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: louisiana state
+Team1 Seed: 6
+Fetching team stats...
+Successfully loaded 2022 stats for louisiana state
+Team2 Name: colgate
+Team2 Seed: 14
+Fetching team data...
+Successfully loaded 2022 stats for colgate
+Round: 2
+Formatting data for prediction
+Making prediction
+Making prediction
+
+-------------------------------------
+The winner will be louisiana state
+Probability split:
+	louisiana state: 0.8534605852680456
+	colgate: 0.1465394147319545
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: southern california
+Team1 Seed: 7
+Fetching team stats...
+Successfully loaded 2022 stats for southern california
+Team2 Name: auburn
+Team2 Seed: 2
+Fetching team data...
+Successfully loaded 2022 stats for auburn
+Round: 2
+Formatting data for prediction
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Making prediction
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Skipping Michael Whitmore (michael-whitmore-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be southern california
+Probability split:
+	southern california: 0.6740909098129844
+	auburn: 0.32590909018701564
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: boise state
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for boise state
+Team2 Name: connecticut
+Team2 Seed: 5
+Fetching team data...
+Successfully loaded 2022 stats for connecticut
+Round: 3
+Formatting data for prediction
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Making prediction
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Corey Floyd Jr. (corey-floydjr-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be boise state
+Probability split:
+	boise state: 0.8599790053895705
+	connecticut: 0.1400209946104295
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: texas tech
+Team1 Seed: 3
+Fetching team stats...
+Successfully loaded 2022 stats for texas tech
+Team2 Name: duke
+Team2 Seed: 2
+Fetching team data...
+Successfully loaded 2022 stats for duke
+Round: 3
+Formatting data for prediction
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Making prediction
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be texas tech
+Probability split:
+	texas tech: 0.5556448299655494
+	duke: 0.4443551700344507
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: baylor
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for baylor
+Team2 Name: ucla
+Team2 Seed: 4
+Fetching team data...
+Successfully loaded 2022 stats for ucla
+Round: 3
+Formatting data for prediction
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Making prediction
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Will McClendon (will-mcclendon-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be baylor
+Probability split:
+	baylor: 0.6783203211476105
+	ucla: 0.3216796788523897
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: virginia tech
+Team1 Seed: 11
+Fetching team stats...
+Successfully loaded 2022 stats for virginia tech
+Team2 Name: kentucky
+Team2 Seed: 2
+Fetching team data...
+Successfully loaded 2022 stats for kentucky
+Round: 3
+Formatting data for prediction
+Making prediction
+Making prediction
+
+-------------------------------------
+The winner will be virginia tech
+Probability split:
+	virginia tech: 0.7930021342184419
+	kentucky: 0.20699786578155807
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: arizona
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for arizona
+Team2 Name: houston
+Team2 Seed: 5
+Fetching team data...
+Successfully loaded 2022 stats for houston
+Round: 3
+Formatting data for prediction
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Making prediction
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Skipping Ben Ackerley (ben-ackerley-1) due to no data
+Skipping Addison Arnold (addison-arnold-1) due to no data
+Skipping Will Menaugh (will-menaugh-1) due to no data
+Skipping Will Reeves (will-reeves-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be houston
+Probability split:
+	arizona: 0.2323727961749587
+	houston: 0.7676272038250415
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: tennessee
+Team1 Seed: 3
+Fetching team stats...
+Successfully loaded 2022 stats for tennessee
+Team2 Name: villanova
+Team2 Seed: 2
+Fetching team data...
+Successfully loaded 2022 stats for villanova
+Round: 3
+Formatting data for prediction
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Making prediction
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Cole Morris (cole-morris-1) due to no data
+Skipping Handje Tamba (handje-tamba-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be villanova
+Probability split:
+	tennessee: 0.4178540430993851
+	villanova: 0.5821459569006149
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: kansas
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for kansas
+Team2 Name: iowa
+Team2 Seed: 5
+Fetching team data...
+Successfully loaded 2022 stats for iowa
+Round: 3
+Formatting data for prediction
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Making prediction
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Kyle Cuffe Jr (kyle-cuffejr-1) due to no data
+Skipping Charlie McCarthy (charlie-mccarthy-1) due to no data
+Skipping Dillon Wilhite (dillon-wilhite-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be iowa
+Probability split:
+	kansas: 0.44272505351738833
+	iowa: 0.5572749464826117
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: lousiana state
+Team1 Seed: 6
+Fetching team stats...
+Unable to load lousiana state. Make sure it is spelled like it is in the following list:
+Abilene Christian (ABILENE-CHRISTIAN)
+Air Force (AIR-FORCE)
+Akron (AKRON)
+Alabama A&M (ALABAMA-AM)
+UAB (ALABAMA-BIRMINGHAM)
+Alabama State (ALABAMA-STATE)
+Alabama (ALABAMA)
+Albany (NY) (ALBANY-NY)
+Alcorn State (ALCORN-STATE)
+American (AMERICAN)
+Appalachian State (APPALACHIAN-STATE)
+Arizona State (ARIZONA-STATE)
+Arizona (ARIZONA)
+Little Rock (ARKANSAS-LITTLE-ROCK)
+Arkansas-Pine Bluff (ARKANSAS-PINE-BLUFF)
+Arkansas State (ARKANSAS-STATE)
+Arkansas (ARKANSAS)
+Army (ARMY)
+Auburn (AUBURN)
+Austin Peay (AUSTIN-PEAY)
+Ball State (BALL-STATE)
+Baylor (BAYLOR)
+Bellarmine (BELLARMINE)
+Belmont (BELMONT)
+Bethune-Cookman (BETHUNE-COOKMAN)
+Binghamton (BINGHAMTON)
+Boise State (BOISE-STATE)
+Boston College (BOSTON-COLLEGE)
+Boston University (BOSTON-UNIVERSITY)
+Bowling Green State (BOWLING-GREEN-STATE)
+Bradley (BRADLEY)
+Brigham Young (BRIGHAM-YOUNG)
+Brown (BROWN)
+Bryant (BRYANT)
+Bucknell (BUCKNELL)
+Buffalo (BUFFALO)
+Butler (BUTLER)
+Cal Poly (CAL-POLY)
+Cal State Bakersfield (CAL-STATE-BAKERSFIELD)
+Cal State Fullerton (CAL-STATE-FULLERTON)
+Cal State Northridge (CAL-STATE-NORTHRIDGE)
+California Baptist (CALIFORNIA-BAPTIST)
+UC Davis (CALIFORNIA-DAVIS)
+UC Irvine (CALIFORNIA-IRVINE)
+UC Riverside (CALIFORNIA-RIVERSIDE)
+UC San Diego (CALIFORNIA-SAN-DIEGO)
+UC Santa Barbara (CALIFORNIA-SANTA-BARBARA)
+California (CALIFORNIA)
+Campbell (CAMPBELL)
+Canisius (CANISIUS)
+Central Arkansas (CENTRAL-ARKANSAS)
+Central Connecticut State (CENTRAL-CONNECTICUT-STATE)
+Central Florida (CENTRAL-FLORIDA)
+Central Michigan (CENTRAL-MICHIGAN)
+Charleston Southern (CHARLESTON-SOUTHERN)
+Charlotte (CHARLOTTE)
+Chattanooga (CHATTANOOGA)
+Chicago State (CHICAGO-STATE)
+Cincinnati (CINCINNATI)
+The Citadel (CITADEL)
+Clemson (CLEMSON)
+Cleveland State (CLEVELAND-STATE)
+Coastal Carolina (COASTAL-CAROLINA)
+Colgate (COLGATE)
+College of Charleston (COLLEGE-OF-CHARLESTON)
+Colorado State (COLORADO-STATE)
+Colorado (COLORADO)
+Columbia (COLUMBIA)
+Connecticut (CONNECTICUT)
+Coppin State (COPPIN-STATE)
+Cornell (CORNELL)
+Creighton (CREIGHTON)
+Dartmouth (DARTMOUTH)
+Davidson (DAVIDSON)
+Dayton (DAYTON)
+Delaware State (DELAWARE-STATE)
+Delaware (DELAWARE)
+Denver (DENVER)
+DePaul (DEPAUL)
+Detroit Mercy (DETROIT-MERCY)
+Dixie State (DIXIE-STATE)
+Drake (DRAKE)
+Drexel (DREXEL)
+Duke (DUKE)
+Duquesne (DUQUESNE)
+East Carolina (EAST-CAROLINA)
+East Tennessee State (EAST-TENNESSEE-STATE)
+Eastern Illinois (EASTERN-ILLINOIS)
+Eastern Kentucky (EASTERN-KENTUCKY)
+Eastern Michigan (EASTERN-MICHIGAN)
+Eastern Washington (EASTERN-WASHINGTON)
+Elon (ELON)
+Evansville (EVANSVILLE)
+Fairfield (FAIRFIELD)
+Fairleigh Dickinson (FAIRLEIGH-DICKINSON)
+Florida A&M (FLORIDA-AM)
+Florida Atlantic (FLORIDA-ATLANTIC)
+Florida Gulf Coast (FLORIDA-GULF-COAST)
+Florida International (FLORIDA-INTERNATIONAL)
+Florida State (FLORIDA-STATE)
+Florida (FLORIDA)
+Fordham (FORDHAM)
+Fresno State (FRESNO-STATE)
+Furman (FURMAN)
+Gardner-Webb (GARDNER-WEBB)
+George Mason (GEORGE-MASON)
+George Washington (GEORGE-WASHINGTON)
+Georgetown (GEORGETOWN)
+Georgia Southern (GEORGIA-SOUTHERN)
+Georgia State (GEORGIA-STATE)
+Georgia Tech (GEORGIA-TECH)
+Georgia (GEORGIA)
+Gonzaga (GONZAGA)
+Grambling (GRAMBLING)
+Grand Canyon (GRAND-CANYON)
+Green Bay (GREEN-BAY)
+Hampton (HAMPTON)
+Hartford (HARTFORD)
+Harvard (HARVARD)
+Hawaii (HAWAII)
+High Point (HIGH-POINT)
+Hofstra (HOFSTRA)
+Holy Cross (HOLY-CROSS)
+Houston Baptist (HOUSTON-BAPTIST)
+Houston (HOUSTON)
+Howard (HOWARD)
+Idaho State (IDAHO-STATE)
+Idaho (IDAHO)
+Illinois-Chicago (ILLINOIS-CHICAGO)
+Illinois State (ILLINOIS-STATE)
+Illinois (ILLINOIS)
+Incarnate Word (INCARNATE-WORD)
+Indiana State (INDIANA-STATE)
+Indiana (INDIANA)
+Iona (IONA)
+Iowa State (IOWA-STATE)
+Iowa (IOWA)
+Purdue-Fort Wayne (IPFW)
+IUPUI (IUPUI)
+Jackson State (JACKSON-STATE)
+Jacksonville State (JACKSONVILLE-STATE)
+Jacksonville (JACKSONVILLE)
+James Madison (JAMES-MADISON)
+Kansas State (KANSAS-STATE)
+Kansas (KANSAS)
+Kennesaw State (KENNESAW-STATE)
+Kent State (KENT-STATE)
+Kentucky (KENTUCKY)
+La Salle (LA-SALLE)
+Lafayette (LAFAYETTE)
+Lamar (LAMAR)
+Lehigh (LEHIGH)
+Liberty (LIBERTY)
+Lipscomb (LIPSCOMB)
+Long Beach State (LONG-BEACH-STATE)
+Long Island University (LONG-ISLAND-UNIVERSITY)
+Longwood (LONGWOOD)
+Louisiana (LOUISIANA-LAFAYETTE)
+Louisiana-Monroe (LOUISIANA-MONROE)
+Louisiana State (LOUISIANA-STATE)
+Louisiana Tech (LOUISIANA-TECH)
+Louisville (LOUISVILLE)
+Loyola (IL) (LOYOLA-IL)
+Loyola Marymount (LOYOLA-MARYMOUNT)
+Loyola (MD) (LOYOLA-MD)
+Maine (MAINE)
+Manhattan (MANHATTAN)
+Marist (MARIST)
+Marquette (MARQUETTE)
+Marshall (MARSHALL)
+Maryland-Baltimore County (MARYLAND-BALTIMORE-COUNTY)
+Maryland-Eastern Shore (MARYLAND-EASTERN-SHORE)
+Maryland (MARYLAND)
+Massachusetts-Lowell (MASSACHUSETTS-LOWELL)
+Massachusetts (MASSACHUSETTS)
+McNeese State (MCNEESE-STATE)
+Memphis (MEMPHIS)
+Mercer (MERCER)
+Merrimack (MERRIMACK)
+Miami (FL) (MIAMI-FL)
+Miami (OH) (MIAMI-OH)
+Michigan State (MICHIGAN-STATE)
+Michigan (MICHIGAN)
+Middle Tennessee (MIDDLE-TENNESSEE)
+Milwaukee (MILWAUKEE)
+Minnesota (MINNESOTA)
+Mississippi State (MISSISSIPPI-STATE)
+Mississippi Valley State (MISSISSIPPI-VALLEY-STATE)
+Mississippi (MISSISSIPPI)
+Kansas City (MISSOURI-KANSAS-CITY)
+Missouri State (MISSOURI-STATE)
+Missouri (MISSOURI)
+Monmouth (MONMOUTH)
+Montana State (MONTANA-STATE)
+Montana (MONTANA)
+Morehead State (MOREHEAD-STATE)
+Morgan State (MORGAN-STATE)
+Mount St. Mary's (MOUNT-ST-MARYS)
+Murray State (MURRAY-STATE)
+Navy (NAVY)
+Omaha (NEBRASKA-OMAHA)
+Nebraska (NEBRASKA)
+Nevada-Las Vegas (NEVADA-LAS-VEGAS)
+Nevada (NEVADA)
+New Hampshire (NEW-HAMPSHIRE)
+New Mexico State (NEW-MEXICO-STATE)
+New Mexico (NEW-MEXICO)
+New Orleans (NEW-ORLEANS)
+Niagara (NIAGARA)
+Nicholls State (NICHOLLS-STATE)
+NJIT (NJIT)
+Norfolk State (NORFOLK-STATE)
+North Alabama (NORTH-ALABAMA)
+UNC Asheville (NORTH-CAROLINA-ASHEVILLE)
+North Carolina A&T (NORTH-CAROLINA-AT)
+North Carolina Central (NORTH-CAROLINA-CENTRAL)
+UNC Greensboro (NORTH-CAROLINA-GREENSBORO)
+NC State (NORTH-CAROLINA-STATE)
+UNC Wilmington (NORTH-CAROLINA-WILMINGTON)
+North Carolina (NORTH-CAROLINA)
+North Dakota State (NORTH-DAKOTA-STATE)
+North Dakota (NORTH-DAKOTA)
+North Florida (NORTH-FLORIDA)
+North Texas (NORTH-TEXAS)
+Northeastern (NORTHEASTERN)
+Northern Arizona (NORTHERN-ARIZONA)
+Northern Colorado (NORTHERN-COLORADO)
+Northern Illinois (NORTHERN-ILLINOIS)
+Northern Iowa (NORTHERN-IOWA)
+Northern Kentucky (NORTHERN-KENTUCKY)
+Northwestern State (NORTHWESTERN-STATE)
+Northwestern (NORTHWESTERN)
+Notre Dame (NOTRE-DAME)
+Oakland (OAKLAND)
+Ohio State (OHIO-STATE)
+Ohio (OHIO)
+Oklahoma State (OKLAHOMA-STATE)
+Oklahoma (OKLAHOMA)
+Old Dominion (OLD-DOMINION)
+Oral Roberts (ORAL-ROBERTS)
+Oregon State (OREGON-STATE)
+Oregon (OREGON)
+Pacific (PACIFIC)
+Penn State (PENN-STATE)
+Pennsylvania (PENNSYLVANIA)
+Pepperdine (PEPPERDINE)
+Pittsburgh (PITTSBURGH)
+Portland State (PORTLAND-STATE)
+Portland (PORTLAND)
+Prairie View (PRAIRIE-VIEW)
+Presbyterian (PRESBYTERIAN)
+Princeton (PRINCETON)
+Providence (PROVIDENCE)
+Purdue (PURDUE)
+Quinnipiac (QUINNIPIAC)
+Radford (RADFORD)
+Rhode Island (RHODE-ISLAND)
+Rice (RICE)
+Richmond (RICHMOND)
+Rider (RIDER)
+Robert Morris (ROBERT-MORRIS)
+Rutgers (RUTGERS)
+Sacramento State (SACRAMENTO-STATE)
+Sacred Heart (SACRED-HEART)
+Saint Francis (PA) (SAINT-FRANCIS-PA)
+Saint Joseph's (SAINT-JOSEPHS)
+Saint Louis (SAINT-LOUIS)
+Saint Mary's (CA) (SAINT-MARYS-CA)
+Saint Peter's (SAINT-PETERS)
+Sam Houston State (SAM-HOUSTON-STATE)
+Samford (SAMFORD)
+San Diego State (SAN-DIEGO-STATE)
+San Diego (SAN-DIEGO)
+San Francisco (SAN-FRANCISCO)
+San Jose State (SAN-JOSE-STATE)
+Santa Clara (SANTA-CLARA)
+Seattle (SEATTLE)
+Seton Hall (SETON-HALL)
+Siena (SIENA)
+South Alabama (SOUTH-ALABAMA)
+South Carolina State (SOUTH-CAROLINA-STATE)
+South Carolina Upstate (SOUTH-CAROLINA-UPSTATE)
+South Carolina (SOUTH-CAROLINA)
+South Dakota State (SOUTH-DAKOTA-STATE)
+South Dakota (SOUTH-DAKOTA)
+South Florida (SOUTH-FLORIDA)
+Southeast Missouri State (SOUTHEAST-MISSOURI-STATE)
+Southeastern Louisiana (SOUTHEASTERN-LOUISIANA)
+Southern California (SOUTHERN-CALIFORNIA)
+SIU Edwardsville (SOUTHERN-ILLINOIS-EDWARDSVILLE)
+Southern Illinois (SOUTHERN-ILLINOIS)
+Southern Methodist (SOUTHERN-METHODIST)
+Southern Mississippi (SOUTHERN-MISSISSIPPI)
+Southern Utah (SOUTHERN-UTAH)
+Southern (SOUTHERN)
+St. Bonaventure (ST-BONAVENTURE)
+St. Francis (NY) (ST-FRANCIS-NY)
+St. John's (NY) (ST-JOHNS-NY)
+St. Thomas (MN) (ST-THOMAS-MN)
+Stanford (STANFORD)
+Stephen F. Austin (STEPHEN-F-AUSTIN)
+Stetson (STETSON)
+Stony Brook (STONY-BROOK)
+Syracuse (SYRACUSE)
+Tarleton State (TARLETON-STATE)
+Temple (TEMPLE)
+Tennessee-Martin (TENNESSEE-MARTIN)
+Tennessee State (TENNESSEE-STATE)
+Tennessee Tech (TENNESSEE-TECH)
+Tennessee (TENNESSEE)
+Texas A&M-Corpus Christi (TEXAS-AM-CORPUS-CHRISTI)
+Texas A&M (TEXAS-AM)
+UT Arlington (TEXAS-ARLINGTON)
+TCU (TEXAS-CHRISTIAN)
+UTEP (TEXAS-EL-PASO)
+Texas-Rio Grande Valley (TEXAS-PAN-AMERICAN)
+UTSA (TEXAS-SAN-ANTONIO)
+Texas Southern (TEXAS-SOUTHERN)
+Texas State (TEXAS-STATE)
+Texas Tech (TEXAS-TECH)
+Texas (TEXAS)
+Toledo (TOLEDO)
+Towson (TOWSON)
+Troy (TROY)
+Tulane (TULANE)
+Tulsa (TULSA)
+UCLA (UCLA)
+Utah State (UTAH-STATE)
+Utah Valley (UTAH-VALLEY)
+Utah (UTAH)
+Valparaiso (VALPARAISO)
+Vanderbilt (VANDERBILT)
+Vermont (VERMONT)
+Villanova (VILLANOVA)
+Virginia Commonwealth (VIRGINIA-COMMONWEALTH)
+VMI (VIRGINIA-MILITARY-INSTITUTE)
+Virginia Tech (VIRGINIA-TECH)
+Virginia (VIRGINIA)
+Wagner (WAGNER)
+Wake Forest (WAKE-FOREST)
+Washington State (WASHINGTON-STATE)
+Washington (WASHINGTON)
+Weber State (WEBER-STATE)
+West Virginia (WEST-VIRGINIA)
+Western Carolina (WESTERN-CAROLINA)
+Western Illinois (WESTERN-ILLINOIS)
+Western Kentucky (WESTERN-KENTUCKY)
+Western Michigan (WESTERN-MICHIGAN)
+Wichita State (WICHITA-STATE)
+William & Mary (WILLIAM-MARY)
+Winthrop (WINTHROP)
+Wisconsin (WISCONSIN)
+Wofford (WOFFORD)
+Wright State (WRIGHT-STATE)
+Wyoming (WYOMING)
+Xavier (XAVIER)
+Yale (YALE)
+Youngstown State (YOUNGSTOWN-STATE)
+Team1 Name: louisiana state
+Team1 Seed: 6
+Fetching team stats...
+Successfully loaded 2022 stats for louisiana state
+Team2 Name: southern california
+Team2 Seed: 7
+Fetching team data...
+Successfully loaded 2022 stats for southern california
+Round: 3
+Formatting data for prediction
+Making prediction
+Making prediction
+
+-------------------------------------
+The winner will be louisiana state
+Probability split:
+	louisiana state: 0.7130445799457521
+	southern california: 0.2869554200542479
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: boise state
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for boise state
+Team2 Name: texas tech
+Team2 Seed: 3
+Fetching team data...
+Successfully loaded 2022 stats for texas tech
+Round: 4
+Formatting data for prediction
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Making prediction
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping Ethan Duncan (ethan-duncan-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be boise state
+Probability split:
+	boise state: 0.5178515042306788
+	texas tech: 0.48214849576932123
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: baylor
+Team1 Seed: 1
+Fetching team stats...
+Successfully loaded 2022 stats for baylor
+Team2 Name: virginia tech
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for virginia tech
+Round: 4
+Formatting data for prediction
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Making prediction
+Skipping Langston Love (langston-love-1) due to no data
+Skipping Langston Love (langston-love-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be virginia tech
+Probability split:
+	baylor: 0.25178040964544585
+	virginia tech: 0.7482195903545543
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: houston
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for houston
+Team2 Name: villanova
+Team2 Seed: 2
+Fetching team data...
+Successfully loaded 2022 stats for villanova
+Round: 4
+Formatting data for prediction
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Making prediction
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Skipping Angelo Brizzi (angelo-brizzi-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be houston
+Probability split:
+	houston: 0.8146495624584594
+	villanova: 0.18535043754154049
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: iowa
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for iowa
+Team2 Name: louisiana state
+Team2 Seed: 6
+Fetching team data...
+Successfully loaded 2022 stats for louisiana state
+Round: 4
+Formatting data for prediction
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Making prediction
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be iowa
+Probability split:
+	iowa: 0.6932374427847685
+	louisiana state: 0.3067625572152314
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: boise state
+Team1 Seed: 8
+Fetching team stats...
+Successfully loaded 2022 stats for boise state
+Team2 Name: virginia tech
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for virginia tech
+Round: 5
+Formatting data for prediction
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Making prediction
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Skipping RJ Keene (rj-keene-1) due to no data
+Skipping Kobe Young (kobe-young-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be virginia tech
+Probability split:
+	boise state: 0.37672962799760024
+	virginia tech: 0.6232703720023999
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: houston
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for houston
+Team2 Name: iowa
+Team2 Seed: 5
+Fetching team data...
+Successfully loaded 2022 stats for iowa
+Round: 5
+Formatting data for prediction
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Making prediction
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Skipping Carter Kingsbury (carter-kingsbury-1) due to no data
+Making prediction
+
+-------------------------------------
+The winner will be houston
+Probability split:
+	houston: 0.640620857376454
+	iowa: 0.359379142623546
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name: houston
+Team1 Seed: 5
+Fetching team stats...
+Successfully loaded 2022 stats for houston
+Team2 Name: virginia tech
+Team2 Seed: 11
+Fetching team data...
+Successfully loaded 2022 stats for virginia tech
+Round: 6
+Formatting data for prediction
+Making prediction
+Making prediction
+
+-------------------------------------
+The winner will be houston
+Probability split:
+	houston: 0.6253772846647421
+	virginia tech: 0.3746227153352578
+-------------------------------------
+
+Preparing for next prediction...
+
+Team1 Name:

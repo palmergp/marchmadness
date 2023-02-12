@@ -1,0 +1,1 @@
+Same stats as 1_1 but now all have totals have been scaled to be per minute

@@ -1,0 +1,2 @@
+selected team stats and two player stats, 5-fold cross validation
+Linear SVC used for March Madness 2022
