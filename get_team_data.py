@@ -125,6 +125,7 @@ def get_2023_team_stats():
             if first == "Unnamed: 1_level_0" and i == 0 and sub == "School":
                 column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub] != "School"].dropna()
                 full_school_stats[sub] = column_data
+                full_school_stats[sub] = full_school_stats[sub].str.upper()
             elif first == "Overall" and i == 0:
                 # Remove any rows that do not have a number
                 column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub].apply(has_number)]
@@ -190,7 +191,7 @@ def get_2023_team_stats():
     for s in team_stats:
         if s not in full_school_stats.columns:
             print(f"Missing {s}")
-    print("All done!!")
+    return full_school_stats
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from sportsipy.ncaab.teams import Team, Roster, Teams
 import json
 from get_team_data import get_2023_team_stats
 from get_schedule_data import get_2023_schedule_stats
+from get_roster_data import get_2023_roster_stats
 
 class MatchupPredictor:
 
@@ -37,7 +38,7 @@ class MatchupPredictor:
                 try:
                     print("Fetching team stats...")
                     team1_data_true = all_teams.loc[reformat_name(team1)]
-                    team1_roster_true = all_teams[reformat_name(team1)].roster.players
+                    team1_roster_true = get_2023_roster_stats([reformat_name(team1)])[team1]
                     team1_schedule_true = get_2023_schedule_stats([reformat_name(team1)])[team1]
                     print("Successfully loaded 2022 stats for {}".format(team1))
                     not_loaded = False
@@ -52,7 +53,7 @@ class MatchupPredictor:
                 try:
                     print("Fetching team data...")
                     team2_data_true = all_teams.loc[reformat_name(team2)]
-                    team2_roster_true = all_teams[reformat_name(team2)].roster.players
+                    team2_roster_true = get_2023_roster_stats([reformat_name(team2)])[team2]
                     team2_schedule_true = get_2023_schedule_stats([reformat_name(team2)])[team2]
                     print("Successfully loaded 2022 stats for {}".format(team2))
                     not_loaded = False
@@ -63,18 +64,18 @@ class MatchupPredictor:
             print("Formatting data for prediction")
 
             # Get player and schedule stats
-            top5_total_per, top_per_percentage = get_per_stats(team1_roster_true)
-            sch_stats = get_ranked_stats(team1_schedule_true)
-            team1_data_true["top5_total_per"] = top5_total_per
-            team1_data_true["top_per_percentage"] = top_per_percentage
-            for sch_stat in sch_stats:
-                team1_data_true[sch_stat] = sch_stats[sch_stat]
-            top5_total_per, top_per_percentage = get_per_stats(team2_roster_true)
-            sch_stats = get_ranked_stats(team2_schedule_true)
-            team2_data_true["top5_total_per"] = top5_total_per
-            team2_data_true["top_per_percentage"] = top_per_percentage
-            for sch_stat in sch_stats:
-                team2_data_true[sch_stat] = sch_stats[sch_stat]
+            #top5_total_per, top_per_percentage = get_per_stats(team1_roster_true)
+            #sch_stats = get_ranked_stats(team1_schedule_true)
+            team1_data_true["top5_total_per"] = team1_roster_true["top5_total_per"]
+            team1_data_true["top_per_percentage"] = team1_roster_true["top_per_percentage"]
+            for sch_stat in team1_schedule_true:
+                team1_data_true[sch_stat] = team1_schedule_true[sch_stat]
+            #top5_total_per, top_per_percentage = team2_roster_true["top5_total_per"]
+            #sch_stats = get_ranked_stats(team2_schedule_true)
+            team2_data_true["top5_total_per"] = team1_roster_true["top5_total_per"]
+            team2_data_true["top_per_percentage"] = team1_roster_true["top_per_percentage"]
+            for sch_stat in team2_schedule_true:
+                team2_data_true[sch_stat] = team2_schedule_true[sch_stat]
 
             # Run twice to reduce entry order bias
             total_probs = []

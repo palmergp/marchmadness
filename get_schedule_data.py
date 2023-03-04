@@ -34,7 +34,7 @@ def get_2023_schedule_stats(teams, filename="test_schedule_data.pckl"):
             team_schedule_df = team_schedule_df[team_schedule_df['Opponent'].str.contains('\d')]
             # Calculate the stats we care about
             team_row = {}
-            team_row["School"] = team
+            team_row["School"] = team.upper()
             team_row["ranked_wins"] = team_schedule_df['Unnamed: 8'].value_counts()['W']
             team_row["ranked_losses"] = team_schedule_df['Unnamed: 8'].value_counts()['L']
             ranked_games = team_row["ranked_wins"]+team_row["ranked_losses"]
@@ -53,6 +53,7 @@ def get_2023_schedule_stats(teams, filename="test_schedule_data.pckl"):
             pickle.dump(schedule_data,f)
 
     print("Done!!")
+    return schedule_data
 
 
 
