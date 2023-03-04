@@ -2,6 +2,8 @@ import pickle
 from FeatureGenerator import reformat_name, get_per_stats, get_ranked_stats
 from sportsipy.ncaab.teams import Team, Roster, Teams
 import json
+from get_team_data import get_2023_team_stats
+from get_schedule_data import get_2023_schedule_stats
 
 class MatchupPredictor:
 
@@ -21,9 +23,10 @@ class MatchupPredictor:
         return result
 
     def main(self):
-        print("Starting 2022 March Madness Predictor!")
-        print("Loading 2022 team data...")
-        all_teams = Teams(2022)
+        print("Starting 2023 March Madness Predictor!")
+        print("Loading 2023 team data...")
+        all_teams = get_2023_team_stats()
+
         print("Team Data loaded")
         while True:
             # Get team 1 info
@@ -33,9 +36,9 @@ class MatchupPredictor:
                 team1_seed_true = int(input("Team1 Seed: "))
                 try:
                     print("Fetching team stats...")
-                    team1_data_true = all_teams.dataframes.loc[reformat_name(team1)]
+                    team1_data_true = all_teams.loc[reformat_name(team1)]
                     team1_roster_true = all_teams[reformat_name(team1)].roster.players
-                    team1_schedule_true = all_teams[reformat_name(team1)].schedule.dataframe
+                    team1_schedule_true = get_2023_schedule_stats([reformat_name(team1)])[team1]
                     print("Successfully loaded 2022 stats for {}".format(team1))
                     not_loaded = False
                 except KeyError:
@@ -48,9 +51,9 @@ class MatchupPredictor:
                 team2_seed_true = int(input("Team2 Seed: "))
                 try:
                     print("Fetching team data...")
-                    team2_data_true = all_teams.dataframes.loc[reformat_name(team2)]
+                    team2_data_true = all_teams.loc[reformat_name(team2)]
                     team2_roster_true = all_teams[reformat_name(team2)].roster.players
-                    team2_schedule_true = all_teams[reformat_name(team2)].schedule.dataframe
+                    team2_schedule_true = get_2023_schedule_stats([reformat_name(team2)])[team2]
                     print("Successfully loaded 2022 stats for {}".format(team2))
                     not_loaded = False
                 except KeyError:
