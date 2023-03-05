@@ -22,11 +22,12 @@ def get_2023_schedule_stats(teams, filename="test_schedule_data.pckl"):
     # Loop through each team
     for team in teams:
         # Check if the team is in the saved data already
-        already_collected = team in schedule_data
+        already_collected = team in schedule_data.index
         if not already_collected:
             # If we don't have it yet, then we need to collect all the stats for the team
             updated = True
             # Go grab the html
+            print(f"Making requests for {team} schedule data")
             response = requests.get(f"https://www.sports-reference.com/cbb/schools/{team.lower()}/men/2023-schedule.html")
             team_schedule = str(response.content)
             team_schedule_df = pd.read_html(team_schedule)[1]
@@ -44,8 +45,9 @@ def get_2023_schedule_stats(teams, filename="test_schedule_data.pckl"):
             team_row["margin_of_vict_ranked"] = team_row["points_per_ranked"] - team_row["opp_points_per_ranked"]
             # Turn row into a dataframe and add to bigger dataframe
             team_row_df = pd.DataFrame(team_row, index=[0])
+            team_row_df.set_index("School", inplace=True)
             schedule_data = schedule_data.append(team_row_df)
-    schedule_data.set_index("School", inplace=True)
+
 
     if updated:
         # Save off changes

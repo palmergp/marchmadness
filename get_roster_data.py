@@ -22,11 +22,12 @@ def get_2023_roster_stats(teams, filename="test_roster_data.pckl"):
     # Loop through each team
     for team in teams:
         # Check if the team is in the saved data already
-        already_collected = team in roster_data
+        already_collected = team in roster_data.index
         if not already_collected:
             # If we don't have it yet, then we need to collect all the stats for the team
             updated = True
             # Go grab the html
+            print(f"Making request for {team} roster data")
             response = requests.get(f"https://www.sports-reference.com/cbb/schools/{team.lower()}/men/2023.html")
             team_roster = str(response.content)
             team_roster_df = pd.read_html(team_roster)[13]
@@ -38,8 +39,8 @@ def get_2023_roster_stats(teams, filename="test_roster_data.pckl"):
             team_row["top_per_percentage"] = team_roster_df['PER'].max() / team_row["top5_per_total"]
             # Turn row into a dataframe and add to bigger dataframe
             team_row_df = pd.DataFrame(team_row, index=[0])
+            team_row_df.set_index("School", inplace=True)
             roster_data = roster_data.append(team_row_df)
-    roster_data.set_index("School", inplace=True)
 
     if updated:
         # Save off changes

@@ -47,14 +47,14 @@ NAME_LOOKUP = {
 
 def has_number(input_string):
     for c in input_string:
-        if not c.isdigit() or c == ".":
+        if not c.isdigit() and c != ".":
             return False
     return True
 
 def get_2023_team_stats():
     MAKE_REQUEST = False
     if MAKE_REQUEST:
-        print("Making requests")
+        print("Making requests for team data")
         # Get basic stats
         response = requests.get("https://www.sports-reference.com/cbb/seasons/men/2023-school-stats.html")
         school_stats = str(response.content)
