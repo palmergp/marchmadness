@@ -1,13 +1,10 @@
 import requests
-import json
 import pickle
-import re
 import pandas as pd
 import time
-from FeatureGenerator import FeatureGenerator
 
 NAME_LOOKUP = {
-    "G":"games",
+    "G": "games",
     "W": "wins",
     "L": "losses",
     "W-L%": "win_percentage",
@@ -47,68 +44,68 @@ NAME_LOOKUP = {
 
 def has_number(input_string):
     for c in input_string:
-        if not c.isdigit() and c != ".":
+        if not c.isdigit() and c != "." and c != "-":
             return False
     return True
 
-def get_2023_team_stats():
-    MAKE_REQUEST = False
-    if MAKE_REQUEST:
+def get_team_stats(year):
+
+    try:
+        print("Loading Data")
+        # Load from file
+        f = open(f"basic_stats_{year}.pckl", "rb")
+        school_stats = pickle.load(f)
+        f.close()
+        f = open(f"advanced_stats_{year}.pckl", "rb")
+        adv_school_stats = pickle.load(f)
+        f.close()
+        f = open(f"basic_opp_stats_{year}.pckl", "rb")
+        opp_school_stats = pickle.load(f)
+        f.close()
+        f = open(f"advanced_opp_stats_{year}.pckl", "rb")
+        opp_adv_school_stats = pickle.load(f)
+        f.close()
+    except FileNotFoundError:
         print("Making requests for team data")
         # Get basic stats
-        response = requests.get("https://www.sports-reference.com/cbb/seasons/men/2023-school-stats.html")
+        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/men/{year}-school-stats.html")
         school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open("basic_stats_2023.pckl", "wb")
+        f = open(f"basic_stats_{year}.pckl", "wb")
         pickle.dump(school_stats,f)
         f.close()
         time.sleep(1)
 
         # Get advanced stats
-        response = requests.get("https://www.sports-reference.com/cbb/seasons/men/2023-advanced-school-stats.html")
+        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/men/{year}-advanced-school-stats.html")
         adv_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open("advanced_stats_2023.pckl", "wb")
+        f = open(f"advanced_stats_{year}.pckl", "wb")
         pickle.dump(adv_school_stats, f)
         f.close()
         time.sleep(1)
 
         # Get basic opp stats
-        response = requests.get("https://www.sports-reference.com/cbb/seasons/men/2023-opponent-stats.html")
+        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/men/{year}-opponent-stats.html")
         opp_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open("basic_opp_stats_2023.pckl", "wb")
+        f = open(f"basic_opp_stats_{year}.pckl", "wb")
         pickle.dump(opp_school_stats, f)
         f.close()
         time.sleep(1)
 
         # Get advanced opponent stats
-        response = requests.get("https://www.sports-reference.com/cbb/seasons/2023-advanced-opponent-stats.html")
-        adv_opp_school_stats = str(response.content)
+        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/{year}-advanced-opponent-stats.html")
+        opp_adv_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open("advanced_opp_stats_2023.pckl", "wb")
-        pickle.dump(adv_opp_school_stats, f)
+        f = open(f"advanced_opp_stats_{year}.pckl", "wb")
+        pickle.dump(opp_adv_school_stats, f)
         f.close()
 
-    else:
-        print("Loading Data")
-        # Load from file
-        f = open("basic_stats_2023.pckl", "rb")
-        school_stats = pickle.load(f)
-        f.close()
-        f=open("advanced_stats_2023.pckl", "rb")
-        adv_school_stats = pickle.load(f)
-        f.close()
-        f = open("basic_opp_stats_2023.pckl", "rb")
-        opp_school_stats = pickle.load(f)
-        f.close()
-        f = open("advanced_opp_stats_2023.pckl", "rb")
-        opp_adv_school_stats = pickle.load(f)
-        f.close()
 
     # Convert to dataframes
     school_stats_df = pd.read_html(school_stats)
@@ -126,6 +123,12 @@ def get_2023_team_stats():
                 column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub] != "School"].dropna()
                 full_school_stats[sub] = column_data
                 full_school_stats[sub] = full_school_stats[sub].str.upper()
+                full_school_stats[sub] = full_school_stats[sub].str.replace("\\xa0NCAA", "")
+                full_school_stats[sub] = full_school_stats[sub].str.replace(" ", "-")
+                full_school_stats[sub] = full_school_stats[sub].str.replace("(", "")
+                full_school_stats[sub] = full_school_stats[sub].str.replace(")", "")
+                full_school_stats[sub] = full_school_stats[sub].str.replace("\\'", "")
+                full_school_stats[sub] = full_school_stats[sub].str.replace("\\", "")
             elif first == "Overall" and i == 0:
                 # Remove any rows that do not have a number
                 column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub].apply(has_number)]
@@ -195,4 +198,4 @@ def get_2023_team_stats():
 
 
 if __name__ == "__main__":
-    get_2023_team_stats()
+    get_team_stats(2023)

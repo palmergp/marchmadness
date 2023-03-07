@@ -2,9 +2,9 @@ import pickle
 from FeatureGenerator import reformat_name, get_per_stats, get_ranked_stats
 from sportsipy.ncaab.teams import Team, Roster, Teams
 import json
-from get_team_data import get_2023_team_stats
-from get_schedule_data import get_2023_schedule_stats
-from get_roster_data import get_2023_roster_stats
+from get_team_data import get_team_stats
+from get_schedule_data import get_schedule_stats
+from get_roster_data import get_roster_stats
 
 class MatchupPredictor:
 
@@ -23,10 +23,10 @@ class MatchupPredictor:
         result = self.model.predict(data)
         return result
 
-    def main(self):
-        print("Starting 2023 March Madness Predictor!")
-        print("Loading 2023 team data...")
-        all_teams = get_2023_team_stats()
+    def main(self, year):
+        print(f"Starting {year} March Madness Predictor!")
+        print(f"Loading {year} team data...")
+        all_teams = get_team_stats(year)
 
         print("Team Data loaded")
         while True:
@@ -38,9 +38,9 @@ class MatchupPredictor:
                 try:
                     print("Fetching team stats...")
                     team1_data_true = all_teams.loc[reformat_name(team1)]
-                    team1_roster_true = get_2023_roster_stats([reformat_name(team1)]).loc[reformat_name(team1)]
-                    team1_schedule_true = get_2023_schedule_stats([reformat_name(team1)]).loc[reformat_name(team1)]
-                    print("Successfully loaded 2022 stats for {}".format(team1))
+                    team1_roster_true = get_roster_stats([reformat_name(team1)], year).loc[reformat_name(team1)]
+                    team1_schedule_true = get_schedule_stats([reformat_name(team1)], year).loc[reformat_name(team1)]
+                    print("Successfully loaded {} stats for {}".format(year,team1))
                     not_loaded = False
                 except KeyError:
                     print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(team1))
@@ -53,11 +53,11 @@ class MatchupPredictor:
                 try:
                     print("Fetching team data...")
                     team2_data_true = all_teams.loc[reformat_name(team2)]
-                    team2_roster_true = get_2023_roster_stats([reformat_name(team2)]).loc[reformat_name(team2)]
-                    team2_schedule_true = get_2023_schedule_stats([reformat_name(team2)]).loc[reformat_name(team2)]
-                    print("Successfully loaded 2022 stats for {}".format(team2))
+                    team2_roster_true = get_roster_stats([reformat_name(team2)], year).loc[reformat_name(team2)]
+                    team2_schedule_true = get_schedule_stats([reformat_name(team2)], year).loc[reformat_name(team2)]
+                    print("Successfully loaded {} stats for {}".format(year, team2))
                     not_loaded = False
-                except KeyError:
+                except KeyError as e:
                     print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(team2))
                     print(all_teams)
             round_num = int(input("Round: "))
@@ -142,8 +142,9 @@ class MatchupPredictor:
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
+    year=2022
     path = "models/models22/v3_1/"
     model = "Logistic_Regression_v3_1.pickle"
     feature_names = "featurenames.pickle"
     mp = MatchupPredictor(path+model, path+feature_names)
-    mp.main()
+    mp.main(year)

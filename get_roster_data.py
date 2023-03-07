@@ -2,14 +2,23 @@ import pickle
 import requests
 import pandas as pd
 
+def get_url_name(name):
+    if name == 'TCU':
+        url_name = 'texas-christian'
+    elif name == 'UAB':
+        url_name = 'alabama-birmingham'
+    else:
+        url_name = name.lower().replace("(", "").replace(")", "")
+    return url_name
 
-def get_2023_roster_stats(teams, filename="test_roster_data.pckl"):
+def get_roster_stats(teams, year):
     """Gets the roster data for each team in the list
     Due to limits on requests, a sleep is put in place between requests
 
     Once data is collected, it saved to a pickle so that in the future, the request
     does not need to be made again"""
 
+    filename = f"roster_data_{year}.pckl"
     # First load the schedule data
     try:
         with open(filename, "rb") as f:
@@ -28,7 +37,8 @@ def get_2023_roster_stats(teams, filename="test_roster_data.pckl"):
             updated = True
             # Go grab the html
             print(f"Making request for {team} roster data")
-            response = requests.get(f"https://www.sports-reference.com/cbb/schools/{team.lower()}/men/2023.html")
+            url_team = get_url_name(team)
+            response = requests.get(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}.html")
             team_roster = str(response.content)
             team_roster_df = pd.read_html(team_roster)[13]
 
@@ -53,4 +63,4 @@ def get_2023_roster_stats(teams, filename="test_roster_data.pckl"):
 
 
 if __name__ == "__main__":
-    get_2023_roster_stats(["Alabama","Houston"],"test_roster_data.pckl")
+    get_roster_stats(["Alabama", "Houston"], 2023)

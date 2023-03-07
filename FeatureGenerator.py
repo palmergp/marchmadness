@@ -14,6 +14,8 @@ name_dict = {
     "Stephen F. Austin": "STEPHEN-F-AUSTIN",
     "UC Berkeley": "CALIFORNIA",
     "St. Mary's (Cal.)": "SAINT-MARYS-CA",
+    "saint marys": "SAINT-MARYS-CA",
+    "Saint Marys": "SAINT-MARYS-CA",
     "Mount St. Mary's": "MOUNT-ST-MARYS",
     "Penn": "PENNSYLVANIA",
     "Long Island": "LONG-ISLAND-UNIVERSITY",
@@ -23,12 +25,15 @@ name_dict = {
     "Murray St.": "MURRAY-STATE",
     "St. John's": "ST-JOHNS-NY",
     "LSU": "LOUISIANA-STATE",
+    "lsu": "LOUISIANA-STATE",
     "UNLV": "NEVADA-LAS-VEGAS",
     "UTEP": "TEXAS-EL-PASO",
     "Detroit": "DETROIT-MERCY",
     "Loyola (Md.)": "LOYOLA-MD",
     "North Carolina A&T": "NORTH-CAROLINA-AT",
-    "Albany (N.Y.)": "ALBANY-NY"
+    "Albany (N.Y.)": "ALBANY-NY",
+    "USC": "SOUTHERN-CALIFORNIA",
+    "usc": "SOUTHERN-CALIFORNIA"
 }
 
 
