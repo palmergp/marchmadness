@@ -131,7 +131,7 @@ def train(datapath, featurename_path, model_set=None):
 
 
 if __name__ == '__main__':
-    dpath = "./featuresets/v4_0/feature_data_v4_0.pickle"
+    dpath = "./featuresets/featuresets22/v4_0/feature_data_v4_0.pickle"
     model_set = "v4_1"
-    featurename_path = "./featuresets/v4_0/featurenames_selected.json"
+    featurename_path = "./featuresets/featuresets22/v4_0/featurenames_selected.json"
     train(dpath, featurename_path, model_set)

@@ -1,14 +1,37 @@
 import pickle
-import requests
+from smart_request import smart_request
 import pandas as pd
+import os
 
 def get_url_name(name):
     if name == 'TCU':
         url_name = 'texas-christian'
     elif name == 'UAB':
         url_name = 'alabama-birmingham'
+    elif name == 'UTSA':
+        url_name = 'texas-san-antonio'
+    elif name == 'UNC-ASHEVILLE':
+        url_name = 'north-carolina-asheville'
+    elif name == 'UNC-WILMINGTON':
+        url_name = 'north-carolina-wilmington'
+    elif name == 'UNC-GREENSBORO':
+        url_name = 'north-carolina-greensboro'
+    elif name == 'NC-STATE':
+        url_name = 'north-carolina-state'
+    elif name == "LOUISIANA":
+        url_name = 'louisiana-lafayette'
+    elif name == "UC-IRVINE":
+        url_name = "california-irvine"
+    elif name == "UC-DAVIS":
+        url_name = 'california-davis'
+    elif name == "UC-SANTA-BARBARA":
+        url_name = 'california-santa-barbara'
+    elif name == "LITTLE-ROCK":
+        url_name = "arkansas-little-rock",
+    elif name == "TCU":
+        url_name = "texas-christian"
     else:
-        url_name = name.lower().replace("(", "").replace(")", "")
+        url_name = name.lower().replace("(", "").replace(")", "").replace("&","")
     return url_name
 
 def get_roster_stats(teams, year):
@@ -17,8 +40,9 @@ def get_roster_stats(teams, year):
 
     Once data is collected, it saved to a pickle so that in the future, the request
     does not need to be made again"""
-
-    filename = f"roster_data_{year}.pckl"
+    absolute_path = os.path.dirname(__file__)
+    full_path = os.path.join(absolute_path, "data")
+    filename = os.path.join(full_path, f"roster_data_{year}.pckl")
     # First load the schedule data
     try:
         with open(filename, "rb") as f:
@@ -38,7 +62,7 @@ def get_roster_stats(teams, year):
             # Go grab the html
             print(f"Making request for {team} roster data")
             url_team = get_url_name(team)
-            response = requests.get(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}.html")
+            response = smart_request(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}.html")
             team_roster = str(response.content)
             team_roster_df = pd.read_html(team_roster)[13]
 
@@ -59,7 +83,6 @@ def get_roster_stats(teams, year):
 
     print("Done!!")
     return roster_data
-
 
 
 if __name__ == "__main__":
