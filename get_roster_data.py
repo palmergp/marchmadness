@@ -7,8 +7,16 @@ def get_url_name(name):
         url_name = 'texas-christian'
     elif name == 'UAB':
         url_name = 'alabama-birmingham'
+    elif name == "NC-STATE":
+        url_name = "north-carolina-state"
+    elif name == "UNC-ASHEVILLE":
+        url_name = 'north-carolina-asheville'
+    elif name == "UC-SANTA-BARBARA":
+        url_name = 'california-santa-barbara'
+    elif name == "LOUISIANA":
+        url_name = 'louisiana-lafayette'
     else:
-        url_name = name.lower().replace("(", "").replace(")", "")
+        url_name = name.lower().replace("(", "").replace(")", "").replace("&","")
     return url_name
 
 def get_roster_stats(teams, year):

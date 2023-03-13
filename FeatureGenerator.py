@@ -33,7 +33,8 @@ name_dict = {
     "North Carolina A&T": "NORTH-CAROLINA-AT",
     "Albany (N.Y.)": "ALBANY-NY",
     "USC": "SOUTHERN-CALIFORNIA",
-    "usc": "SOUTHERN-CALIFORNIA"
+    "usc": "SOUTHERN-CALIFORNIA",
+    "ucsb": "UC-SANTA-BARBARA"
 }
 
 
