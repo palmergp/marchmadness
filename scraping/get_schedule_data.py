@@ -1,7 +1,7 @@
 import pickle
-from smart_request import smart_request
+from scraping.smart_request import smart_request
 import pandas as pd
-from get_roster_data import get_url_name
+from scraping.get_roster_data import get_url_name
 import os
 
 
@@ -38,6 +38,7 @@ def get_schedule_stats(teams, year):
             team_schedule = str(response.content)
             team_schedule_df = pd.read_html(team_schedule)[1]
             # We really only care about ranked games so remove all games against unranked opponents
+            team_schedule_df = team_schedule_df.fillna("nan")
             team_schedule_df = team_schedule_df[team_schedule_df['Opponent'].str.contains('\d')]
             team_schedule_df = team_schedule_df[team_schedule_df['Type']!="NCAA"]
             # Calculate the stats we care about
@@ -65,10 +66,16 @@ def get_schedule_stats(teams, year):
                 else:
                     team_row["ranked_losses"] = 0
                 ranked_games = team_row["ranked_wins"]+team_row["ranked_losses"]
-                team_row["ranked_win_percentage"] = team_row["ranked_wins"]/ranked_games
-                team_row["points_per_ranked"] = pd.to_numeric(team_schedule_df['Tm']).sum()/ranked_games
-                team_row["opp_points_per_ranked"] = pd.to_numeric(team_schedule_df['Opp']).sum()/ranked_games
-                team_row["margin_of_vict_ranked"] = team_row["points_per_ranked"] - team_row["opp_points_per_ranked"]
+                if ranked_games > 0:
+                    team_row["ranked_win_percentage"] = team_row["ranked_wins"]/ranked_games
+                    team_row["points_per_ranked"] = pd.to_numeric(team_schedule_df['Tm']).sum()/ranked_games
+                    team_row["opp_points_per_ranked"] = pd.to_numeric(team_schedule_df['Opp']).sum()/ranked_games
+                    team_row["margin_of_vict_ranked"] = team_row["points_per_ranked"] - team_row["opp_points_per_ranked"]
+                else:
+                    team_row["ranked_win_percentage"] = 0
+                    team_row["points_per_ranked"] = 0
+                    team_row["opp_points_per_ranked"] = 0
+                    team_row["margin_of_vict_ranked"] = 0
             # Turn row into a dataframe and add to bigger dataframe
             team_row_df = pd.DataFrame(team_row, index=[0])
             team_row_df.set_index("School", inplace=True)

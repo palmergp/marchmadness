@@ -1,6 +1,7 @@
 import json
 import pickle
 import os
+import numpy as np
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
@@ -11,6 +12,7 @@ from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import cross_val_score
+from sklearn.feature_selection import SelectKBest, chi2, f_classif
 
 def train(datapath,featurepath,model_set):
 
@@ -37,6 +39,24 @@ def train(datapath,featurepath,model_set):
     model_names = ["Gaussian_Naive_Bayes", "Neural_Network", "Logistic_Regression", "Linear_SVC",
                    "KNN", "Gaussian_RBF", "Decision_Tree", "Random_Forest", "Adaboost"]
     #model_names =["Gaussian_Naive_Bayes"]
+
+    # Create and fit the selector object
+    selector = SelectKBest(f_classif, k=72)
+    selector.fit(training_data, train_labels)
+    # Get the selected features
+    selected_features = selector.get_support(indices=True)
+    # Get the scores of each feature
+    scores = selector.scores_
+
+    # Sort the scores in descending order and get the indices
+    sorted_indices = np.argsort(scores)[::-1]
+
+    # Get the 10 best features in order of importance
+    best_features = sorted_indices[:72]
+    rank = 0
+    for sf in best_features:
+        rank = rank +1
+        print("\t" + str(rank) +". "+ featurenames[sf])
 
     results = []
     models = {}
@@ -70,6 +90,8 @@ def train(datapath,featurepath,model_set):
         # results.append(accuracy_score(test_labels, preds))
         scores = cross_val_score(clf, training_data, train_labels, cv=5, scoring='f1_macro')
         results.append(scores.mean())
+
+
 
     # Order from least accurate to most
     z = zip(results, model_names)

@@ -1,5 +1,5 @@
 import pickle
-from smart_request import smart_request
+from scraping.smart_request import smart_request
 import pandas as pd
 import os
 

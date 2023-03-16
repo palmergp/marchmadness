@@ -1,7 +1,7 @@
 import pickle
 import pandas as pd
 import time
-from smart_request import smart_request
+from scraping.smart_request import smart_request
 import os
 
 NAME_LOOKUP = {
