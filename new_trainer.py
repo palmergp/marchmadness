@@ -1,67 +1,62 @@
+import json
 import pickle
-from sklearn.model_selection import train_test_split
+import os
+import numpy as np
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import LinearSVC
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import cross_val_score
-import os
-import json
+from sklearn.feature_selection import SelectKBest, chi2, f_classif
 
-def extract_features(data, featurenames):
-    labels = list(data["Winner"])
-    # featurenames = [x for x in list(data.columns) if x not in nonfeatures]
-    features = []
-    for i in range(0, len(data)):
-        row = []
-        for fn in featurenames:
-            value = data.iloc[i][fn]
-            if value == -1:
-                print("{} Never updated".format(fn))
-            row.append(data.iloc[i][fn])
-        features.append(row)
-    return features, featurenames, labels
+def train(datapath,featurepath,model_set):
 
-
-def train(datapath, featurename_path, model_set=None):
-
-    # Load data
-    with open(datapath, 'rb') as f:
+    # Load featurelist
+    with open(featurepath,"r") as f:
+        featurenames_short = json.load(f)
+    with open(datapath,'rb') as f:
         data = pickle.load(f)
 
-    with open(featurename_path, "r") as f:
-        featurenames_short = json.load(f)
-    f.close()
-    print("The following features will be used for each team:\n{}".format(featurenames_short))
-    featurenames = []
-    for n in featurenames_short:
-        if n == "SeedDiff":
-            featurenames.append(n)
-        else:
-            featurenames.append("Team1"+n)
-            featurenames.append("Team2"+n)
-    label_names = ["Team1", "Team2"]
-    features, featurenames, labels = extract_features(data, featurenames)
+    all_featurenames = ["SeedDiff"]
+    for prefix in ["favorite_", "underdog_"]:
+        for fname in featurenames_short:
+            if fname != "SeedDiff":
+                all_featurenames.append(prefix + fname)
 
-    # Split our data
-    # train, test, train_labels, test_labels = train_test_split(features,
-    #                                                           labels,
-    #                                                           test_size=0.3,
-    #                                                           random_state=42)
-    train = features
-    train_labels = labels
+    # Remove any features not in the featurenames file
+    filtered_data = data[data.columns.intersection(all_featurenames)]
+
+    # Structure all data for training
+    training_data = filtered_data.values.tolist()
+    train_labels = data['favorite_label'].tolist()
+    featurenames = list(filtered_data.columns)
+
     model_names = ["Gaussian_Naive_Bayes", "Neural_Network", "Logistic_Regression", "Linear_SVC",
-              "KNN", "Gaussian_RBF", "Decision_Tree", "Random_Forest", "Adaboost"]
+                   "KNN", "Gaussian_RBF", "Decision_Tree", "Random_Forest", "Adaboost"]
+    #model_names =["Gaussian_Naive_Bayes"]
 
+    # Create and fit the selector object
+    selector = SelectKBest(f_classif, k=72)
+    selector.fit(training_data, train_labels)
+    # Get the selected features
+    selected_features = selector.get_support(indices=True)
+    # Get the scores of each feature
+    scores = selector.scores_
+
+    # Sort the scores in descending order and get the indices
+    sorted_indices = np.argsort(scores)[::-1]
+
+    # Get the 10 best features in order of importance
+    best_features = sorted_indices[:72]
+    rank = 0
+    for sf in best_features:
+        rank = rank +1
+        print("\t" + str(rank) +". "+ featurenames[sf])
 
     results = []
     models = {}
@@ -89,12 +84,14 @@ def train(datapath, featurename_path, model_set=None):
         else:
             print("Error: Invalid model")
 
-        model = clf.fit(train, train_labels)
+        model = clf.fit(training_data, train_labels)
         models[m] = clf
         # preds = clf.predict(test)
         # results.append(accuracy_score(test_labels, preds))
-        scores = cross_val_score(clf, train, train_labels, cv=5, scoring='f1_macro')
+        scores = cross_val_score(clf, training_data, train_labels, cv=5, scoring='f1_macro')
         results.append(scores.mean())
+
+
 
     # Order from least accurate to most
     z = zip(results, model_names)
@@ -102,12 +99,12 @@ def train(datapath, featurename_path, model_set=None):
     tuples = zip(*sorted_pair)
     results, model_names = [list(t) for t in tuples]
     print("\nAccuracies:")
-    for i in range(0,len(model_names)):
+    for i in range(0, len(model_names)):
         print("\t{}:\t {}".format(model_names[i], results[i]))
 
     # Save off models
     if model_set:
-        outpath = "models/{}".format(model_set)
+        outpath = "models/models23/{}".format(model_set)
         try:
             os.mkdir(outpath)
         except FileExistsError:
@@ -121,7 +118,7 @@ def train(datapath, featurename_path, model_set=None):
 
         # Save accuracies
         with open(outpath + "/accuracy.txt", "w") as f:
-            for i in range(0,len(model_names)):
+            for i in range(0, len(model_names)):
                 f.write("{}: {}\n".format(model_names[i], results[i]))
 
         # Save feature names
@@ -131,7 +128,7 @@ def train(datapath, featurename_path, model_set=None):
 
 
 if __name__ == '__main__':
-    dpath = "./featuresets/featuresets22/v4_0/feature_data_v4_0.pickle"
-    model_set = "v4_1"
-    featurename_path = "./featuresets/featuresets22/v4_0/featurenames_selected.json"
-    train(dpath, featurename_path, model_set)
+    feature_list = './featuresets/featuresets23/v23_0_0/featurenames_selected.json'
+    data = './scraping/data/training_data.pckl'
+    version = 'v23_0_0'
+    train(data,feature_list,version)

@@ -1,10 +1,10 @@
 import pickle
 from FeatureGenerator import reformat_name, get_per_stats, get_ranked_stats
-from sportsipy.ncaab.teams import Team, Roster, Teams
 import json
-from get_team_data import get_team_stats
-from get_schedule_data import get_schedule_stats
-from get_roster_data import get_roster_stats
+from scraping.get_team_data import get_team_stats
+from scraping.get_schedule_data import get_schedule_stats
+from scraping.get_roster_data import get_roster_stats
+from sklearn import LinearSVC
 
 class MatchupPredictor:
 
@@ -62,7 +62,7 @@ class MatchupPredictor:
             print("Formatting data for prediction")
 
             # Make sure team 1 is the lower seed
-            if first_seed_true >= second_seed_true:
+            if first_seed_true <= second_seed_true:
                 team1 = first
                 team2 = second
                 team1_seed = first_seed_true
@@ -88,13 +88,13 @@ class MatchupPredictor:
             # Get player and schedule stats
             #top5_total_per, top_per_percentage = get_per_stats(team1_roster)
             #sch_stats = get_ranked_stats(team1_schedule)
-            team1_data["top5_total_per"] = team1_roster["top5_per_total"]
+            team1_data["top5_per_total"] = team1_roster["top5_per_total"]
             team1_data["top_per_percentage"] = team1_roster["top_per_percentage"]
             for sch_stat in team1_schedule.index:
                 team1_data[sch_stat] = team1_schedule[sch_stat]
             #top5_total_per, top_per_percentage = get_per_stats(team2_roster)
             #sch_stats = get_ranked_stats(team2_schedule)
-            team2_data["top5_total_per"] = team1_roster["top5_per_total"]
+            team2_data["top5_per_total"] = team1_roster["top5_per_total"]
             team2_data["top_per_percentage"] = team1_roster["top_per_percentage"]
             for sch_stat in team2_schedule.index:
                 team2_data[sch_stat] = team2_schedule[sch_stat]
@@ -104,21 +104,25 @@ class MatchupPredictor:
             for feat in self.features:
                 if feat == "Round":
                     predict_data.append(round_num)
-                elif feat == "Team1Seed":
+                elif feat == "favorite_seed":
                     predict_data.append(team1_seed)
-                elif feat == "Team2Seed":
+                elif feat == "underdog_seed":
                     predict_data.append(team2_seed)
                 elif feat == "SeedDiff":
                     predict_data.append(abs(team1_seed - team2_seed))
                 else:
-                    if "Team1" in feat:
-                        predict_data.append(team1_data[feat.replace("Team1","")])
+                    if "favorite" in feat:
+                        predict_data.append(team1_data[feat.replace("favorite_","")])
                     else:
-                        predict_data.append(team2_data[feat.replace("Team2","")])
+                        predict_data.append(team2_data[feat.replace("underdog_","")])
 
             # Make prediction
             print("Making prediction")
             winner_probs = self.model.predict_proba([predict_data])[0]
+            # load feature names
+            with open(r"C:\Users\gppal\PycharmProjects\marchmadness\models\models23\v23_0_0\featurenames.pickle", "rb") as f:
+                pickle.load(f)
+            clf = LinearSVC()
             print("\n-------------------------------------")
             if winner_probs[0] > winner_probs[1]:
                 print("The winner will be {}".format(team1))
@@ -132,8 +136,8 @@ class MatchupPredictor:
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
-    path = "models/models22/v3_1/"
-    model = "Linear_SVC_v3_1.pickle"
+    path = "models/models23/v23_0_0/"
+    model = "Linear_SVC_v23_0_0.pickle"
     feature_names = "featurenames.pickle"
     mp = MatchupPredictor(path+model, path+feature_names)
     mp.main(2023)

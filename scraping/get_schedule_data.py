@@ -1,7 +1,8 @@
 import pickle
-import requests
+from scraping.smart_request import smart_request
 import pandas as pd
-from get_roster_data import get_url_name
+from scraping.get_roster_data import get_url_name
+import os
 
 
 def get_schedule_stats(teams, year):
@@ -11,7 +12,9 @@ def get_schedule_stats(teams, year):
     Once data is collected, it saved to a pickle so that in the future, the request
     does not need to be made again"""
 
-    filename = f"schedule_data_{year}.pckl"
+    absolute_path = os.path.dirname(__file__)
+    full_path = os.path.join(absolute_path, "data")
+    filename = os.path.join(full_path, f"schedule_data_{year}.pckl")
     # First load the schedule data
     try:
         with open(filename, "rb") as f:
@@ -31,12 +34,13 @@ def get_schedule_stats(teams, year):
             # Go grab the html
             print(f"Making requests for {team} schedule data")
             url_team = get_url_name(team)
-            response = requests.get(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}-schedule.html")
+            response = smart_request(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}-schedule.html")
             team_schedule = str(response.content)
             team_schedule_df = pd.read_html(team_schedule)[1]
             # Fill nan opponents
             team_schedule_df["Opponent"] = team_schedule_df["Opponent"].fillna("None")
             # We really only care about ranked games so remove all games against unranked opponents
+            team_schedule_df = team_schedule_df.fillna("nan")
             team_schedule_df = team_schedule_df[team_schedule_df['Opponent'].str.contains('\d')]
             team_schedule_df = team_schedule_df[team_schedule_df['Type']!="NCAA"]
             # Calculate the stats we care about
@@ -51,7 +55,10 @@ def get_schedule_stats(teams, year):
                 team_row["opp_points_per_ranked"] = 0
                 team_row["margin_of_vict_ranked"] = 0
             else:
-                ranked_results = team_schedule_df['Unnamed: 8'].value_counts()
+                try:
+                    ranked_results = team_schedule_df['Unnamed: 8'].value_counts()
+                except KeyError:
+                    ranked_results = team_schedule_df['Unnamed: 7'].value_counts()
                 if 'W' in ranked_results:
                     team_row["ranked_wins"] = ranked_results['W']
                 else:

@@ -1,7 +1,8 @@
-import requests
 import pickle
 import pandas as pd
 import time
+from scraping.smart_request import smart_request
+import os
 
 NAME_LOOKUP = {
     "G": "games",
@@ -49,60 +50,71 @@ def has_number(input_string):
     return True
 
 def get_team_stats(year):
+    absolute_path = os.path.dirname(__file__)
+    full_path = os.path.join(absolute_path, "data")
+    filename = os.path.join(full_path, f"roster_data_{year}.pckl")
 
     try:
         print("Loading Data")
         # Load from file
-        f = open(f"basic_stats_{year}.pckl", "rb")
+        filename = os.path.join(full_path, f"basic_stats_{year}.pckl")
+        f = open(filename, "rb")
         school_stats = pickle.load(f)
         f.close()
-        f = open(f"advanced_stats_{year}.pckl", "rb")
+        filename = os.path.join(full_path, f"advanced_stats_{year}.pckl")
+        f = open(filename, "rb")
         adv_school_stats = pickle.load(f)
         f.close()
-        f = open(f"basic_opp_stats_{year}.pckl", "rb")
+        filename = os.path.join(full_path, f"basic_opp_stats_{year}.pckl")
+        f = open(filename, "rb")
         opp_school_stats = pickle.load(f)
         f.close()
-        f = open(f"advanced_opp_stats_{year}.pckl", "rb")
+        filename = os.path.join(full_path, f"advanced_opp_stats_{year}.pckl")
+        f = open(filename, "rb")
         opp_adv_school_stats = pickle.load(f)
         f.close()
     except FileNotFoundError:
         print("Making requests for team data")
         # Get basic stats
-        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/men/{year}-school-stats.html")
+        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-school-stats.html")
         school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open(f"basic_stats_{year}.pckl", "wb")
+        filename = os.path.join(full_path, f"basic_stats_{year}.pckl")
+        f = open(filename, "wb")
         pickle.dump(school_stats,f)
         f.close()
         time.sleep(1)
 
         # Get advanced stats
-        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/men/{year}-advanced-school-stats.html")
+        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-advanced-school-stats.html")
         adv_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open(f"advanced_stats_{year}.pckl", "wb")
+        filename = os.path.join(full_path, f"advanced_stats_{year}.pckl")
+        f = open(filename, "wb")
         pickle.dump(adv_school_stats, f)
         f.close()
         time.sleep(1)
 
         # Get basic opp stats
-        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/men/{year}-opponent-stats.html")
+        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-opponent-stats.html")
         opp_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open(f"basic_opp_stats_{year}.pckl", "wb")
+        filename = os.path.join(full_path, f"basic_opp_stats_{year}.pckl")
+        f = open(filename, "wb")
         pickle.dump(opp_school_stats, f)
         f.close()
         time.sleep(1)
 
         # Get advanced opponent stats
-        response = requests.get(f"https://www.sports-reference.com/cbb/seasons/{year}-advanced-opponent-stats.html")
+        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/{year}-advanced-opponent-stats.html")
         opp_adv_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
-        f = open(f"advanced_opp_stats_{year}.pckl", "wb")
+        filename = os.path.join(full_path, f"advanced_opp_stats_{year}.pckl")
+        f = open(filename, "wb")
         pickle.dump(opp_adv_school_stats, f)
         f.close()
 
@@ -129,24 +141,29 @@ def get_team_stats(year):
                 full_school_stats[sub] = full_school_stats[sub].str.replace(")", "")
                 full_school_stats[sub] = full_school_stats[sub].str.replace("\\'", "")
                 full_school_stats[sub] = full_school_stats[sub].str.replace("\\", "")
+                full_school_stats[sub] = full_school_stats[sub].str.replace(".", "")
             elif first == "Overall" and i == 0:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub].apply(has_number)]
+                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = column_data[column_data.apply(has_number)]
                 full_school_stats[NAME_LOOKUP[sub]] = pd.to_numeric(column_data)
             elif first == "Points" and i == 0:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub].apply(has_number)]
+                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = column_data[column_data.apply(has_number)]
                 if sub == "Tm.":
                     full_school_stats["points"] = pd.to_numeric(column_data)
                 else:
                     full_school_stats["opp_points"] = pd.to_numeric(column_data)
             elif first in ["Totals", "School Advanced"]:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub].apply(has_number)]
+                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = column_data[column_data.apply(has_number)]
                 full_school_stats[NAME_LOOKUP[sub]] = pd.to_numeric(column_data)
             elif first in ["Opponent","Opponent Advanced"]:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub].apply(has_number)]
+                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = column_data[column_data.apply(has_number)]
                 full_school_stats["opp_" + NAME_LOOKUP[sub]] = pd.to_numeric(column_data)
 
     # Add in implicit stats
