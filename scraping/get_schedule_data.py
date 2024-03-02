@@ -3,6 +3,7 @@ from scraping.smart_request import smart_request
 import pandas as pd
 from scraping.get_roster_data import get_url_name
 import os
+import numpy as np
 
 
 def get_schedule_stats(teams, year):
@@ -34,7 +35,8 @@ def get_schedule_stats(teams, year):
             # Go grab the html
             print(f"Making requests for {team} schedule data")
             url_team = get_url_name(team)
-            response = smart_request(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}-schedule.html")
+            link = f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}-schedule.html"
+            response = smart_request(link)
             team_schedule = str(response.content)
             team_schedule_df = pd.read_html(team_schedule)[1]
             # Fill nan opponents
@@ -43,6 +45,12 @@ def get_schedule_stats(teams, year):
             team_schedule_df = team_schedule_df.fillna("nan")
             team_schedule_df = team_schedule_df[team_schedule_df['Opponent'].str.contains('\d')]
             team_schedule_df = team_schedule_df[team_schedule_df['Type']!="NCAA"]
+            # Remove any games where the winner isnt listed (this should only happen midseason)
+            old_len = len(team_schedule_df)
+            team_schedule_df["W"] = team_schedule_df["W"].replace("nan", np.nan)
+            team_schedule_df.dropna(axis=0, subset=["W"], inplace=True)
+            if len(team_schedule_df) != old_len:
+                print(f"{old_len-(team_schedule_df)} games did not have a result. Verify this is correct.\n{link}")
             # Calculate the stats we care about
             team_row = {}
             team_row["School"] = team.upper()
@@ -81,7 +89,8 @@ def get_schedule_stats(teams, year):
             # Turn row into a dataframe and add to bigger dataframe
             team_row_df = pd.DataFrame(team_row, index=[0])
             team_row_df.set_index("School", inplace=True)
-            schedule_data = schedule_data.append(team_row_df)
+            # schedule_data = schedule_data.append(team_row_df)
+            schedule_data = pd.concat([schedule_data, team_row_df])
 
 
     if updated:

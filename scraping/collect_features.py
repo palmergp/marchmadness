@@ -72,19 +72,22 @@ def reformat_name(name):
         name = name.replace(")", "")
     return name.upper()
 
-def collect_features(feature_list):
+
+def collect_features(recalculate=False):
     """This function compiles the features for all games to be used as training data"""
 
     # Load previous training data if it exists
     absolute_path = os.path.dirname(__file__)
     full_path = os.path.join(absolute_path, "data")
     filename = os.path.join(full_path, f"training_data.pckl")
-    # First load the schedule data
-    try:
+    # See if the training data already exists
+    if os.path.isfile(filename) and not recalculate:
         with open(filename, "rb") as f:
             training_data = pickle.load(f)
-    except FileNotFoundError:
-        print("Could not find file. Assuming this is the first attempt at getting schedule data")
+    else:
+        # If the file doesn't exist or the recalculate flag was raised,
+        # start collecting training data
+        print("Recalculating training data")
         training_data = pd.DataFrame()
 
         # Get the current year
@@ -92,8 +95,10 @@ def collect_features(feature_list):
         # Get data from 2011 to last year
         for year in range(2011, curr_year):
 
+            # Due to COVID, the 2020 tournament was canceled, therefore, it cannot be used for training
             if year == 2020:
                 continue
+
             # Check if the year's data is already in training data
             if not training_data.empty and training_data['year'].isin([year]).any():
                 continue
@@ -150,12 +155,11 @@ def collect_features(feature_list):
                 training_data = training_data.append(game_row)
         # Save training data
         with open(filename, "wb") as f:
-            pickle.dump(training_data,f)
+            pickle.dump(training_data, f)
     return training_data
             
 
 if __name__ == "__main__":
-    featurenames = ['favorite_seed', 'underdog_seed', 'seed_diff', 'favorite_assist_percentage', 'underdog_assist_percentage', 'favorite_block_percentage', 'underdog_block_percentage', 'favorite_effective_field_goal_percentage', 'underdog_effective_field_goal_percentage', 'favorite_free_throw_percentage', 'underdog_free_throw_percentage', 'favorite_free_throws_per_field_goal_attempt', 'underdog_free_throws_per_field_goal_attempt', 'favorite_offensive_rating', 'underdog_offensive_rating', 'favorite_offensive_rebound_percentage', 'underdog_offensive_rebound_percentage', 'favorite_opp_effective_field_goal_percentage', 'underdog_opp_effective_field_goal_percentage', 'favorite_opp_free_throws_per_field_goal_attempt', 'underdog_opp_free_throws_per_field_goal_attempt', 'favorite_opp_offensive_rebound_percentage', 'underdog_opp_offensive_rebound_percentage', 'favorite_opp_three_point_field_goal_percentage', 'underdog_opp_three_point_field_goal_percentage', 'favorite_opp_two_point_field_goal_percentage', 'underdog_opp_two_point_field_goal_percentage', 'favorite_opp_total_rebound_percentage', 'underdog_opp_total_rebound_percentage', 'favorite_opp_true_shooting_percentage', 'underdog_opp_true_shooting_percentage', 'favorite_opp_turnover_percentage', 'underdog_opp_turnover_percentage', 'favorite_pace', 'underdog_pace', 'favorite_points', 'underdog_points', 'favorite_simple_rating_system', 'underdog_simple_rating_system', 'favorite_steal_percentage', 'underdog_steal_percentage', 'favorite_strength_of_schedule', 'underdog_strength_of_schedule', 'favorite_three_point_attempt_rate', 'underdog_three_point_attempt_rate', 'favorite_three_point_field_goal_percentage', 'underdog_three_point_field_goal_percentage', 'favorite_two_point_field_goal_percentage', 'underdog_two_point_field_goal_percentage', 'favorite_total_rebound_percentage', 'underdog_total_rebound_percentage', 'favorite_true_shooting_percentage', 'underdog_true_shooting_percentage', 'favorite_turnover_percentage', 'underdog_turnover_percentage', 'favorite_win_percentage', 'underdog_win_percentage', 'favorite_top5_total_per', 'underdog_top5_total_per', 'favorite_top_per_percentage', 'underdog_top_per_percentage', 'favorite_ranked_wins', 'underdog_ranked_wins', 'favorite_ranked_losses', 'underdog_ranked_losses', 'favorite_ranked_win_percentage', 'underdog_ranked_win_percentage', 'favorite_points_per_ranked', 'underdog_points_per_ranked', 'favorite_opp_points_per_ranked', 'underdog_opp_points_per_ranked', 'favorite_margin_of_vict_ranked', 'underdog_margin_of_vict_ranked']
-    training_data = collect_features(featurenames)
+    t_data = collect_features(True)
 
 

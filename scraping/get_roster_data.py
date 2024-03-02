@@ -64,7 +64,11 @@ def get_roster_stats(teams, year):
             url_team = get_url_name(team)
             response = smart_request(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}.html")
             team_roster = str(response.content)
-            team_roster_df = pd.read_html(team_roster)[13]
+            team_roster_df = pd.read_html(team_roster)
+            if len(team_roster_df) > 10:  # Some teams have conference stats and season
+                team_roster_df = team_roster_df[-2]  # Get the advanced stats
+            else:  # Others just have season totals
+                team_roster_df = team_roster_df[-1]  # Get the advanced stats
 
             # Calculate the stats we care about
             team_row = {}

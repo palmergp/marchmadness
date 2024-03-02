@@ -1,7 +1,11 @@
 import pickle
-from FeatureGenerator import reformat_name, get_per_stats, get_ranked_stats
-from sportsipy.ncaab.teams import Team, Roster, Teams
+from scraping.collect_features import reformat_name
 import json
+from scraping.get_team_data import get_team_stats
+from scraping.get_schedule_data import get_schedule_stats
+from scraping.get_roster_data import get_roster_stats
+from datetime import datetime
+
 
 class MatchupPredictor:
 
@@ -20,126 +24,123 @@ class MatchupPredictor:
         result = self.model.predict(data)
         return result
 
-    def main(self):
-        print("Starting 2022 March Madness Predictor!")
-        print("Loading 2022 team data...")
-        all_teams = Teams(2022)
+    def main(self, year):
+        print(f"Starting {year} March Madness Predictor!")
+        print(f"Loading {year} team data...")
+        all_teams = get_team_stats(year)
         print("Team Data loaded")
         while True:
             # Get team 1 info
             not_loaded = True
             while not_loaded:
-                team1 = input("Team1 Name: ")
-                team1_seed_true = int(input("Team1 Seed: "))
+                first = input("Team1 Name: ")
+                first_seed_true = int(input("Team1 Seed: "))
                 try:
                     print("Fetching team stats...")
-                    team1_data_true = all_teams.dataframes.loc[reformat_name(team1)]
-                    team1_roster_true = all_teams[reformat_name(team1)].roster.players
-                    team1_schedule_true = all_teams[reformat_name(team1)].schedule.dataframe
-                    print("Successfully loaded 2022 stats for {}".format(team1))
+                    first_data_true = all_teams.loc[reformat_name(first)]
+                    first_roster_true = get_roster_stats([reformat_name(first)], year).loc[reformat_name(first)]
+                    first_schedule_true = get_schedule_stats([reformat_name(first)], year).loc[reformat_name(first)]
+                    print("Successfully loaded {} stats for {}".format(year, first))
                     not_loaded = False
-                except KeyError:
-                    print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(team1))
+                except KeyError as e:
+                    print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(first))
                     print(all_teams)
+                    print(e)
             # Get Team2 info
             not_loaded = True
             while not_loaded:
-                team2 = input("Team2 Name: ")
-                team2_seed_true = int(input("Team2 Seed: "))
+                second = input("Team2 Name: ")
+                second_seed_true = int(input("Team2 Seed: "))
                 try:
-                    print("Fetching team data...")
-                    team2_data_true = all_teams.dataframes.loc[reformat_name(team2)]
-                    team2_roster_true = all_teams[reformat_name(team2)].roster.players
-                    team2_schedule_true = all_teams[reformat_name(team2)].schedule.dataframe
-                    print("Successfully loaded 2022 stats for {}".format(team2))
+                    second_data_true = all_teams.loc[reformat_name(second)]
+                    second_roster_true = get_roster_stats([reformat_name(second)], year).loc[reformat_name(second)]
+                    second_schedule_true = get_schedule_stats([reformat_name(second)], year).loc[reformat_name(second)]
+                    print("Successfully loaded {} stats for {}".format(year, second))
                     not_loaded = False
-                except KeyError:
-                    print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(team2))
+                except KeyError as e:
+                    print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(second))
                     print(all_teams)
+                    print(e)
             round_num = int(input("Round: "))
             print("Formatting data for prediction")
 
+            # Make sure team 1 is the lower seed
+            if first_seed_true <= second_seed_true:
+                team1 = first
+                team2 = second
+                team1_seed = first_seed_true
+                team1_roster = first_roster_true
+                team1_data = first_data_true
+                team1_schedule = first_schedule_true
+                team2_seed = second_seed_true
+                team2_roster = second_roster_true
+                team2_data = second_data_true
+                team2_schedule = second_schedule_true
+            else:
+                team2=first
+                team1=second
+                team2_seed = first_seed_true
+                team2_roster = first_roster_true
+                team2_data = first_data_true
+                team2_schedule = first_schedule_true
+                team1_seed = second_seed_true
+                team1_roster = second_roster_true
+                team1_data = second_data_true
+                team1_schedule = second_schedule_true
+            print("{} {} is being used as the high seed and {} {}  is being used as the low seed".format(team2_seed,team2,team1_seed,team1))
             # Get player and schedule stats
-            top5_total_per, top_per_percentage = get_per_stats(team1_roster_true)
-            sch_stats = get_ranked_stats(team1_schedule_true)
-            team1_data_true["top5_total_per"] = top5_total_per
-            team1_data_true["top_per_percentage"] = top_per_percentage
-            for sch_stat in sch_stats:
-                team1_data_true[sch_stat] = sch_stats[sch_stat]
-            top5_total_per, top_per_percentage = get_per_stats(team2_roster_true)
-            sch_stats = get_ranked_stats(team2_schedule_true)
-            team2_data_true["top5_total_per"] = top5_total_per
-            team2_data_true["top_per_percentage"] = top_per_percentage
-            for sch_stat in sch_stats:
-                team2_data_true[sch_stat] = sch_stats[sch_stat]
+            #top5_total_per, top_per_percentage = get_per_stats(team1_roster)
+            #sch_stats = get_ranked_stats(team1_schedule)
+            team1_data["top5_per_total"] = team1_roster["top5_per_total"]
+            team1_data["top_per_percentage"] = team1_roster["top_per_percentage"]
+            for sch_stat in team1_schedule.index:
+                team1_data[sch_stat] = team1_schedule[sch_stat]
+            #top5_total_per, top_per_percentage = get_per_stats(team2_roster)
+            #sch_stats = get_ranked_stats(team2_schedule)
+            team2_data["top5_per_total"] = team1_roster["top5_per_total"]
+            team2_data["top_per_percentage"] = team1_roster["top_per_percentage"]
+            for sch_stat in team2_schedule.index:
+                team2_data[sch_stat] = team2_schedule[sch_stat]
 
-            # Run twice to reduce entry order bias
-            total_probs = []
-            for i in range(0, 2):
-                # Flip so that each team is team1 and team2
-                if i == 0:
-                    team1_seed = team1_seed_true
-                    team1_roster = team1_roster_true
-                    team1_data = team1_data_true
-                    team2_seed = team2_seed_true
-                    team2_roster = team2_roster_true
-                    team2_data = team2_data_true
+            # Get Bracket features
+            predict_data = []
+            for feat in self.features:
+                if feat == "Round":
+                    predict_data.append(round_num)
+                elif feat == "favorite_seed":
+                    predict_data.append(team1_seed)
+                elif feat == "underdog_seed":
+                    predict_data.append(team2_seed)
+                elif feat == "SeedDiff":
+                    predict_data.append(abs(team1_seed - team2_seed))
                 else:
-                    team1_seed = team2_seed_true
-                    # team1_roster = team2_roster_true
-                    team1_data = team2_data_true
-                    team2_seed = team1_seed_true
-                    # team2_roster = team1_roster_true
-                    team2_data = team1_data_true
-                # Get Bracket features
-                predict_data = []
-                for feat in self.features:
-                    if feat == "Round":
-                        predict_data.append(round_num)
-                    elif feat == "Team1Seed":
-                        predict_data.append(team1_seed)
-                    elif feat == "Team2Seed":
-                        predict_data.append(team2_seed)
-                    elif feat == "SeedDiff":
-                        predict_data.append(abs(team1_seed - team2_seed))
-                    # elif feat == "Team1top5_total_per":
-                    #     top5_total_per, top_per_percentage = get_per_stats(team1_roster)
-                    #     predict_data.append(top5_total_per)
-                    # elif feat == "Team2top5_total_per":
-                    #     top5_total_per, top_per_percentage = get_per_stats(team2_roster)
-                    #     predict_data.append(top5_total_per)
-                    # elif feat == "Team1top_per_percentage":
-                    #     top5_total_per, top_per_percentage = get_per_stats(team1_roster)
-                    #     predict_data.append(top_per_percentage)
-                    # elif feat == "Team2top_per_percentage":
-                    #     top5_total_per, top_per_percentage = get_per_stats(team2_roster)
-                    #     predict_data.append(top_per_percentage)
+                    if "favorite" in feat:
+                        predict_data.append(team1_data[feat.replace("favorite_","")])
                     else:
-                        if "Team1" in feat:
-                            predict_data.append(team1_data[feat.replace("Team1","")])
-                        else:
-                            predict_data.append(team2_data[feat.replace("Team2","")])
+                        predict_data.append(team2_data[feat.replace("underdog_","")])
 
-                # Make prediction
-                print("Making prediction")
-                winner_probs = self.model.predict_proba([predict_data])[0]
-                total_probs.append(winner_probs)
-            real_probs = [(total_probs[0][0] + total_probs[1][1]) / 2, (total_probs[0][1] + total_probs[1][0]) / 2]
+            # Make prediction
+            print("Making prediction")
+            winner_probs = self.model.predict_proba([predict_data])[0]
+            # load feature names
+            with open(r"C:\Users\gppal\PycharmProjects\marchmadness\models\models23\v23_0_0\featurenames.pickle", "rb") as f:
+                pickle.load(f)
             print("\n-------------------------------------")
-            if real_probs[0] > real_probs[1]:
+            if winner_probs[0] > winner_probs[1]:
                 print("The winner will be {}".format(team1))
-                print("Probability split:\n\t{}: {}\n\t{}: {}".format(team1, real_probs[0], team2, real_probs[1]))
-            elif real_probs[0] <= real_probs[1]:
+                print("Probability split:\n\t{}: {}\n\t{}: {}".format(team1, winner_probs[0], team2, winner_probs[1]))
+            elif winner_probs[0] <= winner_probs[1]:
                 print("The winner will be {}".format(team2))
-                print("Probability split:\n\t{}: {}\n\t{}: {}".format(team1, real_probs[0], team2, real_probs[1]))
+                print("Probability split:\n\t{}: {}\n\t{}: {}".format(team1, winner_probs[0], team2, winner_probs[1]))
             else:
                 print("Error: Returned value was unexpected!!")
             print("-------------------------------------\n")
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
-    path = "models/models22/v3_1/"
-    model = "Logistic_Regression_v3_1.pickle"
+    path = "models/models24/v24_0_0/"
+    model = "Random_Forest_v24_0_0.pickle"
     feature_names = "featurenames.pickle"
     mp = MatchupPredictor(path+model, path+feature_names)
-    mp.main()
+    now = datetime.now()
+    mp.main(now.year)

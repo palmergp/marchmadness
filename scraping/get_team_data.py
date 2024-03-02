@@ -43,17 +43,25 @@ NAME_LOOKUP = {
     "FT/FGA": "free_throws_per_field_goal_attempt"
 }
 
+
 def has_number(input_string):
     for c in input_string:
         if not c.isdigit() and c != "." and c != "-":
             return False
     return True
 
+
 def get_team_stats(year):
+    """Collects the stats for all relevant teams for a given year. If the stats have already been collected once, they
+    are loaded from file. If not, they are recollected and saved into the data folder
+    Input:
+        - year: (int) Year to collect team data for"""
+
+    # Data is saved in the data folder adjacent to this file
     absolute_path = os.path.dirname(__file__)
     full_path = os.path.join(absolute_path, "data")
-    filename = os.path.join(full_path, f"roster_data_{year}.pckl")
 
+    # Try loading the data from the saved dataset
     try:
         print("Loading Data")
         # Load from file
@@ -73,6 +81,7 @@ def get_team_stats(year):
         f = open(filename, "rb")
         opp_adv_school_stats = pickle.load(f)
         f.close()
+    # If one of the files doesn't exist, recollect the data
     except FileNotFoundError:
         print("Making requests for team data")
         # Get basic stats
@@ -135,13 +144,13 @@ def get_team_stats(year):
                 column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub] != "School"].dropna()
                 full_school_stats[sub] = column_data
                 full_school_stats[sub] = full_school_stats[sub].str.upper()
-                full_school_stats[sub] = full_school_stats[sub].str.replace("\\xa0NCAA", "")
-                full_school_stats[sub] = full_school_stats[sub].str.replace(" ", "-")
-                full_school_stats[sub] = full_school_stats[sub].str.replace("(", "")
-                full_school_stats[sub] = full_school_stats[sub].str.replace(")", "")
-                full_school_stats[sub] = full_school_stats[sub].str.replace("\\'", "")
-                full_school_stats[sub] = full_school_stats[sub].str.replace("\\", "")
-                full_school_stats[sub] = full_school_stats[sub].str.replace(".", "")
+                full_school_stats[sub] = full_school_stats[sub].str.replace("\\xa0NCAA", "", regex=True)
+                full_school_stats[sub] = full_school_stats[sub].str.replace(" ", "-", regex=True)
+                full_school_stats[sub] = full_school_stats[sub].str.replace("(", "", regex=True)
+                full_school_stats[sub] = full_school_stats[sub].str.replace(")", "", regex=True)
+                full_school_stats[sub] = full_school_stats[sub].str.replace("\\'", "", regex=True)
+                full_school_stats[sub] = full_school_stats[sub].str.replace("\\", "", regex=True)
+                full_school_stats[sub] = full_school_stats[sub].str.replace(".", "", regex=True)
             elif first == "Overall" and i == 0:
                 # Remove any rows that do not have a number
                 column_data = dataframes[i][0][first][sub].fillna("0")
@@ -210,7 +219,9 @@ def get_team_stats(year):
                        'turnover_percentage', 'turnovers', 'win_percentage']
     for s in team_stats:
         if s not in full_school_stats.columns:
+            # Found a missing stat
             print(f"Missing {s}")
+
     return full_school_stats
 
 

@@ -1,6 +1,7 @@
 import json
 import pickle
 import os
+import yaml
 import numpy as np
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
@@ -14,7 +15,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
 
-def train(datapath,featurepath,model_set):
+def train(datapath,featurepath,model_set,outpath,model_names):
 
     # Load featurelist
     with open(featurepath,"r") as f:
@@ -36,8 +37,8 @@ def train(datapath,featurepath,model_set):
     train_labels = data['favorite_label'].tolist()
     featurenames = list(filtered_data.columns)
 
-    model_names = ["Gaussian_Naive_Bayes", "Neural_Network", "Logistic_Regression", "Linear_SVC",
-                   "KNN", "Gaussian_RBF", "Decision_Tree", "Random_Forest", "Adaboost"]
+    #model_names = ["Gaussian_Naive_Bayes", "Neural_Network", "Logistic_Regression", "Linear_SVC",
+    #               "KNN", "Gaussian_RBF", "Decision_Tree", "Random_Forest", "Adaboost"]
     #model_names =["Gaussian_Naive_Bayes"]
 
     # Create and fit the selector object
@@ -104,31 +105,31 @@ def train(datapath,featurepath,model_set):
 
     # Save off models
     if model_set:
-        outpath = "models/models23/{}".format(model_set)
+        outpath_full = f"./{outpath}{model_set}"
         try:
-            os.mkdir(outpath)
+            os.mkdir(outpath_full)
         except FileExistsError:
             pass
 
         # save models
         for m in model_names:
-            with open(outpath + "/" + m + "_" + model_set + ".pickle", 'wb') as f:
+            with open(outpath_full + "/" + m + "_" + model_set + ".pickle", 'wb') as f:
                 pickle.dump(models[m], f)
                 f.close()
 
         # Save accuracies
-        with open(outpath + "/accuracy.txt", "w") as f:
+        with open(outpath_full + "/accuracy.txt", "w") as f:
             for i in range(0, len(model_names)):
                 f.write("{}: {}\n".format(model_names[i], results[i]))
 
         # Save feature names
-        with open(outpath + "/featurenames.pickle", "wb") as f:
+        with open(outpath_full + "/featurenames.pickle", "wb") as f:
             pickle.dump(featurenames, f)
             f.close()
 
 
 if __name__ == '__main__':
-    feature_list = './featuresets/featuresets23/v23_0_0/featurenames_selected.json'
-    data = './scraping/data/training_data.pckl'
-    version = 'v23_0_0'
-    train(data,feature_list,version)
+    # Load the config'
+    with open("./configs/trainer_config.yml", 'r') as file:
+        config = yaml.safe_load(file)
+    train(config["data"], config["feature_list"], config["version"], config["outpath"], config["model_names"])

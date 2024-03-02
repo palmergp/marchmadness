@@ -1,0 +1,14 @@
+feature_list: featuresets/featuresets23/v23_0_0/featurenames_selected.json
+data: scraping/data/training_data.pckl
+version: v24_0_0
+outpath: models/models24/
+model_names:
+  - Gaussian_Naive_Bayes
+  #- Neural_Network
+  #- Logistic_Regression
+  #- Linear_SVC
+  #- KNN
+  #- Gaussian_RBF
+  #- Decision_Tree
+  - Random_Forest
+  #- Adaboost
