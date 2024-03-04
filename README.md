@@ -28,7 +28,9 @@ modifying the trainer config file in the configs folder. You have the following 
 - model_names: List of all models that should be created
 
 # Predicting a Bracket
-Also will add this... eventually
+For now, you need to manually go through each individual matchup and fill our your bracket. Eventually, I would like to
+make it so that you can upload a single file and it will predict the full bracket on its own. We'll see if I ever get to
+that.
 
 ## Data Sources
 Data is scrapped from the sportsreference.com page
@@ -41,6 +43,102 @@ This section details the various features used for a classification. There are 4
 4. Schedule Stats
 
 ## Basic Stats
-Basic stats are you standard metrics used to look at how a team performs. When collecting basic stats, the stats are <br>
+Basic stats are you standard metrics used to look at how a team performs. When collecting basic stats, the stats are
 collected for both the team and opposing teams against that team. Below is a list of all basic stat features:
-- 
+
+## Advanced Stats
+Advanced stats come from the advanced metrics table on the team page. These stats are collected for both the team and
+opponent teams
+
+## Roster Stats
+Roster stats look at the individual players on the team
+
+## Schedule Stats
+Schedule stats look at the teams that the team has played, specifically ranked teams, to determine how they perform
+against other good teams
+
+## Full list of features
+For each feature, there is a version for both the favorite and the underdog team
+- seed: The seed the team has going into the tournament
+- win_percentage: The teams win percentage during the regular season
+- simple_rating_system: The team's simple rating system value
+- strength_of_schedule: The strength of schedule during the regular season
+- points: Total points scored during the regular season
+- opp_points: Total points allowed during the regular season
+- field_goals: Total number of field goals made in the regular season
+- field_goal_attempts: Total number of field goals attempted during the regular season
+- field_goal_percentage: Field goal percentage during the season
+- three_point_field_goals: Total number of 3 pointers attempted during the season
+- three_point_field_goal_attempts: Total number of 3 pointers attempted
+- three_point_field_goal_percentage
+- free_throws
+- free_throw_attempts
+- free_throw_percentage
+- offensive_rebounds
+- total_rebounds
+- assists
+- steals
+- blocks
+- turnovers
+- personal_fouls
+- pace
+- offensive_rating
+- free_throw_attempt_rate
+- three_point_attempt_rate
+- true_shooting_percentage
+- total_rebound_percentage
+- assist_percentage
+- steal_percentage
+- block_percentage
+- effective_field_goal_percentage
+- turnover_percentage
+- offensive_rebound_percentage
+- free_throws_per_field_goal_attempt
+- opp_minutes_played
+- opp_field_goals
+- opp_field_goal_attempts
+- opp_field_goal_percentage
+- opp_three_point_field_goals
+- opp_three_point_field_goal_attempts
+- opp_three_point_field_goal_percentage
+- opp_free_throws
+- opp_free_throw_attempts
+- opp_free_throw_percentage
+- opp_offensive_rebounds
+- opp_total_rebounds
+- opp_assists
+- opp_steals
+- opp_blocks
+- opp_turnovers
+- opp_personal_fouls
+- opp_pace
+- opp_offensive_rating
+- opp_free_throw_attempt_rate
+- opp_three_point_attempt_rate
+- opp_true_shooting_percentage
+- opp_total_rebound_percentage
+- opp_assist_percentage
+- opp_steal_percentage
+- opp_block_percentage
+- opp_effective_field_goal_percentage
+- opp_turnover_percentage
+- opp_offensive_rebound_percentage
+- opp_free_throws_per_field_goal_attempt
+- defensive_rebounds
+- two_point_field_goals
+- two_point_field_goal_attempts
+- two_point_field_goal_percentage
+- opp_defensive_rebounds
+- opp_two_point_field_goals
+- opp_two_point_field_goal_attempts
+- opp_two_point_field_goal_percentage
+- games_played
+- ranked_wins
+- ranked_losses
+- ranked_win_percentage
+- points_per_ranked
+- opp_points_per_ranked
+- margin_of_vict_ranked
+- top5_per_total
+- top_per_percentage
+- seed_diff

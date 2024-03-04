@@ -15,12 +15,31 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
 
-def train(datapath,featurepath,model_set,outpath,model_names):
+
+def train(datapath, featurepath, model_set, outpath, model_names):
+    """The train function performs the training process based on the input provided
+    Input:
+        - datapath: (str) path to the data file containing all feature data
+        - featurepath: (str) path to file detailing the full list of features to use when training
+        - model_set: (str) a tag indicating the model version. Used when making the output folder
+        - outpath: (str) path to where the output data should be saved. A new folder will be created in this location
+        - model_names: (str) list of algorithms to be used. A separate model will be created for each. Must be one of
+                        the following options:
+                        - Gaussian_Naive_Bayes
+                        - Neural_Network
+                        - Logistic_Regression
+                        - Linear_SVC
+                        - KNN
+                        - Gaussian_RBF
+                        - Decision_Tree
+                        - Random_Forest
+                        - Adaboost
+    """
 
     # Load featurelist
-    with open(featurepath,"r") as f:
+    with open(featurepath, "r") as f:
         featurenames_short = json.load(f)
-    with open(datapath,'rb') as f:
+    with open(datapath, 'rb') as f:
         data = pickle.load(f)
 
     all_featurenames = ["SeedDiff"]
@@ -36,10 +55,6 @@ def train(datapath,featurepath,model_set,outpath,model_names):
     training_data = filtered_data.values.tolist()
     train_labels = data['favorite_label'].tolist()
     featurenames = list(filtered_data.columns)
-
-    #model_names = ["Gaussian_Naive_Bayes", "Neural_Network", "Logistic_Regression", "Linear_SVC",
-    #               "KNN", "Gaussian_RBF", "Decision_Tree", "Random_Forest", "Adaboost"]
-    #model_names =["Gaussian_Naive_Bayes"]
 
     # Create and fit the selector object
     selector = SelectKBest(f_classif, k=72)
@@ -87,12 +102,8 @@ def train(datapath,featurepath,model_set,outpath,model_names):
 
         model = clf.fit(training_data, train_labels)
         models[m] = clf
-        # preds = clf.predict(test)
-        # results.append(accuracy_score(test_labels, preds))
         scores = cross_val_score(clf, training_data, train_labels, cv=5, scoring='f1_macro')
         results.append(scores.mean())
-
-
 
     # Order from least accurate to most
     z = zip(results, model_names)
