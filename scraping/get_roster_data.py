@@ -2,8 +2,37 @@ import pickle
 from scraping.smart_request import smart_request
 import pandas as pd
 import os
+import re
+
+PLAYER_EXP = {
+    "SR": 3,
+    "JR": 2,
+    "SO": 1,
+    "FT": 0
+}
+
+
+def convert_height(height):
+    """Takes a height string of format feet-inches and converts it to inches"""
+    height = height.split("-")
+    inch_height = int(height[0])*12 + int(height[1])
+    return inch_height
+
+
+def calculate_weighted_avg(info, stats, feature):
+    """Calculates the average of an info feature, weighted by a player's minutes played"""
+    total_mp = stats["MP"].sum()
+    total = 0
+    for player in list(info["Player"]):
+        # Player value of feature * (minutes played / team minutes played)
+        total += info.loc[info['Player'] == player, feature].values[0] * \
+                 stats.loc[stats['Player'] == player, 'MP'].values[0] / total_mp
+    # Divide the total by the total number of players
+    total = total / len(list(info["Players"]))
+    return total
 
 def get_url_name(name):
+    """Translates college names to the representation used by sports reference in their URLs"""
     if name == 'TCU':
         url_name = 'texas-christian'
     elif name == 'UAB':
@@ -33,6 +62,7 @@ def get_url_name(name):
     else:
         url_name = name.lower().replace("(", "").replace(")", "").replace("&","")
     return url_name
+
 
 def get_roster_stats(teams, year):
     """Gets the roster data for each team in the list
@@ -65,16 +95,31 @@ def get_roster_stats(teams, year):
             response = smart_request(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}.html")
             team_roster = str(response.content)
             team_roster_df = pd.read_html(team_roster)
+            team_roster_info_df = team_roster_df[0]
             if len(team_roster_df) > 10:  # Some teams have conference stats and season
-                team_roster_df = team_roster_df[-2]  # Get the advanced stats
+                team_roster_adv_df = team_roster_df[-2]  # Get the advanced stats
             else:  # Others just have season totals
-                team_roster_df = team_roster_df[-1]  # Get the advanced stats
+                team_roster_adv_df = team_roster_df[-1]  # Get the advanced stats
 
-            # Calculate the stats we care about
+            # Calculate the advanced stats we care about
             team_row = {}
             team_row["School"] = team.upper()
-            team_row["top5_per_total"] = team_roster_df['PER'].nlargest(5).sum()
-            team_row["top_per_percentage"] = team_roster_df['PER'].max() / team_row["top5_per_total"]
+            team_row["top5_per_total"] = team_roster_adv_df['PER'].nlargest(5).sum()
+            team_row["top_per_percentage"] = team_roster_adv_df['PER'].max() / team_row["top5_per_total"]
+
+            # Calculate the basic stats
+            # Avg height, weight, and experience weighted by minutes played
+            team_row["weighted_avg_height"] = calculate_weighted_avg(team_roster_info_df, team_roster_adv_df, "Height")
+            team_row["weighted_avg_weight"] = calculate_weighted_avg(team_roster_info_df, team_roster_adv_df, "Weight")
+            team_row["weighted_avg_exp"] = calculate_weighted_avg(team_roster_info_df, team_roster_adv_df, "Class")
+
+            # Get returning points and minutes
+            team_row["returning_minutes"] = float(re.findall(r'(\d+(?:\.\d+)?)% of minutes played and',
+                response.content.decode('utf-8'))[0])
+            team_row["returning_points"] = float(re.findall(r'(\d+(?:\.\d+)?)% of scoring return from ',
+                response.content.decode('utf-8'))[0])
+
+
             # Turn row into a dataframe and add to bigger dataframe
             team_row_df = pd.DataFrame(team_row, index=[0])
             team_row_df.set_index("School", inplace=True)
@@ -90,4 +135,4 @@ def get_roster_stats(teams, year):
 
 
 if __name__ == "__main__":
-    get_roster_stats(["Alabama", "Houston"], 2023)
+    get_roster_stats(["Alabama", "Houston"], 2024)
