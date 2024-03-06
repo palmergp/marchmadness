@@ -5,17 +5,17 @@ import os
 import re
 
 PLAYER_EXP = {
-    "SR": 3,
-    "JR": 2,
-    "SO": 1,
-    "FT": 0
+    "SR": 4,
+    "JR": 3,
+    "SO": 2,
+    "FR": 1
 }
 
 
 def convert_height(height):
     """Takes a height string of format feet-inches and converts it to inches"""
     height = height.split("-")
-    inch_height = int(height[0])*12 + int(height[1])
+    inch_height = int(height[0]) * 12 + int(height[1])
     return inch_height
 
 
@@ -23,13 +23,12 @@ def calculate_weighted_avg(info, stats, feature):
     """Calculates the average of an info feature, weighted by a player's minutes played"""
     total_mp = stats["MP"].sum()
     total = 0
-    for player in list(info["Player"]):
+    for player in list(stats["Player"]):
         # Player value of feature * (minutes played / team minutes played)
         total += info.loc[info['Player'] == player, feature].values[0] * \
-                 stats.loc[stats['Player'] == player, 'MP'].values[0] / total_mp
-    # Divide the total by the total number of players
-    total = total / len(list(info["Players"]))
+                 (stats.loc[stats['Player'] == player, 'MP'].values[0] / total_mp)
     return total
+
 
 def get_url_name(name):
     """Translates college names to the representation used by sports reference in their URLs"""
@@ -60,7 +59,7 @@ def get_url_name(name):
     elif name == "TCU":
         url_name = "texas-christian"
     else:
-        url_name = name.lower().replace("(", "").replace(")", "").replace("&","")
+        url_name = name.lower().replace("(", "").replace(")", "").replace("&", "")
     return url_name
 
 
@@ -101,6 +100,10 @@ def get_roster_stats(teams, year):
             else:  # Others just have season totals
                 team_roster_adv_df = team_roster_df[-1]  # Get the advanced stats
 
+            # Convert class to experience and height to inches
+            team_roster_info_df["Class"] = team_roster_info_df['Class'].map(PLAYER_EXP)
+            team_roster_info_df["Height"] = team_roster_info_df['Height'].apply(convert_height)
+
             # Calculate the advanced stats we care about
             team_row = {}
             team_row["School"] = team.upper()
@@ -115,10 +118,9 @@ def get_roster_stats(teams, year):
 
             # Get returning points and minutes
             team_row["returning_minutes"] = float(re.findall(r'(\d+(?:\.\d+)?)% of minutes played and',
-                response.content.decode('utf-8'))[0])
+                                                             response.content.decode('utf-8'))[0])
             team_row["returning_points"] = float(re.findall(r'(\d+(?:\.\d+)?)% of scoring return from ',
-                response.content.decode('utf-8'))[0])
-
+                                                            response.content.decode('utf-8'))[0])
 
             # Turn row into a dataframe and add to bigger dataframe
             team_row_df = pd.DataFrame(team_row, index=[0])
@@ -128,7 +130,7 @@ def get_roster_stats(teams, year):
     if updated:
         # Save off changes
         with open(filename, "wb") as f:
-            pickle.dump(roster_data,f)
+            pickle.dump(roster_data, f)
 
     print("Done!!")
     return roster_data
