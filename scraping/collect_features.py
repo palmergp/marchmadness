@@ -2,10 +2,10 @@ import datetime
 import os
 import pickle
 import pandas as pd
-from get_tournament_data import get_tournament_data
-from get_team_data import get_team_stats
-from get_schedule_data import get_schedule_stats
-from get_roster_data import get_roster_stats
+from scraping.get_tournament_data import get_tournament_data
+from scraping.get_team_data import get_team_stats
+from scraping.get_schedule_data import get_schedule_stats
+from scraping.get_roster_data import get_roster_stats
 
 name_dict = {
     "UNC Asheville": "UNC-ASHEVILLE",

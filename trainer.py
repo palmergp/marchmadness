@@ -14,6 +14,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
+import shapely_plots as shap
+import pandas as pd
 
 
 def train(datapath, featurepath, model_set, outpath, model_names):
@@ -35,6 +37,8 @@ def train(datapath, featurepath, model_set, outpath, model_names):
                         - Random_Forest
                         - Adaboost
     """
+    # Set outpath
+    outpath_full = f"./{outpath}{model_set}"
 
     # Load featurelist
     with open(featurepath, "r") as f:
@@ -77,6 +81,7 @@ def train(datapath, featurepath, model_set, outpath, model_names):
     results = []
     models = {}
     for m in model_names:
+        model_package = {}
         print("Starting {}".format(m))
         if m == "Gaussian_Naive_Bayes":
             clf = GaussianNB()
@@ -101,7 +106,21 @@ def train(datapath, featurepath, model_set, outpath, model_names):
             print("Error: Invalid model")
 
         model = clf.fit(training_data, train_labels)
-        models[m] = clf
+
+        # clf is the classifier
+        # scaled_X_train_df is what is passed in as the X data (first argument) for the training process
+        # shap_explainer = shap.create_shap_explainer(clf, training_data)
+        # Model package is the dict that gets pickled
+        # model_package["shap_explainer"] = shap_explainer
+        # shap_values = shap.shap_preprocessing(shap_explainer, training_data, type=1)
+        # Graph output path is the file path to where graphs get saved
+        # Current model is the string for the model type
+        # shap.create_shap_global_plots(shap_values, outpath_full, m)
+        # Get the bg_dist_samp and save it to the package
+        model_package["bg_dist_samp"] = pd.DataFrame(training_data,columns=featurenames).sample(50)
+
+        model_package["model"] = clf
+        models[m] = model_package
         scores = cross_val_score(clf, training_data, train_labels, cv=5, scoring='f1_macro')
         results.append(scores.mean())
 
@@ -116,7 +135,6 @@ def train(datapath, featurepath, model_set, outpath, model_names):
 
     # Save off models
     if model_set:
-        outpath_full = f"./{outpath}{model_set}"
         try:
             os.mkdir(outpath_full)
         except FileExistsError:
@@ -124,7 +142,7 @@ def train(datapath, featurepath, model_set, outpath, model_names):
 
         # save models
         for m in model_names:
-            with open(outpath_full + "/" + m + "_" + model_set + ".pickle", 'wb') as f:
+            with open(outpath_full + "/" + m + "_" + model_set + ".package", 'wb') as f:
                 pickle.dump(models[m], f)
                 f.close()
 

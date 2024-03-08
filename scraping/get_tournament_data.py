@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
-from smart_request import smart_request
+from scraping.smart_request import smart_request
 import os
 
 # Define a custom function that takes a tag as an argument and returns True if the tag is a div and has

@@ -5,13 +5,26 @@ from scraping.get_team_data import get_team_stats
 from scraping.get_schedule_data import get_schedule_stats
 from scraping.get_roster_data import get_roster_stats
 from datetime import datetime
+import shap
+import matplotlib.pyplot as plt
+import pandas as pd
 
 
 class MatchupPredictor:
 
     def __init__(self, model, features):
         with open(model, "rb") as f:
-            self.model = pickle.load(f)
+            if "package" in model:
+                package = pickle.load(f)
+                self.model = package["model"]
+                # From classifier in init
+                self.explainer = None
+                df = package["bg_dist_samp"]
+                f = lambda x: self.model.predict_proba(x)[:, 1]
+                self.explainer = shap.Explainer(f, df)
+            else:
+                self.model = pickle.load(f)
+                self.shap_explainer = None
 
         if "json" in features:
             with open(features, "rb") as f:
@@ -123,8 +136,8 @@ class MatchupPredictor:
             print("Making prediction")
             winner_probs = self.model.predict_proba([predict_data])[0]
             # load feature names
-            with open(r"C:\Users\gppal\PycharmProjects\marchmadness\models\models23\v23_0_0\featurenames.pickle", "rb") as f:
-                pickle.load(f)
+            #with open(r"C:\Users\gppal\PycharmProjects\marchmadness\models\models23\v23_0_0\featurenames.pickle", "rb") as f:
+            #    pickle.load(f)
             print("\n-------------------------------------")
             if winner_probs[0] > winner_probs[1]:
                 print("The winner will be {}".format(team1))
@@ -134,13 +147,22 @@ class MatchupPredictor:
                 print("Probability split:\n\t{}: {}\n\t{}: {}".format(team1, winner_probs[0], team2, winner_probs[1]))
             else:
                 print("Error: Returned value was unexpected!!")
+            # From classifier in predict
+            if self.explainer is not None:
+                df = pd.DataFrame([predict_data], columns=self.features)
+                df = df.astype("float64")  # final is the df of scaled features
+                shap_values = self.explainer(df)
+                plt.figure()  # plt is matplotlib
+                f = shap.plots.waterfall(shap_values[0], show=False)
+                # f.suptitle("Matchup")
+                plt.show()
             print("-------------------------------------\n")
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
     path = "models/models24/v24_0_0/"
-    model = "Random_Forest_v24_0_0.pickle"
+    model = "Gaussian_Naive_Bayes_v24_0_0.package"
     feature_names = "featurenames.pickle"
     mp = MatchupPredictor(path+model, path+feature_names)
     now = datetime.now()
-    mp.main(now.year)
+    mp.main(now.year-1)
