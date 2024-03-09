@@ -74,11 +74,18 @@ def reformat_name(name):
 
 
 def collect_features(recalculate=False):
-    """This function compiles the features for all games to be used as training data"""
+    """This function compiles the features for all games to be used as training data
+    Input:
+        - recalculate: (bool) flag to indicate if features should be recalculated or not. If set to false, the function
+                        will only calculate features if they are not already saved on the machine
+    Output:
+        - training_data: (DataFrame) Dataframe containing all training data across all years
+    """
 
     # Load previous training data if it exists
     absolute_path = os.path.dirname(__file__)
-    full_path = os.path.join(absolute_path, "data")
+    full_path = os.path.join(absolute_path, "scraping")
+    full_path = os.path.join(full_path, "data")
     filename = os.path.join(full_path, f"training_data.pckl")
     # See if the training data already exists
     if os.path.isfile(filename) and not recalculate:
