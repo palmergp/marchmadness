@@ -107,19 +107,11 @@ def train(datapath, featurepath, model_set, outpath, model_names):
 
         model = clf.fit(training_data, train_labels)
 
-        # clf is the classifier
-        # scaled_X_train_df is what is passed in as the X data (first argument) for the training process
-        # shap_explainer = shap.create_shap_explainer(clf, training_data)
-        # Model package is the dict that gets pickled
-        # model_package["shap_explainer"] = shap_explainer
-        # shap_values = shap.shap_preprocessing(shap_explainer, training_data, type=1)
-        # Graph output path is the file path to where graphs get saved
-        # Current model is the string for the model type
-        # shap.create_shap_global_plots(shap_values, outpath_full, m)
-        # Get the bg_dist_samp and save it to the package
-        model_package["bg_dist_samp"] = pd.DataFrame(training_data,columns=featurenames).sample(50)
+        # Get the bg_dist_samp and save it to the package for shap
+        model_package["bg_dist_samp"] = pd.DataFrame(training_data,columns=featurenames)
 
         model_package["model"] = clf
+        model_package["feature_names"] = featurenames
         models[m] = model_package
         scores = cross_val_score(clf, training_data, train_labels, cv=5, scoring='f1_macro')
         results.append(scores.mean())
@@ -150,11 +142,6 @@ def train(datapath, featurepath, model_set, outpath, model_names):
         with open(outpath_full + "/accuracy.txt", "w") as f:
             for i in range(0, len(model_names)):
                 f.write("{}: {}\n".format(model_names[i], results[i]))
-
-        # Save feature names
-        with open(outpath_full + "/featurenames.pickle", "wb") as f:
-            pickle.dump(featurenames, f)
-            f.close()
 
 
 if __name__ == '__main__':

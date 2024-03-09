@@ -12,7 +12,7 @@ import pandas as pd
 
 class MatchupPredictor:
 
-    def __init__(self, model, features):
+    def __init__(self, model, features=None):
         with open(model, "rb") as f:
             if "package" in model:
                 package = pickle.load(f)
@@ -22,16 +22,17 @@ class MatchupPredictor:
                 df = package["bg_dist_samp"]
                 f = lambda x: self.model.predict_proba(x)[:, 1]
                 self.explainer = shap.Explainer(f, df)
+                self.features = package["feature_names"]
             else:
                 self.model = pickle.load(f)
                 self.shap_explainer = None
 
-        if "json" in features:
-            with open(features, "rb") as f:
-                self.features = json.load(f)
-        else:
-            with open(features, "rb") as f:
-                self.features = pickle.load(f)
+                if "json" in features:
+                    with open(features, "rb") as f:
+                        self.features = json.load(f)
+                else:
+                    with open(features, "rb") as f:
+                        self.features = pickle.load(f)
 
     def predict(self, data):
         result = self.model.predict(data)
@@ -100,7 +101,7 @@ class MatchupPredictor:
                 team1_roster = second_roster_true
                 team1_data = second_data_true
                 team1_schedule = second_schedule_true
-            print("{} {} is being used as the high seed and {} {}  is being used as the low seed".format(team2_seed,team2,team1_seed,team1))
+            print("{} {} is being used as the underdog and {} {}  is being used as the favorite".format(team2_seed,team2,team1_seed,team1))
             # Get player and schedule stats
             #top5_total_per, top_per_percentage = get_per_stats(team1_roster)
             #sch_stats = get_ranked_stats(team1_schedule)
@@ -154,15 +155,15 @@ class MatchupPredictor:
                 shap_values = self.explainer(df)
                 plt.figure()  # plt is matplotlib
                 f = shap.plots.waterfall(shap_values[0], show=False)
-                # f.suptitle("Matchup")
+                f.set_title(f"Left {team1}, Right {team2}".title())
+                plt.tight_layout()
                 plt.show()
             print("-------------------------------------\n")
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
     path = "models/models24/v24_0_0/"
-    model = "Gaussian_Naive_Bayes_v24_0_0.package"
-    feature_names = "featurenames.pickle"
-    mp = MatchupPredictor(path+model, path+feature_names)
+    model = "Adaboost_v24_0_0.package"
+    mp = MatchupPredictor(path+model)
     now = datetime.now()
     mp.main(now.year-1)

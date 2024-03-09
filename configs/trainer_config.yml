@@ -4,11 +4,11 @@ version: v24_0_0
 outpath: models/models24/
 model_names:
   - Gaussian_Naive_Bayes
-  #- Neural_Network
-  #- Logistic_Regression
-  #- Linear_SVC
-  #- KNN
-  #- Gaussian_RBF
-  #- Decision_Tree
+  - Neural_Network
+  - Logistic_Regression
+  - Linear_SVC
+  - KNN
+  - Gaussian_RBF
+  - Decision_Tree
   - Random_Forest
-  #- Adaboost
+  - Adaboost
