@@ -55,7 +55,8 @@ name_dict = {
     "SMU": "SOUTHERN-METHODIST",
     "UMBC": "MARYLAND-BALTIMORE-COUNTY",
     "UCF": "CENTRAL-FLORIDA",
-    "UCSB": "UC-SANTA-BARBARA"
+    "UCSB": "UC-SANTA-BARBARA",
+    "FDU": "FAIRLEIGH-DICKINSON"
 }
 
 
@@ -113,6 +114,9 @@ def collect_features(recalculate=False):
             # Get all team stats from that year
             all_team_stats = get_team_stats(year)
 
+            # Fix the names
+            all_team_stats.index = all_team_stats.index.map(reformat_name)
+
             # If the year's data is not in the set, go collect it
             # First get all tournament matchups from the year
             bracket_data = get_tournament_data(year)
@@ -159,7 +163,7 @@ def collect_features(recalculate=False):
                 game_row = game_row.assign(seed_diff=game_row['underdog_seed'] - game_row['favorite_seed'])
                 game_row = game_row.assign(year=year)
                 # Append the game row to the overall data
-                training_data = training_data.append(game_row)
+                training_data = pd.concat([training_data, game_row])
         # Save training data
         with open(filename, "wb") as f:
             pickle.dump(training_data, f)

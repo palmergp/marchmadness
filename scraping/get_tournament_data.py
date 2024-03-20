@@ -103,7 +103,7 @@ def get_tournament_data(year):
                                                        "losing_team_score"])
 
                     # Append this data frame to the region data frame
-                    df_region = df_region.append(df_matchup)
+                    df_region = pd.concat([df_region, df_matchup])
 
             # Save the region data frame as a csv file with the region name as the file name
             df_bracket = df_bracket.append(df_region)

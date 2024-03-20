@@ -1,5 +1,5 @@
 import pickle
-from scraping.collect_features import reformat_name
+from collect_features import reformat_name
 import json
 from scraping.get_team_data import get_team_stats
 from scraping.get_schedule_data import get_schedule_stats
@@ -25,7 +25,7 @@ class MatchupPredictor:
                 self.features = package["feature_names"]
             else:
                 self.model = pickle.load(f)
-                self.shap_explainer = None
+                self.explainer = None
 
                 if "json" in features:
                     with open(features, "rb") as f:
@@ -33,6 +33,9 @@ class MatchupPredictor:
                 else:
                     with open(features, "rb") as f:
                         self.features = pickle.load(f)
+                # Check if naming convention used "team1/team2" instead of favorite/underdog
+                self.features = [x.replace("Team1", "favorite_") for x in self.features]
+                self.features = [x.replace("Team2", "underdog_") for x in self.features]
 
     def predict(self, data):
         result = self.model.predict(data)
@@ -105,14 +108,18 @@ class MatchupPredictor:
             # Get player and schedule stats
             #top5_total_per, top_per_percentage = get_per_stats(team1_roster)
             #sch_stats = get_ranked_stats(team1_schedule)
-            team1_data["top5_per_total"] = team1_roster["top5_per_total"]
-            team1_data["top_per_percentage"] = team1_roster["top_per_percentage"]
+            #team1_data["top5_per_total"] = team1_roster["top5_per_total"]
+            #team1_data["top_per_percentage"] = team1_roster["top_per_percentage"]
+            for rost_stat in team1_roster.index:
+                team1_data[rost_stat] = team1_roster[rost_stat]
             for sch_stat in team1_schedule.index:
                 team1_data[sch_stat] = team1_schedule[sch_stat]
             #top5_total_per, top_per_percentage = get_per_stats(team2_roster)
             #sch_stats = get_ranked_stats(team2_schedule)
-            team2_data["top5_per_total"] = team1_roster["top5_per_total"]
-            team2_data["top_per_percentage"] = team1_roster["top_per_percentage"]
+            #team2_data["top5_per_total"] = team1_roster["top5_per_total"]
+            #team2_data["top_per_percentage"] = team1_roster["top_per_percentage"]
+            for rost_stat in team2_roster.index:
+                team2_data[rost_stat] = team2_roster[rost_stat]
             for sch_stat in team2_schedule.index:
                 team2_data[sch_stat] = team2_schedule[sch_stat]
 
@@ -121,9 +128,9 @@ class MatchupPredictor:
             for feat in self.features:
                 if feat == "Round":
                     predict_data.append(round_num)
-                elif feat == "favorite_seed":
+                elif feat == "favorite_seed" or "team1_seed":
                     predict_data.append(team1_seed)
-                elif feat == "underdog_seed":
+                elif feat == "underdog_seed" or "team2_seed":
                     predict_data.append(team2_seed)
                 elif feat == "SeedDiff":
                     predict_data.append(abs(team1_seed - team2_seed))
@@ -155,15 +162,15 @@ class MatchupPredictor:
                 shap_values = self.explainer(df)
                 plt.figure()  # plt is matplotlib
                 f = shap.plots.waterfall(shap_values[0], show=False)
-                f.set_title(f"Left {team1}, Right {team2}".title())
+                f.set_title(f"Left ({team1_seed}) {team1}, Right ({team2_seed}) {team2}".title())
                 plt.tight_layout()
                 plt.show()
             print("-------------------------------------\n")
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
-    path = "models/models24/v24_0_0/"
-    model = "Adaboost_v24_0_0.package"
-    mp = MatchupPredictor(path+model)
+    path = "models/models22/v3_1/"
+    model = "Linear_SVC_v3_1.pickle"
+    mp = MatchupPredictor(path+model, features=path+"featurenames.pickle")
     now = datetime.now()
-    mp.main(now.year-1)
+    mp.main(now.year)

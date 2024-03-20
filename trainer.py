@@ -61,7 +61,7 @@ def train(datapath, featurepath, model_set, outpath, model_names):
     featurenames = list(filtered_data.columns)
 
     # Create and fit the selector object
-    selector = SelectKBest(f_classif, k=72)
+    selector = SelectKBest(f_classif, k='all')
     selector.fit(training_data, train_labels)
     # Get the selected features
     selected_features = selector.get_support(indices=True)
@@ -72,7 +72,7 @@ def train(datapath, featurepath, model_set, outpath, model_names):
     sorted_indices = np.argsort(scores)[::-1]
 
     # Get the 10 best features in order of importance
-    best_features = sorted_indices[:72]
+    best_features = sorted_indices[:]
     rank = 0
     for sf in best_features:
         rank = rank +1

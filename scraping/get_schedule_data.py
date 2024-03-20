@@ -50,7 +50,7 @@ def get_schedule_stats(teams, year):
             team_schedule_df["W"] = team_schedule_df["W"].replace("nan", np.nan)
             team_schedule_df.dropna(axis=0, subset=["W"], inplace=True)
             if len(team_schedule_df) != old_len:
-                print(f"{old_len-(team_schedule_df)} games did not have a result. Verify this is correct.\n{link}")
+                print(f"{old_len-len(team_schedule_df)} games did not have a result. Verify this is correct.\n{link}")
             # Calculate the stats we care about
             team_row = {}
             team_row["School"] = team.upper()
