@@ -4,7 +4,7 @@ import json
 from scraping.get_team_data import get_team_stats
 from scraping.get_schedule_data import get_schedule_stats
 from scraping.get_roster_data import get_roster_stats
-from sklearn import LinearSVC
+#from sklearn import LinearSVC
 
 class MatchupPredictor:
 
@@ -122,7 +122,7 @@ class MatchupPredictor:
             # load feature names
             with open(r"C:\Users\gppal\PycharmProjects\marchmadness\models\models23\v23_0_0\featurenames.pickle", "rb") as f:
                 pickle.load(f)
-            clf = LinearSVC()
+            #clf = LinearSVC()
             print("\n-------------------------------------")
             if winner_probs[0] > winner_probs[1]:
                 print("The winner will be {}".format(team1))
@@ -140,4 +140,4 @@ if __name__ == '__main__':
     model = "Linear_SVC_v23_0_0.pickle"
     feature_names = "featurenames.pickle"
     mp = MatchupPredictor(path+model, path+feature_names)
-    mp.main(2023)
+    mp.main(2024)
