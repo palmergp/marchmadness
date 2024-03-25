@@ -23,9 +23,14 @@ class MatchupPredictor:
                 f = lambda x: self.model.predict_proba(x)[:, 1]
                 self.explainer = shap.Explainer(f, df)
                 self.features = package["feature_names"]
+                if "scaler" in package:
+                    self.scaler = package["scaler"]
+                else:
+                    self.scaler = None
             else:
                 self.model = pickle.load(f)
                 self.explainer = None
+                self.scaler = None
 
                 if "json" in features:
                     with open(features, "rb") as f:
@@ -128,9 +133,9 @@ class MatchupPredictor:
             for feat in self.features:
                 if feat == "Round":
                     predict_data.append(round_num)
-                elif feat == "favorite_seed" or "team1_seed":
+                elif feat == "favorite_seed" or feat == "team1_seed":
                     predict_data.append(team1_seed)
-                elif feat == "underdog_seed" or "team2_seed":
+                elif feat == "underdog_seed" or feat == "team2_seed":
                     predict_data.append(team2_seed)
                 elif feat == "SeedDiff":
                     predict_data.append(abs(team1_seed - team2_seed))
@@ -139,7 +144,9 @@ class MatchupPredictor:
                         predict_data.append(team1_data[feat.replace("favorite_","")])
                     else:
                         predict_data.append(team2_data[feat.replace("underdog_","")])
-
+            # If it was a scaled model, scale the features
+            if self.scaler:
+                predict_data = self.scaler.transform([predict_data])[0]
             # Make prediction
             print("Making prediction")
             winner_probs = self.model.predict_proba([predict_data])[0]
@@ -156,7 +163,8 @@ class MatchupPredictor:
             else:
                 print("Error: Returned value was unexpected!!")
             # From classifier in predict
-            if self.explainer is not None:
+            # Only show if upset
+            if self.explainer is not None and winner_probs[0] <= winner_probs[1]:
                 df = pd.DataFrame([predict_data], columns=self.features)
                 df = df.astype("float64")  # final is the df of scaled features
                 shap_values = self.explainer(df)
@@ -169,8 +177,8 @@ class MatchupPredictor:
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
-    path = "models/models22/v3_1/"
-    model = "Linear_SVC_v3_1.pickle"
+    path = "models/models24/v24_3_0/"
+    model = "Linear_SVC_v24_3_0.package"
     mp = MatchupPredictor(path+model, features=path+"featurenames.pickle")
     now = datetime.now()
     mp.main(now.year)

@@ -14,7 +14,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
-import shapely_plots as shap
+from sklearn.preprocessing import StandardScaler
 import pandas as pd
 
 
@@ -78,6 +78,10 @@ def train(datapath, featurepath, model_set, outpath, model_names):
         rank = rank +1
         print("\t" + str(rank) +". "+ featurenames[sf])
 
+    # Scale the features
+    scaler = StandardScaler()
+    scaled_training_data = scaler.fit_transform(training_data)
+
     results = []
     models = {}
     for m in model_names:
@@ -105,15 +109,16 @@ def train(datapath, featurepath, model_set, outpath, model_names):
         else:
             print("Error: Invalid model")
 
-        model = clf.fit(training_data, train_labels)
+        model = clf.fit(scaled_training_data, train_labels)
 
         # Get the bg_dist_samp and save it to the package for shap
-        model_package["bg_dist_samp"] = pd.DataFrame(training_data,columns=featurenames)
+        model_package["bg_dist_samp"] = pd.DataFrame(scaled_training_data, columns=featurenames)
 
         model_package["model"] = clf
         model_package["feature_names"] = featurenames
+        model_package["scaler"] = scaler
         models[m] = model_package
-        scores = cross_val_score(clf, training_data, train_labels, cv=5, scoring='f1_macro')
+        scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
         results.append(scores.mean())
 
     # Order from least accurate to most
