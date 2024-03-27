@@ -39,7 +39,7 @@ def get_tournament_data(year):
         df_bracket = pd.DataFrame()
 
         # Find all divs with ids east, midwest, south, west and national within brackets
-        regions = brackets.find_all("div", id=["east", "midwest", "south", "west", "national"])
+        regions = brackets.find_all("div", id=["east", "midwest", "south", "west", "national","southeast","southwest"])
 
         # Loop through each region
         for region in regions:
@@ -106,7 +106,7 @@ def get_tournament_data(year):
                     df_region = pd.concat([df_region, df_matchup])
 
             # Save the region data frame as a csv file with the region name as the file name
-            df_bracket = df_bracket.append(df_region)
+            df_bracket = pd.concat([df_bracket,df_region])
 
         df_bracket.to_csv(filename, index=False)
 

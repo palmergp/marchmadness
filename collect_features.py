@@ -162,6 +162,8 @@ def collect_features(recalculate=False):
                 # Add the seed diff feature and the year
                 game_row = game_row.assign(seed_diff=game_row['underdog_seed'] - game_row['favorite_seed'])
                 game_row = game_row.assign(year=year)
+                # Add the round
+                game_row = game_row.assign(round=game["round"])
                 # Append the game row to the overall data
                 training_data = pd.concat([training_data, game_row])
         # Save training data

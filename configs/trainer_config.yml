@@ -1,6 +1,6 @@
 feature_list: featuresets/featuresets24/v24_3_0/featurenames_selected.json
 data: scraping/data/training_data.pckl
-version: v24_3_0
+version: v24_3_1
 outpath: models/models24/
 model_names:
   - Gaussian_Naive_Bayes

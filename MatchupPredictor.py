@@ -177,8 +177,8 @@ class MatchupPredictor:
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
-    path = "models/models24/v24_3_0/"
-    model = "Linear_SVC_v24_3_0.package"
+    path = "models/models24/v24_3_1/"
+    model = "Linear_SVC_v24_3_1.package"
     mp = MatchupPredictor(path+model, features=path+"featurenames.pickle")
     now = datetime.now()
     mp.main(now.year)
