@@ -1,0 +1,2 @@
+Linear svc 24_3_0 did best but in the end, picking favorites only would have been better.
+Try the early round + late round split next time
