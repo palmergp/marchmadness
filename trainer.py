@@ -14,6 +14,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
 
 
 def train(datapath, featurepath, model_set, outpath, model_names):
@@ -35,6 +37,8 @@ def train(datapath, featurepath, model_set, outpath, model_names):
                         - Random_Forest
                         - Adaboost
     """
+    # Set outpath
+    outpath_full = f"./{outpath}{model_set}"
 
     # Load featurelist
     with open(featurepath, "r") as f:
@@ -57,7 +61,7 @@ def train(datapath, featurepath, model_set, outpath, model_names):
     featurenames = list(filtered_data.columns)
 
     # Create and fit the selector object
-    selector = SelectKBest(f_classif, k=72)
+    selector = SelectKBest(f_classif, k='all')
     selector.fit(training_data, train_labels)
     # Get the selected features
     selected_features = selector.get_support(indices=True)
@@ -68,15 +72,20 @@ def train(datapath, featurepath, model_set, outpath, model_names):
     sorted_indices = np.argsort(scores)[::-1]
 
     # Get the 10 best features in order of importance
-    best_features = sorted_indices[:72]
+    best_features = sorted_indices[:]
     rank = 0
     for sf in best_features:
         rank = rank +1
         print("\t" + str(rank) +". "+ featurenames[sf])
 
+    # Scale the features
+    scaler = StandardScaler()
+    scaled_training_data = scaler.fit_transform(training_data)
+
     results = []
     models = {}
     for m in model_names:
+        model_package = {}
         print("Starting {}".format(m))
         if m == "Gaussian_Naive_Bayes":
             clf = GaussianNB()
@@ -100,9 +109,16 @@ def train(datapath, featurepath, model_set, outpath, model_names):
         else:
             print("Error: Invalid model")
 
-        model = clf.fit(training_data, train_labels)
-        models[m] = clf
-        scores = cross_val_score(clf, training_data, train_labels, cv=5, scoring='f1_macro')
+        model = clf.fit(scaled_training_data, train_labels)
+
+        # Get the bg_dist_samp and save it to the package for shap
+        model_package["bg_dist_samp"] = pd.DataFrame(scaled_training_data, columns=featurenames)
+
+        model_package["model"] = clf
+        model_package["feature_names"] = featurenames
+        model_package["scaler"] = scaler
+        models[m] = model_package
+        scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
         results.append(scores.mean())
 
     # Order from least accurate to most
@@ -116,7 +132,6 @@ def train(datapath, featurepath, model_set, outpath, model_names):
 
     # Save off models
     if model_set:
-        outpath_full = f"./{outpath}{model_set}"
         try:
             os.mkdir(outpath_full)
         except FileExistsError:
@@ -124,7 +139,7 @@ def train(datapath, featurepath, model_set, outpath, model_names):
 
         # save models
         for m in model_names:
-            with open(outpath_full + "/" + m + "_" + model_set + ".pickle", 'wb') as f:
+            with open(outpath_full + "/" + m + "_" + model_set + ".package", 'wb') as f:
                 pickle.dump(models[m], f)
                 f.close()
 
@@ -132,11 +147,6 @@ def train(datapath, featurepath, model_set, outpath, model_names):
         with open(outpath_full + "/accuracy.txt", "w") as f:
             for i in range(0, len(model_names)):
                 f.write("{}: {}\n".format(model_names[i], results[i]))
-
-        # Save feature names
-        with open(outpath_full + "/featurenames.pickle", "wb") as f:
-            pickle.dump(featurenames, f)
-            f.close()
 
 
 if __name__ == '__main__':

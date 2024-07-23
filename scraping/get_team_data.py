@@ -51,11 +51,12 @@ def has_number(input_string):
     return True
 
 
-def get_team_stats(year):
+def get_team_stats(year, force=False):
     """Collects the stats for all relevant teams for a given year. If the stats have already been collected once, they
     are loaded from file. If not, they are recollected and saved into the data folder
     Input:
-        - year: (int) Year to collect team data for"""
+        - year: (int) Year to collect team data for
+        - force: (bool) flag indicating that new data should be collected no matter what"""
 
     # Data is saved in the data folder adjacent to this file
     absolute_path = os.path.dirname(__file__)
@@ -63,6 +64,8 @@ def get_team_stats(year):
 
     # Try loading the data from the saved dataset
     try:
+        if force:
+            raise FileNotFoundError
         print("Loading Data")
         # Load from file
         filename = os.path.join(full_path, f"basic_stats_{year}.pckl")
@@ -189,6 +192,7 @@ def get_team_stats(year):
                                                             full_school_stats[opp_add+"three_point_field_goal_attempts"]
         full_school_stats[opp_add+"two_point_field_goal_percentage"] = full_school_stats[opp_add+"two_point_field_goals"] /\
                                                             full_school_stats[opp_add + "two_point_field_goal_attempts"]
+        full_school_stats[opp_add + "points_per_game"] = full_school_stats[opp_add + "points"] / full_school_stats["games"]
     full_school_stats["games_played"] = full_school_stats["wins"] + full_school_stats["losses"]
     # Set school name as index
     full_school_stats.set_index("School", inplace=True)
@@ -216,7 +220,7 @@ def get_team_stats(year):
                        'three_point_field_goal_percentage', 'three_point_field_goals',
                        'two_point_field_goal_attempts', 'two_point_field_goal_percentage', 'two_point_field_goals',
                        'total_rebound_percentage', 'total_rebounds', 'true_shooting_percentage',
-                       'turnover_percentage', 'turnovers', 'win_percentage']
+                       'turnover_percentage', 'turnovers', 'win_percentage', 'points_per_game', 'opp_points_per_game']
     for s in team_stats:
         if s not in full_school_stats.columns:
             # Found a missing stat
@@ -226,4 +230,4 @@ def get_team_stats(year):
 
 
 if __name__ == "__main__":
-    get_team_stats(2023)
+    get_team_stats(2014, force=True)

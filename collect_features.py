@@ -2,10 +2,10 @@ import datetime
 import os
 import pickle
 import pandas as pd
-from get_tournament_data import get_tournament_data
-from get_team_data import get_team_stats
-from get_schedule_data import get_schedule_stats
-from get_roster_data import get_roster_stats
+from scraping.get_tournament_data import get_tournament_data
+from scraping.get_team_data import get_team_stats
+from scraping.get_schedule_data import get_schedule_stats
+from scraping.get_roster_data import get_roster_stats
 
 name_dict = {
     "UNC Asheville": "UNC-ASHEVILLE",
@@ -55,7 +55,8 @@ name_dict = {
     "SMU": "SOUTHERN-METHODIST",
     "UMBC": "MARYLAND-BALTIMORE-COUNTY",
     "UCF": "CENTRAL-FLORIDA",
-    "UCSB": "UC-SANTA-BARBARA"
+    "UCSB": "UC-SANTA-BARBARA",
+    "FDU": "FAIRLEIGH-DICKINSON"
 }
 
 
@@ -74,11 +75,18 @@ def reformat_name(name):
 
 
 def collect_features(recalculate=False):
-    """This function compiles the features for all games to be used as training data"""
+    """This function compiles the features for all games to be used as training data
+    Input:
+        - recalculate: (bool) flag to indicate if features should be recalculated or not. If set to false, the function
+                        will only calculate features if they are not already saved on the machine
+    Output:
+        - training_data: (DataFrame) Dataframe containing all training data across all years
+    """
 
     # Load previous training data if it exists
     absolute_path = os.path.dirname(__file__)
-    full_path = os.path.join(absolute_path, "data")
+    full_path = os.path.join(absolute_path, "scraping")
+    full_path = os.path.join(full_path, "data")
     filename = os.path.join(full_path, f"training_data.pckl")
     # See if the training data already exists
     if os.path.isfile(filename) and not recalculate:
@@ -105,6 +113,9 @@ def collect_features(recalculate=False):
 
             # Get all team stats from that year
             all_team_stats = get_team_stats(year)
+
+            # Fix the names
+            all_team_stats.index = all_team_stats.index.map(reformat_name)
 
             # If the year's data is not in the set, go collect it
             # First get all tournament matchups from the year
@@ -151,8 +162,10 @@ def collect_features(recalculate=False):
                 # Add the seed diff feature and the year
                 game_row = game_row.assign(seed_diff=game_row['underdog_seed'] - game_row['favorite_seed'])
                 game_row = game_row.assign(year=year)
+                # Add the round
+                game_row = game_row.assign(round=game["round"])
                 # Append the game row to the overall data
-                training_data = training_data.append(game_row)
+                training_data = pd.concat([training_data, game_row])
         # Save training data
         with open(filename, "wb") as f:
             pickle.dump(training_data, f)

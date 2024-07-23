@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
-from smart_request import smart_request
+from scraping.smart_request import smart_request
 import os
 
 # Define a custom function that takes a tag as an argument and returns True if the tag is a div and has
@@ -39,7 +39,7 @@ def get_tournament_data(year):
         df_bracket = pd.DataFrame()
 
         # Find all divs with ids east, midwest, south, west and national within brackets
-        regions = brackets.find_all("div", id=["east", "midwest", "south", "west", "national"])
+        regions = brackets.find_all("div", id=["east", "midwest", "south", "west", "national","southeast","southwest"])
 
         # Loop through each region
         for region in regions:
@@ -103,10 +103,10 @@ def get_tournament_data(year):
                                                        "losing_team_score"])
 
                     # Append this data frame to the region data frame
-                    df_region = df_region.append(df_matchup)
+                    df_region = pd.concat([df_region, df_matchup])
 
             # Save the region data frame as a csv file with the region name as the file name
-            df_bracket = df_bracket.append(df_region)
+            df_bracket = pd.concat([df_bracket,df_region])
 
         df_bracket.to_csv(filename, index=False)
 

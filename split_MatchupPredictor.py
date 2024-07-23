@@ -12,41 +12,52 @@ import pandas as pd
 
 class MatchupPredictor:
 
-    def __init__(self, model, features=None):
-        with open(model, "rb") as f:
-            if "package" in model:
+    def __init__(self, early_model, late_model=None, round_split=2, features=None):
+        """Used to predict matchups
+        Input:
+            - early_model: Model used for games earlier in the tournament
+            - late_model: Model used for games later in the tournament. If left blank, the early model
+                            will be used for all games
+            - round_split: Round at which the late model begins to be used.
+                            Example: If round_split=2, the early model will be used for round 1 and
+                            the late model will be used for round 2+
+        """
+        self.round_split = round_split
+        with open(early_model, "rb") as f:
+            package = pickle.load(f)
+            self.early_model = package["model"]
+            # From classifier in init
+            self.early_explainer = None
+            df = package["bg_dist_samp"]
+            f = lambda x: self.early_model.predict_proba(x)[:, 1]
+            self.early_explainer = shap.Explainer(f, df)
+            self.features = package["feature_names"]
+            if "scaler" in package:
+                self.early_scaler = package["scaler"]
+            else:
+                self.early_scaler = None
+        if late_model is None:
+            # If a late model wasnt provided, use the early model as both
+            self.late_model = self.early_model
+            self.late_explainer = self.early_explainer
+            self.late_scaler = self.early_scaler
+        else:
+            with open(late_model, "rb") as f:
                 package = pickle.load(f)
-                self.model = package["model"]
+                self.late_model = package["model"]
                 # From classifier in init
-                self.explainer = None
+                self.late_explainer = None
                 df = package["bg_dist_samp"]
-                f = lambda x: self.model.predict_proba(x)[:, 1]
-                self.explainer = shap.Explainer(f, df)
+                f = lambda x: self.late_model.predict_proba(x)[:, 1]
+                self.late_explainer = shap.Explainer(f, df)
                 self.features = package["feature_names"]
                 if "scaler" in package:
-                    self.scaler = package["scaler"]
+                    self.late_scaler = package["scaler"]
                 else:
-                    self.scaler = None
-            else:
-                self.model = pickle.load(f)
-                self.explainer = None
-                self.scaler = None
-
-                if "json" in features:
-                    with open(features, "rb") as f:
-                        self.features = json.load(f)
-                else:
-                    with open(features, "rb") as f:
-                        self.features = pickle.load(f)
-                # Check if naming convention used "team1/team2" instead of favorite/underdog
-                self.features = [x.replace("Team1", "favorite_") for x in self.features]
-                self.features = [x.replace("Team2", "underdog_") for x in self.features]
-
-    def predict(self, data):
-        result = self.model.predict(data)
-        return result
+                    self.late_scaler = None
 
     def main(self, year):
+        """Prompts the user for matchup info and then makes a prediction"""
         print(f"Starting {year} March Madness Predictor!")
         print(f"Loading {year} team data...")
         all_teams = get_team_stats(year)
@@ -111,18 +122,10 @@ class MatchupPredictor:
                 team1_schedule = second_schedule_true
             print("{} {} is being used as the underdog and {} {}  is being used as the favorite".format(team2_seed,team2,team1_seed,team1))
             # Get player and schedule stats
-            #top5_total_per, top_per_percentage = get_per_stats(team1_roster)
-            #sch_stats = get_ranked_stats(team1_schedule)
-            #team1_data["top5_per_total"] = team1_roster["top5_per_total"]
-            #team1_data["top_per_percentage"] = team1_roster["top_per_percentage"]
             for rost_stat in team1_roster.index:
                 team1_data[rost_stat] = team1_roster[rost_stat]
             for sch_stat in team1_schedule.index:
                 team1_data[sch_stat] = team1_schedule[sch_stat]
-            #top5_total_per, top_per_percentage = get_per_stats(team2_roster)
-            #sch_stats = get_ranked_stats(team2_schedule)
-            #team2_data["top5_per_total"] = team1_roster["top5_per_total"]
-            #team2_data["top_per_percentage"] = team1_roster["top_per_percentage"]
             for rost_stat in team2_roster.index:
                 team2_data[rost_stat] = team2_roster[rost_stat]
             for sch_stat in team2_schedule.index:
@@ -144,15 +147,23 @@ class MatchupPredictor:
                         predict_data.append(team1_data[feat.replace("favorite_","")])
                     else:
                         predict_data.append(team2_data[feat.replace("underdog_","")])
+
+            # Choose which classifier to use based on the round
+            if round_num >= self.round_split:
+                scaler = self.late_scaler
+                model = self.late_model
+                explainer = self.late_explainer
+            else:
+                scaler = self.early_scaler
+                model = self.early_model
+                explainer = self.early_explainer
+
             # If it was a scaled model, scale the features
-            if self.scaler:
-                predict_data = self.scaler.transform([predict_data])[0]
+            if scaler:
+                predict_data = scaler.transform([predict_data])[0]
             # Make prediction
             print("Making prediction")
-            winner_probs = self.model.predict_proba([predict_data])[0]
-            # load feature names
-            #with open(r"C:\Users\gppal\PycharmProjects\marchmadness\models\models23\v23_0_0\featurenames.pickle", "rb") as f:
-            #    pickle.load(f)
+            winner_probs = model.predict_proba([predict_data])[0]
             print("\n-------------------------------------")
             if winner_probs[0] > winner_probs[1]:
                 print("The winner will be {}".format(team1))
@@ -164,10 +175,10 @@ class MatchupPredictor:
                 print("Error: Returned value was unexpected!!")
             # From classifier in predict
             # Only show if upset
-            if self.explainer is not None and winner_probs[0] <= winner_probs[1]:
+            if explainer is not None and winner_probs[0] <= winner_probs[1]:
                 df = pd.DataFrame([predict_data], columns=self.features)
                 df = df.astype("float64")  # final is the df of scaled features
-                shap_values = self.explainer(df)
+                shap_values = explainer(df)
                 plt.figure()  # plt is matplotlib
                 f = shap.plots.waterfall(shap_values[0], show=False)
                 f.set_title(f"Left ({team1_seed}) {team1}, Right ({team2_seed}) {team2}".title())
@@ -177,8 +188,11 @@ class MatchupPredictor:
             print("Preparing for next prediction...\n")
 
 if __name__ == '__main__':
-    path = "models/models24/v24_3_1/"
-    model = "Linear_SVC_v24_3_1.package"
-    mp = MatchupPredictor(path+model, features=path+"featurenames.pickle")
+    path = "models/models24/v24_4_0/"
+    early_model = "early_Logistic_Regression_v24_4_0.package"
+    late_model = "late_Logistic_Regression_v24_4_0.package"
+    mp = MatchupPredictor(
+        early_model=path+early_model,
+        late_model=path+late_model)
     now = datetime.now()
     mp.main(now.year)
