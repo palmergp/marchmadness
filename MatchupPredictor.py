@@ -13,6 +13,7 @@ import pandas as pd
 class MatchupPredictor:
 
     def __init__(self, model, features=None):
+        self.data=None
         with open(model, "rb") as f:
             if "package" in model:
                 package = pickle.load(f)
@@ -42,11 +43,41 @@ class MatchupPredictor:
                 self.features = [x.replace("Team1", "favorite_") for x in self.features]
                 self.features = [x.replace("Team2", "underdog_") for x in self.features]
 
-    def predict(self, data):
+    def predict(self, team1, team1_seed, team2, team2_seed, round):
+        try:
+            print("Fetching team stats...")
+            first_data_true = self.data.loc[reformat_name(team1)]
+            first_roster_true = get_roster_stats([reformat_name(team1)], year).loc[reformat_name(first)]
+            first_schedule_true = get_schedule_stats([reformat_name(first)], year).loc[reformat_name(first)]
+            print("Successfully loaded {} stats for {}".format(year, first))
+            not_loaded = False
+        except KeyError as e:
+            print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(first))
+            print(all_teams)
+            print(e)
         result = self.model.predict(data)
         return result
 
-    def main(self, year):
+    def set_year(self, year):
+        """Loads the data for a given year to be used for predictions"""
+        self.data = {
+            "team": get_team_stats(year),
+            "roster": get_roster_stats()
+        }
+
+    def main(self):
+        year = int(input("Enter the tournament year: "))
+        self.set_year(year)
+        while True:
+            first_team = input("Team1 Name: ")
+            first_seed = int(input("Team1 Seed: "))
+            second_team = input("Team2 Name: ")
+            second_seed = int(input("Team2 Seed: "))
+            round = int(input("Round: "))
+            self.predict(first_team, first_seed, second_team, second_seed, round)
+
+
+    def main_old(self, year):
         print(f"Starting {year} March Madness Predictor!")
         print(f"Loading {year} team data...")
         all_teams = get_team_stats(year)
@@ -111,18 +142,10 @@ class MatchupPredictor:
                 team1_schedule = second_schedule_true
             print("{} {} is being used as the underdog and {} {}  is being used as the favorite".format(team2_seed,team2,team1_seed,team1))
             # Get player and schedule stats
-            #top5_total_per, top_per_percentage = get_per_stats(team1_roster)
-            #sch_stats = get_ranked_stats(team1_schedule)
-            #team1_data["top5_per_total"] = team1_roster["top5_per_total"]
-            #team1_data["top_per_percentage"] = team1_roster["top_per_percentage"]
             for rost_stat in team1_roster.index:
                 team1_data[rost_stat] = team1_roster[rost_stat]
             for sch_stat in team1_schedule.index:
                 team1_data[sch_stat] = team1_schedule[sch_stat]
-            #top5_total_per, top_per_percentage = get_per_stats(team2_roster)
-            #sch_stats = get_ranked_stats(team2_schedule)
-            #team2_data["top5_per_total"] = team1_roster["top5_per_total"]
-            #team2_data["top_per_percentage"] = team1_roster["top_per_percentage"]
             for rost_stat in team2_roster.index:
                 team2_data[rost_stat] = team2_roster[rost_stat]
             for sch_stat in team2_schedule.index:
