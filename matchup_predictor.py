@@ -9,11 +9,14 @@ import shap
 import matplotlib.pyplot as plt
 import pandas as pd
 
+# pd.options.mode.copy_on_write = True
+
 
 class MatchupPredictor:
 
     def __init__(self, model, features=None):
-        self.data=None
+        """Creates a Matchup Predictor by loading a model for predicting"""
+        self.data = None
         with open(model, "rb") as f:
             if "package" in model:
                 package = pickle.load(f)
@@ -173,6 +176,10 @@ class MatchupPredictor:
     def set_year(self, year):
         """Loads the data for a given year to be used for predictions"""
         self.data = get_team_stats(year)
+        # Fix UCF cause its dumb
+        self.data = self.data.rename(index={'UCF': 'CENTRAL-FLORIDA'})
+        # Fix FDU too cause they are also dumb
+        self.data = self.data.rename(index={'FDU': 'FAIRLEIGH-DICKINSON'})
 
     def main(self):
         year = int(input("Enter the tournament year: "))
