@@ -41,19 +41,29 @@ def get_schedule_stats(teams, year):
             team_schedule_df = pd.read_html(team_schedule)[1]
             # Fill nan opponents
             team_schedule_df["Opponent"] = team_schedule_df["Opponent"].fillna("None")
-            # We really only care about ranked games so remove all games against unranked opponents
-            team_schedule_df = team_schedule_df.fillna("nan")
-            team_schedule_df = team_schedule_df[team_schedule_df['Opponent'].str.contains('\d')]
-            team_schedule_df = team_schedule_df[team_schedule_df['Type']!="NCAA"]
             # Remove any games where the winner isnt listed (this should only happen midseason)
             old_len = len(team_schedule_df)
             team_schedule_df["W"] = team_schedule_df["W"].replace("nan", np.nan)
             team_schedule_df.dropna(axis=0, subset=["W"], inplace=True)
             if len(team_schedule_df) != old_len:
-                print(f"{old_len-len(team_schedule_df)} games did not have a result. Verify this is correct.\n{link}")
+                print(f"{old_len - len(team_schedule_df)} games did not have a result. Verify this is correct.\n{link}")
+            # We only want to look at games from the regular season and conference tournamnet
+            team_schedule_df = team_schedule_df[(team_schedule_df["Type"] == "REG") | (team_schedule_df["Type"] == "CTOURN")]
+            # Grab the last 10 games
+            last_10_df = team_schedule_df.tail(10)
+            # From here, we really only care about ranked games so remove all games against unranked opponents
+            team_schedule_df = team_schedule_df.fillna("nan")
+            team_schedule_df = team_schedule_df[team_schedule_df['Opponent'].str.contains('\d')]
+            team_schedule_df = team_schedule_df[team_schedule_df['Type'] != "NCAA"]
             # Calculate the stats we care about
             team_row = {}
             team_row["School"] = team.upper()
+            # Last 10
+            try:
+                team_row["last_10_win_percentage"] = last_10_df[last_10_df["Unnamed: 8"] == "W"].shape[0] / 10
+            except KeyError:
+                team_row["last_10_win_percentage"] = last_10_df[last_10_df["Unnamed: 7"] == "W"].shape[0] / 10
+            # Ranked Stats
             if team_schedule_df.empty:
                 # If it is empty, mark everything as zero
                 team_row["ranked_wins"] = 0
@@ -92,15 +102,14 @@ def get_schedule_stats(teams, year):
             # schedule_data = schedule_data.append(team_row_df)
             schedule_data = pd.concat([schedule_data, team_row_df])
 
-
     if updated:
         # Save off changes
         with open(filename, "wb") as f:
-            pickle.dump(schedule_data,f)
+            pickle.dump(schedule_data, f)
 
     print("Done!!")
     return schedule_data
 
 
 if __name__ == "__main__":
-    get_schedule_stats(["michigan"], 2021)
+    get_schedule_stats(["michigan"], 2024)

@@ -142,3 +142,12 @@ For each feature, there is a version for both the favorite and the underdog team
 - top5_per_total
 - top_per_percentage
 - seed_diff
+
+## Adding a new feature
+If you are interested in adding a new feature, here are the steps you should take to bring it into the models
+1. Go to the scraping function (get_whatever.py) that has the data needed for the feature
+2. Add the logic that will collect the new feature
+3. Delete old pickle files that contain data from the associated data set 
+4. Rerun collect_features.py
+5. Add the new feature to the feature list
+6. Retrain model
