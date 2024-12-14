@@ -1,6 +1,6 @@
 """Given a year, uses a model to predict the bracket and calculate point total"""
 import pandas as pd
-
+from nonsense.favorite_picker import FavoritePicker
 from matchup_predictor import MatchupPredictor
 from scraping.get_tournament_data import get_tournament_data
 
@@ -75,8 +75,8 @@ class BracketPredictor:
                 else:
                     print(f"Error! Unable to predict {finished_bracket[r][i]['team']} vs {finished_bracket[r][i+1]['team']}")
                     raise Exception
+        total_points = 0
         if tourney_over:
-            total_points = 0
             # Check how many points it would have gotten
             for r in range(2, 7):
                 # Get all teams that made it to round 2
@@ -85,14 +85,17 @@ class BracketPredictor:
                 # Get all teams predicted in this round
                 predicted_teams = [x["team"] for x in finished_bracket[r]]
                 # Compare to see how many points
-                total_points = total_points + len(set(actual_teams) & set(predicted_teams)) * 10 * (r-1)
+                total_points = total_points + len(set(actual_teams) & set(predicted_teams)) * 10 * (2**(r-2))
             print(f"Model got {total_points} points")
         return total_points
 
 
 if __name__ == '__main__':
-    path = "models/models24/v24_3_0/"
-    model_pkg = "Linear_SVC_v24_3_0.package"
+    version = "v25_0_1"
+    path = f"models/models25/{version}/"
+    # path = "nonsense/"
+    model_pkg = f"Gaussian_RBF_{version}.package"
+    # model_pkg = "fav_picker.package"
     tourney_over = True
-    bp = BracketPredictor(path+model_pkg, 2021)
+    bp = BracketPredictor(path+model_pkg, 2024)
     bp.main(tourney_over)

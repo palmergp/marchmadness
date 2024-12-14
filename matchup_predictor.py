@@ -1,5 +1,8 @@
 import pickle
+import random
+
 from collect_features import reformat_name
+from nonsense.favorite_picker import FavoritePicker
 import json
 from scraping.get_team_data import get_team_stats
 from scraping.get_schedule_data import get_schedule_stats
@@ -78,7 +81,8 @@ class MatchupPredictor:
             result = -1
             return result
         # Make sure team 1 is the lower seed (better team)
-        if first_seed <= second_seed:
+        # If they are the same seed, flip a coin
+        if first_seed < second_seed or (first_seed == second_seed and random.randint(1, 2) == 1):
             team1 = first_team
             team2 = second_team
             team1_seed = first_seed
@@ -90,8 +94,8 @@ class MatchupPredictor:
             team2_data = second_data
             team2_schedule = second_schedule
         else:
-            team2=first_team
-            team1=second_team
+            team2 = first_team
+            team1 = second_team
             team2_seed = first_seed
             team2_roster = first_roster
             team2_data = first_data
@@ -105,14 +109,16 @@ class MatchupPredictor:
                                                                                                   team1_seed,
                                                                                                   team1))
         # Get player and schedule stats
-        for rost_stat in team1_roster.index:
-            team1_data[rost_stat] = team1_roster[rost_stat]
-        for sch_stat in team1_schedule.index:
-            team1_data[sch_stat] = team1_schedule[sch_stat]
-        for rost_stat in team2_roster.index:
-            team2_data[rost_stat] = team2_roster[rost_stat]
-        for sch_stat in team2_schedule.index:
-            team2_data[sch_stat] = team2_schedule[sch_stat]
+        team1_data = pd.concat([team1_data, team1_roster, team1_schedule])
+        team2_data = pd.concat([team2_data, team2_roster, team2_schedule])
+        # for rost_stat in team1_roster.index:
+        #     team1_data[rost_stat] = team1_roster[rost_stat]
+        # for sch_stat in team1_schedule.index:
+        #     team1_data[sch_stat] = team1_schedule[sch_stat]
+        # for rost_stat in team2_roster.index:
+        #     team2_data[rost_stat] = team2_roster[rost_stat]
+        # for sch_stat in team2_schedule.index:
+        #     team2_data[sch_stat] = team2_schedule[sch_stat]
         # Get Bracket features
         predict_data = []
         for feat in self.features:
