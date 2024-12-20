@@ -18,13 +18,15 @@ from sklearn.model_selection import cross_val_score, train_test_split, GridSearc
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
+import seaborn as sns
 from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score
 import matplotlib.pyplot as plt
+from model_bracket_stats import collect_bracket_stats, create_bracket_stat_csv
 
 random.seed(11001)
 
 
-def train(datapath, featurepath, model_set, outpath, model_names, tuning):
+def train(datapath, featurepath, model_set, outpath, model_names, tuning, feature_analysis):
     """The train function performs the training process based on the input provided
     Input:
         - datapath: (str) path to the data file containing all feature data
@@ -70,23 +72,38 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning):
     train_labels = data['favorite_label'].tolist()
     featurenames = list(filtered_data.columns)
 
-    # Create and fit the selector object
-    selector = SelectKBest(f_classif, k='all')
-    selector.fit(training_data, train_labels)
-    # Get the selected features
-    selected_features = selector.get_support(indices=True)
-    # Get the scores of each feature
-    scores = selector.scores_
+    if feature_analysis:
+        # Create the correlation heatmap for features
+        corr_matrix = filtered_data.corr().abs()
+        #sns.heatmap(var_corr, xticklabels=var_corr.columns, yticklabels=var_corr.columns, annot=True)
+        # Unstack the matrix to get a dataframe of correlations
+        corr_pairs = corr_matrix.unstack()
+        # Remove self-correlations
+        corr_pairs = corr_pairs[corr_pairs != 1]
+        # Sort the pairs by correlation value
+        sorted_pairs = corr_pairs.sort_values(ascending=False)
+        # Display the top correlations
+        print("Highest Correlated Features:")
+        print(sorted_pairs.head(10))
 
-    # Sort the scores in descending order and get the indices
-    sorted_indices = np.argsort(scores)[::-1]
+        # Create and fit the selector object
+        selector = SelectKBest(f_classif, k='all')
+        selector.fit(training_data, train_labels)
+        # Get the selected features
+        selected_features = selector.get_support(indices=True)
+        # Get the scores of each feature
+        scores = selector.scores_
 
-    # Get the 10 best features in order of importance
-    best_features = sorted_indices[:]
-    rank = 0
-    for sf in best_features:
-        rank = rank +1
-        print("\t" + str(rank) +". "+ featurenames[sf])
+        # Sort the scores in descending order and get the indices
+        sorted_indices = np.argsort(scores)[::-1]
+
+        # Get the 10 best features in order of importance
+        best_features = sorted_indices[:]
+        rank = 0
+        print("Top 10 most important features:")
+        for sf in best_features:
+            rank = rank + 1
+            print("\t" + str(rank) + ". " + featurenames[sf])
 
     # Scale the features
     scaler = StandardScaler()
@@ -114,14 +131,6 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning):
                       'learning_rate_init': [0.001, 0.01, 0.1],
                       'max_iter': [200, 500, 1000],
                       'early_stopping': [True, False]}
-            # p_grid = {'hidden_layer_sizes': [(50,)],
-            #           'activation': ['identity'],
-            #           'solver': ['adam'],
-            #           'alpha': [0.01],
-            #           'learning_rate': ['invscaling'],
-            #           'learning_rate_init': [0.01],
-            #           'max_iter': [500],
-            #           'early_stopping': [False]}
         elif m == "Logistic_Regression":
             clf = LogisticRegression()
             p_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100],
@@ -186,13 +195,13 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning):
 
         # model = clf.fit(scaled_training_data, train_labels)
         if tuning and p_grid:
-            grid_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring='accuracy')
-            grid_search.fit(X_train, y_train)
+            param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring='accuracy')
+            param_search.fit(X_train, y_train)
 
             # Store the best model and its performance
-            clf = grid_search.best_estimator_
-            print(f"Best Parameters: {grid_search.best_params_}")
-            params[m] = grid_search.best_params_
+            clf = param_search.best_estimator_
+            print(f"Best Parameters: {param_search.best_params_}")
+            params[m] = param_search.best_params_
         else:
             model = clf.fit(X_train, y_train)
             params[m] = "Default"
@@ -252,6 +261,19 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning):
                 #f.write("{}: {}\n".format(model_names[i], results[i]))
                 f.write(f"\t{model_names[i]} - Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}\n")
                 f.write(f"\t\tParams: {params[model_names[i]]}\n")
+
+    # Calculate bracket stats
+    # Get filenames
+    file_names = os.listdir(outpath_full)
+    file_names = [f for f in file_names if f.endswith("package") and os.path.isfile(os.path.join(outpath_full, f))]
+    all_stats = {}
+    # Calculate scores for each model
+    for model in file_names:
+        model_stats = collect_bracket_stats(outpath_full + model)
+        all_stats[model] = model_stats
+    # Save it to a CSV
+    create_bracket_stat_csv(outpath_full, all_stats)
+
     print(f'Total Train Time: {time.time()-start_time}s')
 
 
@@ -259,4 +281,11 @@ if __name__ == '__main__':
     # Load the config'
     with open("./configs/trainer_config.yml", 'r') as file:
         config = yaml.safe_load(file)
-    train(config["data"], config["feature_list"], config["version"], config["outpath"], config["model_names"], config["tuning"])
+    train(config["data"],
+          config["feature_list"],
+          config["version"],
+          config["outpath"],
+          config["model_names"],
+          config["tuning"],
+          config["feature_analysis"]
+         )
