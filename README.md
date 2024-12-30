@@ -41,6 +41,7 @@ This section details the various features used for a classification. There are 4
 2. Advanced Stats
 3. Roster Stats
 4. Schedule Stats
+5. Kenpom Stats
 
 ## Basic Stats
 Basic stats are you standard metrics used to look at how a team performs. When collecting basic stats, the stats are
@@ -56,6 +57,9 @@ Roster stats look at the individual players on the team
 ## Schedule Stats
 Schedule stats look at the teams that the team has played, specifically ranked teams, to determine how they perform
 against other good teams
+
+### Kenpom Stats
+Kenpom stats are advanced metrics pulled from kenpom.com
 
 ## Full list of features
 For each feature, there is a version for both the favorite and the underdog team
@@ -142,6 +146,17 @@ For each feature, there is a version for both the favorite and the underdog team
 - top5_per_total
 - top_per_percentage
 - seed_diff
+- last10_win_percentage: Win percentage in final 10 games before tournament
+- kenpomRank: Rank given to the team by kenpom
+- NetRtg
+- ORtg
+- DRtg
+- AdjT
+- Luck
+- AvgOppNetRtg
+- AvgOppORtg
+- AvgOppDRtg 
+- NonConfNetRtg
 
 ## Adding a new feature
 If you are interested in adding a new feature, here are the steps you should take to bring it into the models

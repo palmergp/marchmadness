@@ -2,10 +2,41 @@ import requests
 import json
 import time
 import os
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
-def smart_request(url):
+
+def selenium_request(url):
+    """Makes the request using selenium instead of the requests library.
+    This gets around a lot of anti-scraping checks
+    """
+    driver_path = "C:\\Webdriver\\chromedriver.exe"
+
+    # Create a new instance of the Chrome driver
+    service = Service(driver_path)
+    driver = webdriver.Chrome(service=service)
+
+    # Make the request
+    # This will open an instance of Chrome
+    driver.get(url)
+
+    # Grab the HTML
+    html_content = driver.page_source
+
+    # Close the driver
+    driver.close()
+
+    return html_content
+
+
+def smart_request(url, selenium=True):
     """Since sports reference now has a limit of 20 requests per minute, this
-    function is designed to make sure you never go over that threshold"""
+    function is designed to make sure you never go over that threshold
+
+    Inputs:
+        - url: (str) URL that should be pulled
+        - selenium: (bool) flag indicating whether selenium should be used. If false, requests will be used
+    """
 
     ### First load log of last requests
     # Get the directory name of this file
@@ -29,7 +60,11 @@ def smart_request(url):
         time.sleep(sleep_time)
 
     # Make the request
-    response = requests.get(url)
+    if selenium:
+        response = selenium_request(url)
+    else:
+        response = requests.get(url)
+        response = response.text
 
     # Log the time
     request_time = time.time()
@@ -43,8 +78,9 @@ def smart_request(url):
     # Return the response
     return response
 
+
 if __name__ == "__main__":
     while True:
-        response = smart_request("https://www.sports-reference.com/cbb/seasons/men/2022-advanced-school-stats.html")
-        print(response)
+        response_text = smart_request("https://www.sports-reference.com/cbb/seasons/men/2022-advanced-school-stats.html")
+        print(response_text)
         print("Done!")

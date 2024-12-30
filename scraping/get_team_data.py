@@ -88,19 +88,19 @@ def get_team_stats(year, force=False):
     except FileNotFoundError:
         print("Making requests for team data")
         # Get basic stats
-        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-school-stats.html")
-        school_stats = str(response.content)
+        school_stats = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-school-stats.html")
+        # school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
         filename = os.path.join(full_path, f"basic_stats_{year}.pckl")
         f = open(filename, "wb")
-        pickle.dump(school_stats,f)
+        pickle.dump(school_stats, f)
         f.close()
         time.sleep(1)
 
         # Get advanced stats
-        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-advanced-school-stats.html")
-        adv_school_stats = str(response.content)
+        adv_school_stats = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-advanced-school-stats.html")
+        # adv_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
         filename = os.path.join(full_path, f"advanced_stats_{year}.pckl")
@@ -110,8 +110,8 @@ def get_team_stats(year, force=False):
         time.sleep(1)
 
         # Get basic opp stats
-        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-opponent-stats.html")
-        opp_school_stats = str(response.content)
+        opp_school_stats = smart_request(f"https://www.sports-reference.com/cbb/seasons/men/{year}-opponent-stats.html")
+        # opp_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
         filename = os.path.join(full_path, f"basic_opp_stats_{year}.pckl")
@@ -121,8 +121,8 @@ def get_team_stats(year, force=False):
         time.sleep(1)
 
         # Get advanced opponent stats
-        response = smart_request(f"https://www.sports-reference.com/cbb/seasons/{year}-advanced-opponent-stats.html")
-        opp_adv_school_stats = str(response.content)
+        opp_adv_school_stats = smart_request(f"https://www.sports-reference.com/cbb/seasons/{year}-advanced-opponent-stats.html")
+        # opp_adv_school_stats = str(response.content)
 
         # Save as a pickle file to prevent getting blocked
         filename = os.path.join(full_path, f"advanced_opp_stats_{year}.pckl")
@@ -172,7 +172,7 @@ def get_team_stats(year, force=False):
                 column_data = dataframes[i][0][first][sub].fillna("0")
                 column_data = column_data[column_data.apply(has_number)]
                 full_school_stats[NAME_LOOKUP[sub]] = pd.to_numeric(column_data)
-            elif first in ["Opponent","Opponent Advanced"]:
+            elif first in ["Opponent", "Opponent Advanced"]:
                 # Remove any rows that do not have a number
                 column_data = dataframes[i][0][first][sub].fillna("0")
                 column_data = column_data[column_data.apply(has_number)]
@@ -230,4 +230,4 @@ def get_team_stats(year, force=False):
 
 
 if __name__ == "__main__":
-    get_team_stats(2014, force=True)
+    get_team_stats(2005, force=True)

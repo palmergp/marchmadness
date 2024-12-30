@@ -37,8 +37,8 @@ def get_schedule_stats(teams, year):
             url_team = get_url_name(team)
             link = f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}-schedule.html"
             response = smart_request(link)
-            team_schedule = str(response.content)
-            team_schedule_df = pd.read_html(team_schedule)[1]
+            #team_schedule = str(response.content)
+            team_schedule_df = pd.read_html(response)[1]
             # Fill nan opponents
             team_schedule_df["Opponent"] = team_schedule_df["Opponent"].fillna("None")
             # Remove any games where the winner isnt listed (this should only happen midseason)

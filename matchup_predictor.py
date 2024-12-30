@@ -7,6 +7,7 @@ import json
 from scraping.get_team_data import get_team_stats
 from scraping.get_schedule_data import get_schedule_stats
 from scraping.get_roster_data import get_roster_stats
+from scraping.get_kenpom_data import get_kenpom_stats
 from datetime import datetime
 import shap
 import matplotlib.pyplot as plt
@@ -181,11 +182,22 @@ class MatchupPredictor:
 
     def set_year(self, year):
         """Loads the data for a given year to be used for predictions"""
-        self.data = get_team_stats(year)
+        self.data = get_team_stats(year)  #TODO: Use reformat names instead of whatever get_team_stats does
         # Fix UCF cause its dumb
-        self.data = self.data.rename(index={'UCF': 'CENTRAL-FLORIDA'})
+        # self.data = self.data.rename(index={'UCF': 'CENTRAL-FLORIDA'})
         # Fix FDU too cause they are also dumb
-        self.data = self.data.rename(index={'FDU': 'FAIRLEIGH-DICKINSON'})
+        # self.data = self.data.rename(index={'FDU': 'FAIRLEIGH-DICKINSON'})
+        self.data.index = self.data.index.map(reformat_name)
+
+        # Add in Kenpom
+        kenpom = get_kenpom_stats(year)
+        kenpom.index = kenpom.index.map(reformat_name)
+        indices_diff = self.data.index.difference(kenpom.index)
+        self.data = pd.concat([
+            self.data,
+            kenpom
+        ], axis=1)
+        print("Done")
 
     def main(self):
         year = int(input("Enter the tournament year: "))

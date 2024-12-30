@@ -25,7 +25,7 @@ def collect_bracket_stats(model):
             # COVID...
             continue
         predictor.set_year(year)
-        total_points = predictor.main(True)
+        total_points, picked_winner = predictor.main(True)
         all_totals.append(total_points)
 
     # Get stats
@@ -56,7 +56,7 @@ def create_bracket_stat_csv(filepath, stats):
     df.reset_index(inplace=True)
     df.rename(columns={'index': 'Models'}, inplace=True)
     # Save the DataFrame to a CSV file with the first column named "Models"
-    df.to_csv(filepath + 'bracket_scores.csv', index=False)
+    df.to_csv(filepath + '/bracket_scores.csv', index=False)
 
 
 if __name__ == '__main__':

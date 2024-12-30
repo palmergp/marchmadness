@@ -6,6 +6,7 @@ from scraping.get_tournament_data import get_tournament_data
 from scraping.get_team_data import get_team_stats
 from scraping.get_schedule_data import get_schedule_stats
 from scraping.get_roster_data import get_roster_stats
+from scraping.get_kenpom_data import get_kenpom_stats
 
 name_dict = {
     "UNC Asheville": "UNC-ASHEVILLE",
@@ -56,7 +57,33 @@ name_dict = {
     "UMBC": "MARYLAND-BALTIMORE-COUNTY",
     "UCF": "CENTRAL-FLORIDA",
     "UCSB": "UC-SANTA-BARBARA",
-    "FDU": "FAIRLEIGH-DICKINSON"
+    "FDU": "FAIRLEIGH-DICKINSON",
+    "Albany": "ALBANY-NY",
+    "Arkansas Little Rock": "LITTLE-ROCK",
+    "Bowling Green": "BOWLING-GREEN-STATE",
+    "Centenary": "CENTENARY-LA",
+    "Central Connecticut": "CENTRAL-CONNECTICUT-STATE",
+    "FIU": "FLORIDA-INTERNATIONAL",
+    "Grambling St.": "GRAMBLING",
+    "Houston Baptist": "HOUSTON-CHRISTIAN",
+    "IPFW": "PURDUE-FORT-WAYNE",
+    "LIU Brooklyn": "LONG-ISLAND-UNIVERSITY",
+    "Louisiana Lafayette": "LOUISIANA",
+    "Loyola Chicago": "LOYOLA-IL",
+    "Prairie View A&M": "PRAIRIE-VIEW",
+    "St. Francis NY": "ST-FRANCIS-NY",
+    "Sam Houston St.": "SAM-HOUSTON",
+    "Texas A&M Corpus Chris": "TEXAS-A&M-CORPUS-CHRISTI",
+    "Texas Pan American": "TEXAS-RIO-GRANDE-VALLEY",
+    "UMKC": "KANSAS-CITY",
+    "USC Upstate": "SOUTH-CAROLINA-UPSTATE",
+    "Charleston": "COLLEGE-OF-CHARLESTON",
+    "Nebraska Omaha": "OMAHA",
+    "Cal Baptist": "CALIFORNIA-BAPTIST",
+    "UMass Lowell": "MASSACHUSETTS-LOWELL",
+    "Queens": "QUEENS-NC",
+    "St. Thomas": "ST-THOMAS",
+    "UT Rio Grande Valley": "TEXAS-RIO-GRANDE-VALLEY"
 }
 
 
@@ -66,8 +93,12 @@ def reformat_name(name):
         name = name_dict[name]
     except KeyError:
         name = name.replace(" ", "-")
+        if name.startswith("St."):
+            name = name.replace("St.", "SAINT")
+        name = name.replace("St.", "STATE")
         name = name.replace("St.", "SAINT")
         name = name.replace("'", "")
+        name = name.replace(".", "")
         #name = name.replace("UC-", "CALIFORNIA-")
         name = name.replace("(", "")
         name = name.replace(")", "")
@@ -93,13 +124,13 @@ def collect_features(recalculate=False):
         with open(filename, "rb") as f:
             training_data = pickle.load(f)
     else:
-        # If the file doesn't exist or the recalculate flag was raised,
+        # If the file doesn't exist or the recalculate-flag was raised,
         # start collecting training data
         print("Recalculating training data")
         training_data = pd.DataFrame()
 
         # Get the current year
-        curr_year = datetime.datetime.now().year
+        curr_year = datetime.datetime.now().year -1
         # Get data from 2011 to last year
         for year in range(2011, curr_year):
 
@@ -116,6 +147,10 @@ def collect_features(recalculate=False):
 
             # Fix the names
             all_team_stats.index = all_team_stats.index.map(reformat_name)
+
+            # Get all kenpom stats
+            all_kenpom_stats = get_kenpom_stats(year)
+            all_kenpom_stats.index = all_kenpom_stats.index.map(reformat_name)
 
             # If the year's data is not in the set, go collect it
             # First get all tournament matchups from the year
@@ -150,11 +185,14 @@ def collect_features(recalculate=False):
                     roster_stats = get_roster_stats([reformat_name(team["name"])], year).loc[[reformat_name(team["name"])]]
                     tourney_stats = pd.DataFrame({"seed": [int(team["seed"])],
                                                   "label": favorite["label"]})
+                    kenpom_stats = all_kenpom_stats.loc[[reformat_name(team["name"])]]
+
                     # Combine all of these stats into a single dataframe row
                     team_row = pd.concat([tourney_stats,
                                           team_stats.rename(index={reformat_name(team["name"]):0}),
                                           schedule_stats.rename(index={reformat_name(team["name"]):0}),
-                                          roster_stats.rename(index={reformat_name(team["name"]):0})], axis=1)
+                                          roster_stats.rename(index={reformat_name(team["name"]):0}),
+                                          kenpom_stats.rename(index={reformat_name(team["name"]):0})], axis=1)
                     # Update the column names to say favorite or underdog
                     team_row = team_row.add_prefix(team["type"] + "_")
                     # Append to the game row

@@ -47,10 +47,15 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning, featur
                         - GradientBoost
                         - KernelSVM
         - tuning: (bool) flag indicating whether hyperparameter tuning should be done or not
+        - feature analysis: (bool) flag indicating whether to do feature analysis
     """
     start_time = time.time()
     # Set outpath
     outpath_full = f"./{outpath}{model_set}"
+
+    # Create the output folder if needed
+    if not os.path.exists(outpath_full):
+        os.makedirs(outpath_full)
 
     # Load featurelist
     with open(featurepath, "r") as f:
@@ -231,7 +236,7 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning, featur
         auc[m] = roc_auc
     plt.title("ROC Curve")
     plt.legend()
-    plt.show()
+    plt.savefig(f"{outpath_full}/ROC.png")
 
     # Order from least accurate to most
     z = zip(results, model_names)
@@ -269,7 +274,7 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning, featur
     all_stats = {}
     # Calculate scores for each model
     for model in file_names:
-        model_stats = collect_bracket_stats(outpath_full + model)
+        model_stats = collect_bracket_stats(outpath_full + "/" + model)
         all_stats[model] = model_stats
     # Save it to a CSV
     create_bracket_stat_csv(outpath_full, all_stats)
@@ -288,4 +293,4 @@ if __name__ == '__main__':
           config["model_names"],
           config["tuning"],
           config["feature_analysis"]
-         )
+          )

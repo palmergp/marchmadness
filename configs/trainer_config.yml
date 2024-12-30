@@ -1,6 +1,6 @@
-feature_list: featuresets/featuresets25/v25_1_0/featurenames_selected.json
+feature_list: featuresets/featuresets25/v25_2_2/featurenames_selected.json
 data: scraping/data/training_data.pckl
-version: v25_1_0
+version: v25_2_2
 outpath: models/models25/
 tuning: true
 feature_analysis: true

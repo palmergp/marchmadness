@@ -31,7 +31,7 @@ def get_tournament_data(year):
         print("Tournament data not found. Pulling from sports reference...")
         # Get HTML content from url
         response = smart_request(f"https://www.sports-reference.com/cbb/postseason/men/{year}-ncaa.html")
-        soup = BeautifulSoup(response.text, "html.parser")
+        soup = BeautifulSoup(response, "html.parser")
 
         # Find div with id brackets
         brackets = soup.find("div", id="brackets")
@@ -106,7 +106,7 @@ def get_tournament_data(year):
                     df_region = pd.concat([df_region, df_matchup])
 
             # Save the region data frame as a csv file with the region name as the file name
-            df_bracket = pd.concat([df_bracket,df_region])
+            df_bracket = pd.concat([df_bracket, df_region])
 
         df_bracket.to_csv(filename, index=False)
 
