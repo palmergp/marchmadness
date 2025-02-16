@@ -197,7 +197,6 @@ class MatchupPredictor:
             self.data,
             kenpom
         ], axis=1)
-        print("Done")
 
     def main(self):
         year = int(input("Enter the tournament year: "))

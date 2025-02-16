@@ -166,7 +166,6 @@ def get_roster_stats(teams, year):
         with open(filename, "wb") as f:
             pickle.dump(roster_data, f)
 
-    print("Done!!")
     return roster_data
 
 

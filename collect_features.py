@@ -130,7 +130,10 @@ def collect_features(recalculate=False):
         training_data = pd.DataFrame()
 
         # Get the current year
-        curr_year = datetime.datetime.now().year -1
+        curr_year = datetime.datetime.now().year
+        # If it is past april, then the tournament is over then we can include this year too
+        if datetime.datetime.now().month > 4:
+            curr_year = curr_year + 1
         # Get data from 2011 to last year
         for year in range(2011, curr_year):
 

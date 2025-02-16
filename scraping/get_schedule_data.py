@@ -107,7 +107,6 @@ def get_schedule_stats(teams, year):
         with open(filename, "wb") as f:
             pickle.dump(schedule_data, f)
 
-    print("Done!!")
     return schedule_data
 
 

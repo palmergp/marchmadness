@@ -4,7 +4,10 @@ import os
 import yaml
 import random
 import time
+from datetime import datetime
+import warnings
 import numpy as np
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
@@ -13,7 +16,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier, StackingClassifier
 from sklearn.model_selection import cross_val_score, train_test_split, GridSearchCV, RandomizedSearchCV
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
 from sklearn.preprocessing import StandardScaler
@@ -26,7 +29,158 @@ from model_bracket_stats import collect_bracket_stats, create_bracket_stat_csv
 random.seed(11001)
 
 
-def train(datapath, featurepath, model_set, outpath, model_names, tuning, feature_analysis):
+def create_model(model_name, short_p_grid=False):
+    """Given a string, a model name and p_grid is returned
+    Input:
+        - model_name: (str) name of a model to be created
+        - short_p_grid: (bool) if raised, the p_grid for hyperparameter tuning will be significantly smaller
+    """
+    if model_name == "Gaussian_Naive_Bayes":
+        clf = GaussianNB()
+        p_grid = {}
+    elif model_name == "Neural_Network":
+        clf = MLPClassifier(max_iter=50000)
+        if short_p_grid:
+            p_grid = {'solver': ['sgd'],
+                      'max_iter': [1000],
+                      'learning_rate_init': [0.1],
+                      'learning_rate': ['adaptive'],
+                      'hidden_layer_sizes': [50,],
+                      'early_stopping': [False],
+                      'alpha': [0.001],
+                      'activation': ['tanh']
+                      }
+        else:
+            p_grid = {'hidden_layer_sizes': [(50,), (100,), (50, 50)],
+                      'activation': ['identity', 'logistic', 'tanh', 'relu'],
+                      'solver': ['lbfgs', 'sgd', 'adam'],
+                      'alpha': [0.0001, 0.001, 0.01, 0.1],
+                      'learning_rate': ['constant', 'invscaling', 'adaptive'],
+                      'learning_rate_init': [0.001, 0.01, 0.1],
+                      'max_iter': [200, 500, 1000],
+                      'early_stopping': [True, False]}
+    elif model_name == "Logistic_Regression":
+        clf = LogisticRegression()
+        if short_p_grid:
+            p_grid = {'solver': ['lbfgs'],
+                      'penalty': ['l2'],
+                      'max_iter': [500],
+                      'l1_ratio': [0.1],
+                      'C': [0.001]
+                      }
+        else:
+            p_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100],
+                      'penalty': ['l1', 'l2', 'elasticnet', 'none'],
+                      'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
+                      'max_iter': [100, 200, 500],
+                      'l1_ratio': [0.1, 0.5, 0.9]}
+    elif model_name == "Linear_SVC":
+        clf = svm.SVC(kernel='linear', probability=True)
+        if short_p_grid:
+            p_grid = {'C': [0.01, 0.1, 1, 10, 100],
+                      'max_iter': [1000, 2000, 5000],
+                      'tol': [0.0001, 0.001, 0.01, 0.1],
+                      'class_weight': [None, 'balanced']}
+        else:
+            p_grid = {'C': [0.01, 0.1, 1, 10, 100],
+                      'max_iter': [1000, 2000, 5000],
+                      'tol': [0.0001, 0.001, 0.01, 0.1],
+                      'class_weight': [None, 'balanced']}
+    elif model_name == "KNN":
+        clf = KNeighborsClassifier()
+        if short_p_grid:
+            p_grid = {'n_neighbors': [3, 5, 7, 9, 11, 13],
+                      'weights': ['uniform', 'distance'],
+                      'metric': ['euclidean', 'manhattan', 'minkowski'],
+                      'p': [1, 2]}
+        else:
+            p_grid = {'n_neighbors': [3, 5, 7, 9, 11, 13],
+                      'weights': ['uniform', 'distance'],
+                      'metric': ['euclidean', 'manhattan', 'minkowski'],
+                      'p': [1, 2]}
+    elif model_name == "Gaussian_RBF":
+        clf = GaussianProcessClassifier()
+        if short_p_grid:
+            p_grid = {'n_restarts_optimizer': [0, 5, 10],
+                      'max_iter_predict': [100, 200],
+                      'warm_start': [False, True]}
+        else:
+            p_grid = {'n_restarts_optimizer': [0, 5, 10],
+                      'max_iter_predict': [100, 200],
+                      'warm_start': [False, True]}
+    elif model_name == "Decision_Tree":
+        clf = DecisionTreeClassifier()
+        if short_p_grid:
+            p_grid = {'max_depth': [None, 10, 20, 30, 40, 50],
+                      'min_samples_split': [2, 5, 10, 20],
+                      'min_samples_leaf': [1, 2, 5, 10],
+                      'max_features': [None, 'auto', 'sqrt', 'log2'],
+                      'criterion': ['gini', 'entropy']}
+        else:
+            p_grid = {'max_depth': [None, 10, 20, 30, 40, 50],
+                      'min_samples_split': [2, 5, 10, 20],
+                      'min_samples_leaf': [1, 2, 5, 10],
+                      'max_features': [None, 'auto', 'sqrt', 'log2'],
+                      'criterion': ['gini', 'entropy']}
+    elif model_name == "Random_Forest":
+        clf = RandomForestClassifier()
+        if short_p_grid:
+            p_grid = {'n_estimators': [50, 300, 500],
+                      'max_features': ['auto'],
+                      'max_depth': [None, 20, 50],
+                      'min_samples_split': [2, 5, 10],
+                      'min_samples_leaf': [1, 2, 4],
+                      'bootstrap': [True, False]}
+        else:
+            p_grid = {'n_estimators': [50, 100, 200, 300, 400, 500],
+                      'max_features': ['auto', 'sqrt', 'log2'],
+                      'max_depth': [None, 10, 20, 30, 40, 50],
+                      'min_samples_split': [2, 5, 10],
+                      'min_samples_leaf': [1, 2, 4],
+                      'bootstrap': [True, False]}
+    elif model_name == "Adaboost":
+        clf = AdaBoostClassifier()
+        if short_p_grid:
+            p_grid = {'n_estimators': [50],
+                      'learning_rate': [0.01],
+                      'base_estimator': [DecisionTreeClassifier(max_depth=2)]}
+        else:
+            p_grid = {'n_estimators': [50, 100, 200, 300, 400, 500],
+                      'learning_rate': [0.01, 0.1, 0.5, 1, 1.5, 2],
+                      'base_estimator': [DecisionTreeClassifier(max_depth=1), DecisionTreeClassifier(max_depth=2),
+                                         DecisionTreeClassifier(max_depth=3)]}
+    elif model_name == "KernelSVM":
+        clf = svm.SVC(probability=True)
+        if short_p_grid:
+            p_grid = {'kernel': ['linear', 'poly', 'rbf'],
+                      'C': [0.1, 1, 10],
+                      'gamma': [0.001, 0.01, 0.1]}
+        else:
+            p_grid = {'kernel': ['linear', 'poly', 'rbf'],
+                      'C': [0.1, 1, 10],
+                      'gamma': [0.001, 0.01, 0.1]}
+    elif model_name == "GradientBoost":
+        clf = GradientBoostingClassifier()
+        if short_p_grid:
+            p_grid = {}
+        else:
+            p_grid = {'n_estimators': [50, 100, 200, 300, 400, 500],
+                      'learning_rate': [0.01, 0.05, 0.1, 0.2, 0.3],
+                      'max_depth': [3, 4, 5, 6, 7, 8, 9, 10],
+                      'min_samples_split': [2, 5, 10],
+                      'min_samples_leaf': [1, 2, 4],
+                      'subsample': [0.6, 0.7, 0.8, 0.9, 1.0],
+                      'max_features': [None, 'auto', 'sqrt', 'log2']}
+    else:
+        print("Error: Invalid model")
+        clf = None
+        p_grid = None
+
+    return clf, p_grid
+
+
+def train(datapath, featurepath, model_set, outpath, model_names,
+          meta_models=[], model_stacks=[], tuning=True, scoring="accuracy", feature_analysis=False):
     """The train function performs the training process based on the input provided
     Input:
         - datapath: (str) path to the data file containing all feature data
@@ -46,7 +200,10 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning, featur
                         - Adaboost
                         - GradientBoost
                         - KernelSVM
-        - tuning: (bool) flag indicating whether hyperparameter tuning should be done or not
+        - tuning: (bool) flag indicating whether hyperparameter tuning should be done or not,
+        - scoring: (str) Indicates what scoring method should be used for hypertuning. Options:
+            - accuracy
+            - roc_auc
         - feature analysis: (bool) flag indicating whether to do feature analysis
     """
     start_time = time.time()
@@ -69,12 +226,19 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning, featur
             if fname != "SeedDiff":
                 all_featurenames.append(prefix + fname)
 
+    # Pull out 2023 and 2024 for test data
+    test_data = data[data['year'] > 2022]
+    filtered_test = test_data[test_data.columns.intersection(all_featurenames)]
+
     # Remove any features not in the featurenames file
-    filtered_data = data[data.columns.intersection(all_featurenames)]
+    train_data = data[data['year'] <= 2022]
+    filtered_data = train_data[train_data.columns.intersection(all_featurenames)]
 
     # Structure all data for training
+    train_labels = train_data['favorite_label'].tolist()
     training_data = filtered_data.values.tolist()
-    train_labels = data['favorite_label'].tolist()
+    test_labels = test_data['favorite_label'].tolist()
+    test_data = filtered_test.values.tolist()
     featurenames = list(filtered_data.columns)
 
     if feature_analysis:
@@ -113,95 +277,29 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning, featur
     # Scale the features
     scaler = StandardScaler()
     scaled_training_data = scaler.fit_transform(training_data)
+    scaled_test_data = scaler.fit_transform(test_data)
 
-    # Split training and test 80/20
-    X_train, X_test, y_train, y_test = train_test_split(scaled_training_data, train_labels, test_size=0.2,
-                                                        random_state=42)
+    # Split training and test 80/20 (normally, trying reducing significantly since I hold out 23 and 24 brackets)
+    #X_train, X_test, y_train, y_test = train_test_split(scaled_training_data, train_labels, test_size=0.01,
+    #                                                    random_state=42)
+    X_train = scaled_training_data
+    X_test = scaled_test_data
+    y_train = train_labels
+    y_test = test_labels
     results = []
     params = {}
     models = {}
+    # Train the single models
     for m in model_names:
         model_package = {}
-        print("Starting {}".format(m))
-        if m == "Gaussian_Naive_Bayes":
-            clf = GaussianNB()
-            p_grid = {}
-        elif m == "Neural_Network":
-            clf = MLPClassifier(max_iter=50000)
-            p_grid = {'hidden_layer_sizes': [(50,), (100,), (50, 50)],
-                      'activation': ['identity', 'logistic', 'tanh', 'relu'],
-                      'solver': ['lbfgs', 'sgd', 'adam'],
-                      'alpha': [0.0001, 0.001, 0.01, 0.1],
-                      'learning_rate': ['constant', 'invscaling', 'adaptive'],
-                      'learning_rate_init': [0.001, 0.01, 0.1],
-                      'max_iter': [200, 500, 1000],
-                      'early_stopping': [True, False]}
-        elif m == "Logistic_Regression":
-            clf = LogisticRegression()
-            p_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100],
-                      'penalty': ['l1', 'l2', 'elasticnet', 'none'],
-                      'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
-                      'max_iter': [100, 200, 500],
-                      'l1_ratio': [0.1, 0.5, 0.9]}
-        elif m == "Linear_SVC":
-            clf = svm.SVC(kernel='linear', probability=True)
-            p_grid = {'C': [0.01, 0.1, 1, 10, 100],
-                      'max_iter': [1000, 2000, 5000],
-                      'tol': [0.0001, 0.001, 0.01, 0.1],
-                      'class_weight': [None, 'balanced']}
-        elif m == "KNN":
-            clf = KNeighborsClassifier()
-            p_grid = {'n_neighbors': [3, 5, 7, 9, 11, 13],
-                      'weights': ['uniform', 'distance'],
-                      'metric': ['euclidean', 'manhattan', 'minkowski'],
-                      'p': [1, 2]}
-        elif m == "Gaussian_RBF":
-            clf = GaussianProcessClassifier()
-            p_grid = {'n_restarts_optimizer': [0, 5, 10],
-                      'max_iter_predict': [100, 200],
-                      'warm_start': [False, True]}
-        elif m == "Decision_Tree":
-            clf = DecisionTreeClassifier()
-            p_grid = {'max_depth': [None, 10, 20, 30, 40, 50],
-                      'min_samples_split': [2, 5, 10, 20],
-                      'min_samples_leaf': [1, 2, 5, 10],
-                      'max_features': [None, 'auto', 'sqrt', 'log2'],
-                      'criterion': ['gini', 'entropy']}
-        elif m == "Random_Forest":
-            clf = RandomForestClassifier()
-            p_grid = {'n_estimators': [50, 100, 200, 300, 400, 500],
-                      'max_features': ['auto', 'sqrt', 'log2'],
-                      'max_depth': [None, 10, 20, 30, 40, 50],
-                      'min_samples_split': [2, 5, 10],
-                      'min_samples_leaf': [1, 2, 4],
-                      'bootstrap': [True, False]}
-        elif m == "Adaboost":
-            clf = AdaBoostClassifier()
-            p_grid = {'n_estimators': [50, 100, 200, 300, 400, 500],
-                      'learning_rate': [0.01, 0.1, 0.5, 1, 1.5, 2],
-                      'base_estimator': [DecisionTreeClassifier(max_depth=1), DecisionTreeClassifier(max_depth=2), DecisionTreeClassifier(max_depth=3)]}
-        elif m == "KernelSVM":
-            clf = svm.SVC(probability=True)
-            p_grid = {'kernel': ['linear', 'poly', 'rbf'],
-                      'C': [0.1, 1, 10],
-                      'gamma': [0.001, 0.01, 0.1]}
-        elif m == "GradientBoost":
-            clf = GradientBoostingClassifier()
-            p_grid = {'n_estimators': [50, 100, 200, 300, 400, 500],
-                      'learning_rate': [0.01, 0.05, 0.1, 0.2, 0.3],
-                      'max_depth': [3, 4, 5, 6, 7, 8, 9, 10],
-                      'min_samples_split': [2, 5, 10],
-                      'min_samples_leaf': [1, 2, 4],
-                      'subsample': [0.6, 0.7, 0.8, 0.9, 1.0],
-                      'max_features': [None, 'auto', 'sqrt', 'log2']}
-        else:
-            print("Error: Invalid model")
-            continue
+        print(f"{datetime.now()}: Starting {m}")
+        clf, p_grid = create_model(m)
 
-        # model = clf.fit(scaled_training_data, train_labels)
         if tuning and p_grid:
-            param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring='accuracy')
-            param_search.fit(X_train, y_train)
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", category=ConvergenceWarning)
+                param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring=scoring)
+                param_search.fit(X_train, y_train)
 
             # Store the best model and its performance
             clf = param_search.best_estimator_
@@ -218,8 +316,60 @@ def train(datapath, featurepath, model_set, outpath, model_names, tuning, featur
         model_package["feature_names"] = featurenames
         model_package["scaler"] = scaler
         models[m] = model_package
-        scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
-        results.append(scores.mean())
+        #scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
+        #results.append(scores.mean())
+        results.append(0)
+
+    # Train stacked models
+    for m in meta_models:
+        base_models = []
+        for stack in model_stacks:
+            stack = stack.lower()
+            # The all stack uses every model we've created this time around
+            if stack == "all":
+                base_models = [(m, models[m]["model"]) for m in models]
+            # The top5_accuracy uses 5 models with the highest accuracy
+            elif stack == "top5_accuracy":
+                print("TOP5 ACCURACY NOT IMPLEMENTED")
+            # The top5_roc uses 5 models with the highest ROC AUC
+            elif stack == "top5_auc":
+                print("TOP5_AUC NOT IMPLEMENTED")
+
+            # If a valid base model configuration was chosen, train the stacking model
+            if base_models:
+                # Make the name of the model
+                stack_name = f"stack_{stack}_{m}"
+                # Add the name to the model names list
+                model_names.append(stack_name)
+                print(f"{datetime.now()}: Starting {stack_name}")
+                # Create the meta model
+                clf, p_grid = create_model(m, True)
+                clf = StackingClassifier(estimators=base_models, final_estimator=clf, cv=5)
+                # Perform hyperparameter tuning if flag is raised
+                with warnings.catch_warnings():  # When tuning, lots of warnings happen so we want to suppress them
+                    warnings.simplefilter("ignore")
+                    if tuning and p_grid:
+                        # Update p_grid to work with stacking model
+                        p_grid = {'final_estimator__' + key: value for key, value in p_grid.items()}
+                        # Begin tuning
+                        param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring=scoring)
+                        param_search.fit(X_train, y_train)
+
+                        # Store the best model and its performance
+                        clf = param_search.best_estimator_
+                        print(f"Best Parameters: {param_search.best_params_}")
+                        params[stack_name] = param_search.best_params_
+                    else:
+                        clf.fit(X_train, y_train)
+                        params[stack_name] = "Default"
+
+                # Create the model package
+                model_package = {"bg_dist_samp": pd.DataFrame(scaled_training_data, columns=featurenames), "model": clf,
+                                 "feature_names": featurenames, "scaler": scaler}
+                models[stack_name] = model_package
+                # scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
+                # results.append(scores.mean())
+                results.append(0)
 
     # Plot ROC Curves
     y_test = [1 if x == "upset" else 0 for x in y_test]
@@ -291,6 +441,9 @@ if __name__ == '__main__':
           config["version"],
           config["outpath"],
           config["model_names"],
+          config["meta_models"],
+          config["model_stacks"],
           config["tuning"],
+          config["scoring"],
           config["feature_analysis"]
           )
