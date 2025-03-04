@@ -37,6 +37,14 @@ class BracketPredictor:
         self.bracket = self.bracket.reindex(new_order).reset_index(drop=True)
 
     def main(self, tourney_over):
+        """
+        Makes a prediction for every matchup that happens in a tournament. Uses previous predictions to set up matchups
+        in future rounds.
+        :param tourney_over (bool) indicates if tournament is over and can be scored or not:
+        :return:
+            - total_points (int) - total points from bracket
+            - picked_winner (bool) - boolean indicating if the winner was correctly predicted
+        """
         # This needs to be able to pull in the round one matchups and figure out matchups from there
         # Cannot use anything after round 1 since missed picks affect future matchups
         finished_bracket = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: []}

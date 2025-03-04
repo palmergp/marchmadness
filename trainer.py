@@ -172,15 +172,15 @@ def create_model(model_name, short_p_grid=False):
                       'subsample': [0.6, 0.7, 0.8, 0.9, 1.0],
                       'max_features': [None, 'auto', 'sqrt', 'log2']}
     else:
-        print("Error: Invalid model")
+        print(f"Error: Invalid model - {model_name}")
         clf = None
         p_grid = None
 
     return clf, p_grid
 
 
-def train(datapath, featurepath, model_set, outpath, model_names,
-          meta_models=[], model_stacks=[], tuning=True, scoring="accuracy", feature_analysis=False):
+def train(datapath, featurepath, model_set, outpath, model_names, training_years=[],
+          meta_models=[], model_stacks=[], tuning=True, scoring="accuracy", feature_analysis=False, bracket_stats=True):
     """The train function performs the training process based on the input provided
     Input:
         - datapath: (str) path to the data file containing all feature data
@@ -200,11 +200,13 @@ def train(datapath, featurepath, model_set, outpath, model_names,
                         - Adaboost
                         - GradientBoost
                         - KernelSVM
+        - training_years: (list) list of years to include in training
         - tuning: (bool) flag indicating whether hyperparameter tuning should be done or not,
         - scoring: (str) Indicates what scoring method should be used for hypertuning. Options:
             - accuracy
             - roc_auc
         - feature analysis: (bool) flag indicating whether to do feature analysis
+        - bracket_stats: (bool) flag indicating whether scores should be calculated for each year in training
     """
     start_time = time.time()
     # Set outpath
@@ -226,25 +228,22 @@ def train(datapath, featurepath, model_set, outpath, model_names,
             if fname != "SeedDiff":
                 all_featurenames.append(prefix + fname)
 
-    # Pull out 2023 and 2024 for test data
-    test_data = data[data['year'] > 2022]
-    filtered_test = test_data[test_data.columns.intersection(all_featurenames)]
-
     # Remove any features not in the featurenames file
-    train_data = data[data['year'] <= 2022]
+    train_data = data[data['year'].isin(training_years)]
     filtered_data = train_data[train_data.columns.intersection(all_featurenames)]
+
+    # Change labels from strings to ints
+    train_data["favorite_label"] = train_data["favorite_label"].map({'expected': 0, 'upset': 1})
 
     # Structure all data for training
     train_labels = train_data['favorite_label'].tolist()
     training_data = filtered_data.values.tolist()
-    test_labels = test_data['favorite_label'].tolist()
-    test_data = filtered_test.values.tolist()
     featurenames = list(filtered_data.columns)
 
     if feature_analysis:
         # Create the correlation heatmap for features
         corr_matrix = filtered_data.corr().abs()
-        #sns.heatmap(var_corr, xticklabels=var_corr.columns, yticklabels=var_corr.columns, annot=True)
+        # sns.heatmap(var_corr, xticklabels=var_corr.columns, yticklabels=var_corr.columns, annot=True)
         # Unstack the matrix to get a dataframe of correlations
         corr_pairs = corr_matrix.unstack()
         # Remove self-correlations
@@ -277,15 +276,11 @@ def train(datapath, featurepath, model_set, outpath, model_names,
     # Scale the features
     scaler = StandardScaler()
     scaled_training_data = scaler.fit_transform(training_data)
-    scaled_test_data = scaler.fit_transform(test_data)
 
-    # Split training and test 80/20 (normally, trying reducing significantly since I hold out 23 and 24 brackets)
-    #X_train, X_test, y_train, y_test = train_test_split(scaled_training_data, train_labels, test_size=0.01,
-    #                                                    random_state=42)
-    X_train = scaled_training_data
-    X_test = scaled_test_data
-    y_train = train_labels
-    y_test = test_labels
+    # Split training and test 80/20
+    X_train, X_test, y_train, y_test = train_test_split(scaled_training_data, train_labels, test_size=0.20,
+                                                        random_state=42)
+
     results = []
     params = {}
     models = {}
@@ -316,9 +311,8 @@ def train(datapath, featurepath, model_set, outpath, model_names,
         model_package["feature_names"] = featurenames
         model_package["scaler"] = scaler
         models[m] = model_package
-        #scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
-        #results.append(scores.mean())
-        results.append(0)
+        scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
+        results.append(scores.mean())
 
     # Train stacked models
     for m in meta_models:
@@ -367,14 +361,15 @@ def train(datapath, featurepath, model_set, outpath, model_names,
                 model_package = {"bg_dist_samp": pd.DataFrame(scaled_training_data, columns=featurenames), "model": clf,
                                  "feature_names": featurenames, "scaler": scaler}
                 models[stack_name] = model_package
-                # scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
-                # results.append(scores.mean())
-                results.append(0)
+                scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
+                results.append(scores.mean())
 
     # Plot ROC Curves
-    y_test = [1 if x == "upset" else 0 for x in y_test]
+    if "upset" in y_test:
+        y_test = [1 if x == "upset" else 0 for x in y_test]
     auc = {}
     acc = {}
+    plt.clf()  # clear figure
     for m in models:
         yHat = models[m]["model"].predict_proba(X_test)
         roc_pfa, roc_pd, thresh = roc_curve(y_test, yHat[:, 1], pos_label=1)
@@ -417,17 +412,27 @@ def train(datapath, featurepath, model_set, outpath, model_names,
                 f.write(f"\t{model_names[i]} - Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}\n")
                 f.write(f"\t\tParams: {params[model_names[i]]}\n")
 
+        # Save config
+        with open(outpath_full + "/config_params.txt", "w") as f:
+            f.write(f"feature list: {featurepath}\n")
+            f.write(f"tuning: {tuning}\n")
+            f.write(f"scoring: {scoring}\n")
+            f.write(f"models: {model_names}\n")
+            f.write(f"meta models: {meta_models}\n")
+            f.write(f"training_years: {training_years}\n")
+
     # Calculate bracket stats
-    # Get filenames
-    file_names = os.listdir(outpath_full)
-    file_names = [f for f in file_names if f.endswith("package") and os.path.isfile(os.path.join(outpath_full, f))]
-    all_stats = {}
-    # Calculate scores for each model
-    for model in file_names:
-        model_stats = collect_bracket_stats(outpath_full + "/" + model)
-        all_stats[model] = model_stats
-    # Save it to a CSV
-    create_bracket_stat_csv(outpath_full, all_stats)
+    if bracket_stats:
+        # Get filenames
+        file_names = os.listdir(outpath_full)
+        file_names = [f for f in file_names if f.endswith("package") and os.path.isfile(os.path.join(outpath_full, f))]
+        all_stats = {}
+        # Calculate scores for each model
+        for model in file_names:
+            model_stats = collect_bracket_stats(outpath_full + "/" + model)
+            all_stats[model] = model_stats
+        # Save it to a CSV
+        create_bracket_stat_csv(outpath_full, all_stats)
 
     print(f'Total Train Time: {time.time()-start_time}s')
 
@@ -441,9 +446,11 @@ if __name__ == '__main__':
           config["version"],
           config["outpath"],
           config["model_names"],
+          config["training_years"],
           config["meta_models"],
           config["model_stacks"],
           config["tuning"],
           config["scoring"],
-          config["feature_analysis"]
+          config["feature_analysis"],
+          config["bracket_scores"]
           )

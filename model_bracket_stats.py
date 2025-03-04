@@ -5,6 +5,7 @@ import datetime
 import numpy as np
 import pandas as pd
 import os
+import copy
 
 
 def collect_bracket_stats(model):
