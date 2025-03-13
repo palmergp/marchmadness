@@ -3,6 +3,7 @@ import pandas as pd
 from nonsense.favorite_picker import FavoritePicker
 from matchup_predictor import MatchupPredictor
 from scraping.get_tournament_data import get_tournament_data
+import csv
 
 class BracketPredictor:
     """Goes through a tournament and predicts all matchups"""
@@ -103,6 +104,31 @@ class BracketPredictor:
                 if r == 7 and actual_teams[0] == predicted_teams[0]:
                     picked_winner = True
             print(f"Model got {total_points} points")
+        else:
+            # Output the results in a file for input into pool
+            # Combine "seed" and "team" into a single string and add "Round" header
+            formatted_data = []
+            for round_key, round_value in finished_bracket.items():
+                formatted_column = [f"Round {round_key}"]
+                formatted_column += [f"({item['seed']}) {item['team']}" for item in round_value]
+                formatted_data.append(formatted_column)
+
+            # Find the maximum length of the lists (to handle different lengths)
+            max_length = max(len(column) for column in formatted_data)
+
+            # Pad the shorter lists with empty strings
+            for column in formatted_data:
+                while len(column) < max_length:
+                    column.append("")
+
+            # Transpose the data to convert rows to columns
+            transposed_data = list(zip(*formatted_data))
+
+            # Write to CSV
+            with open("output.csv", "w", newline="") as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerows(transposed_data)
+            print("Bracket saved!")
         return total_points, picked_winner
 
 
@@ -112,6 +138,6 @@ if __name__ == '__main__':
     path = "nonsense/"
     # model_pkg = f"Gaussian_RBF_{version}.package"
     model_pkg = "fav_picker.package"
-    tourney_over = True
+    tourney_over = False
     bp = BracketPredictor(path+model_pkg, 2024)
     bp.main(tourney_over)

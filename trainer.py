@@ -371,14 +371,18 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
     acc = {}
     plt.clf()  # clear figure
     for m in models:
-        yHat = models[m]["model"].predict_proba(X_test)
-        roc_pfa, roc_pd, thresh = roc_curve(y_test, yHat[:, 1], pos_label=1)
-        plt.plot(roc_pfa, roc_pd, label=m)
-        classes = [1 if x >= 0.5 else 0 for x in yHat[:, 1]]
-        test_accuracy = accuracy_score(y_test, classes)
-        acc[m] = test_accuracy
-        roc_auc = roc_auc_score(y_test, yHat[:, 1])
-        auc[m] = roc_auc
+        try:
+            yHat = models[m]["model"].predict_proba(X_test)
+            roc_pfa, roc_pd, thresh = roc_curve(y_test, yHat[:, 1], pos_label=1)
+            plt.plot(roc_pfa, roc_pd, label=m)
+            classes = [1 if x >= 0.5 else 0 for x in yHat[:, 1]]
+            test_accuracy = accuracy_score(y_test, classes)
+            acc[m] = test_accuracy
+            roc_auc = roc_auc_score(y_test, yHat[:, 1])
+            auc[m] = roc_auc
+        except ValueError:
+            acc[m] = -1
+            auc[m] = -1
     plt.title("ROC Curve")
     plt.legend()
     plt.savefig(f"{outpath_full}/ROC.png")
