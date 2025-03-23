@@ -21,6 +21,7 @@ name_dict = {
     "saint marys": "SAINT-MARYS-CA",
     "Saint Marys": "SAINT-MARYS-CA",
     "Saint Mary's": "SAINT-MARYS-CA",
+    "St. Mary's": "SAINT-MARYS-CA",
     "Mount St. Mary's": "MOUNT-ST-MARYS",
     "Penn": "PENNSYLVANIA",
     "Long Island": "LONG-ISLAND-UNIVERSITY",
@@ -29,6 +30,9 @@ name_dict = {
     "Murray St.": "MURRAY-STATE",
     "St. John's": "ST-JOHNS-NY",
     'St. John\'s (NY)': "ST-JOHNS-NY",
+    'st johns': "ST-JOHNS-NY",
+    'St Johns': "ST-JOHNS-NY",
+    "Saint Johns": "ST-JOHNS-NY",
     "LSU": "LOUISIANA-STATE",
     "lsu": "LOUISIANA-STATE",
     "UNLV": "NEVADA-LAS-VEGAS",
@@ -42,16 +46,20 @@ name_dict = {
     "ETSU": "EAST-TENNESSEE-STATE",
     "etsu": "EAST-TENNESSEE-STATE",
     "UNC": "NORTH-CAROLINA",
+    "unc": "NORTH-CAROLINA",
     "LIU": "LONG-ISLAND-UNIVERSITY",
     "UCONN": "CONNECTICUT",
     "UConn": "CONNECTICUT",
     "VCU": "VIRGINIA-COMMONWEALTH",
+    "vcu": "VIRGINIA-COMMONWEALTH",
     "Southern Miss": "SOUTHERN-MISSISSIPPI",
     "Loyola (MD)": "LOYOLA-MD",
     "BYU": "BRIGHAM-YOUNG",
+    "byu": "BRIGHAM-YOUNG",
     "Miami (FL)": "MIAMI-FL",
     "Pitt": "PITTSBURGH",
     "Ole Miss": "MISSISSIPPI",
+    "ole miss": "MISSISSIPPI",
     "UMass": "MASSACHUSETTS",
     "SMU": "SOUTHERN-METHODIST",
     "UMBC": "MARYLAND-BALTIMORE-COUNTY",
@@ -83,9 +91,33 @@ name_dict = {
     "UMass Lowell": "MASSACHUSETTS-LOWELL",
     "Queens": "QUEENS-NC",
     "St. Thomas": "ST-THOMAS",
-    "UT Rio Grande Valley": "TEXAS-RIO-GRANDE-VALLEY"
+    "UT Rio Grande Valley": "TEXAS-RIO-GRANDE-VALLEY",
+    "sdsu": "SAN-DIEGO-STATE",
+    "SDSU": "SAN-DIEGO-STATE",
+    "mcneese": "MCNEESE-STATE",
+    "Mcneese": "MCNEESE-STATE",
+    "McNeese": "MCNEESE-STATE",
+    "Texas San Antonio": "UTSA",
+    "NC Asheville": "UNC-ASHEVILLE",
+    "North Carolina St.": "NC-STATE",
+    "Texas A&M; Corpus Chris": "TEXAS-A&M-CORPUS-CHRISTI",
+    "Wisconsin Milwaukee": "MILWAUKEE",
+    "Wisconsin Green Bay": "GREEN-BAY",
+    "Texas Christian": "TCU",
+    "IUPU Fort Wayne": "PURDUE-FORT-WAYNE",
+    "Missouri Kansas City": "KANSAS-CITY",
+    "MD Baltimore County": "MARYLAND-BALTIMORE-COUNTY",
+    "NJ Inst Of Technology": "NJIT",
+    "Prarie View A&M;": "PRAIRIE-VIEW",
+    "Prarie View": "PRAIRIE-VIEW",
+    "NC Wilmington": "UNC-WILMINGTON",
+    "NC Greensboro": "UNC-GREENSBORO",
+    "Texas Arlington": "UT-ARLINGTON",
+    "Virginia Military Inst": "VMI",
+    "SIUE": "SIU-EDWARDSVILLE",
+    "siue": "SIU-EDWARDSVILLE",
+    "mount saint marys": "MOUNT-ST-MARYS"
 }
-
 
 def reformat_name(name):
     """Fixes names with multiple spellings"""
@@ -102,6 +134,7 @@ def reformat_name(name):
         #name = name.replace("UC-", "CALIFORNIA-")
         name = name.replace("(", "")
         name = name.replace(")", "")
+        name = name.replace(";", "")
     return name.upper()
 
 
@@ -154,6 +187,7 @@ def collect_features(recalculate=False):
             # Get all kenpom stats
             all_kenpom_stats = get_kenpom_stats(year)
             all_kenpom_stats.index = all_kenpom_stats.index.map(reformat_name)
+
 
             # If the year's data is not in the set, go collect it
             # First get all tournament matchups from the year

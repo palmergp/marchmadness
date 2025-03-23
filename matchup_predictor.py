@@ -18,9 +18,10 @@ import pandas as pd
 
 class MatchupPredictor:
 
-    def __init__(self, model, features=None):
+    def __init__(self, model, features=None, show_plots=False):
         """Creates a Matchup Predictor by loading a model for predicting"""
         self.data = None
+        self.show_plots=show_plots
         with open(model, "rb") as f:
             if "package" in model:
                 package = pickle.load(f)
@@ -50,7 +51,7 @@ class MatchupPredictor:
                 self.features = [x.replace("Team1", "favorite_") for x in self.features]
                 self.features = [x.replace("Team2", "underdog_") for x in self.features]
 
-    def predict(self, first_team, first_seed, second_team, second_seed, round, year, show_plots=False):
+    def predict(self, first_team, first_seed, second_team, second_seed, round, year):
         """Predicts a matchup
         Input:
             - first_team: (str) the name of the first team in the matchup
@@ -166,7 +167,7 @@ class MatchupPredictor:
             result = -1
         # From classifier in predict
         # Only show if upset
-        if self.explainer is not None and winner_probs[0] <= winner_probs[1] and show_plots:
+        if self.explainer is not None and winner_probs[0] <= winner_probs[1] and self.show_plots:
             df = pd.DataFrame([predict_data], columns=self.features)
             df = df.astype("float64")  # final is the df of scaled features
             shap_values = self.explainer(df)
@@ -197,6 +198,11 @@ class MatchupPredictor:
             self.data,
             kenpom
         ], axis=1)
+        # Verify there are no NaNs as this would indicate the kenpom name didnt match up properly
+        nan_rows = self.data[self.data['NetRtg'].isna()]
+        if len(nan_rows) > 0:
+            print("Some names are potentially off!!")
+            print(nan_rows)
 
     def main(self):
         year = int(input("Enter the tournament year: "))
@@ -335,8 +341,9 @@ class MatchupPredictor:
 
 
 if __name__ == '__main__':
-    path = "models/models24/v24_3_1/"
-    model = "Linear_SVC_v24_3_1.package"
-    mp = MatchupPredictor(path+model, features=path+"featurenames.pickle")
+    version = "v25_7_0"
+    path = f"models/models25/{version}/"
+    model_pkg = f"KernelSVM_{version}.package"
+    mp = MatchupPredictor(path+model_pkg, features=path+"featurenames.pickle", show_plots=True)
     now = datetime.now()
     mp.main()

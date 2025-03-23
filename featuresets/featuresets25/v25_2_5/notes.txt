@@ -1,0 +1,1 @@
+Using distance center points between underdog and favorite features. Keeping any feature over 0.3

@@ -133,11 +133,11 @@ class BracketPredictor:
 
 
 if __name__ == '__main__':
-    version = "v25_0_1"
-    # path = f"models/models25/{version}/"
-    path = "nonsense/"
-    # model_pkg = f"Gaussian_RBF_{version}.package"
-    model_pkg = "fav_picker.package"
+    version = "v25_7_0"
+    path = f"models/models25/{version}/"
+    # path = "nonsense/"
+    model_pkg = f"KernelSVM_{version}.package"
+    # model_pkg = "fav_picker.package"
     tourney_over = False
-    bp = BracketPredictor(path+model_pkg, 2024)
+    bp = BracketPredictor(path+model_pkg, 2025)
     bp.main(tourney_over)

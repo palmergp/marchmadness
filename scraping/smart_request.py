@@ -3,18 +3,23 @@ import json
 import time
 import os
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
+
+options = Options()
+options.binary_location = r"C:\Program Files\Mozilla Firefox\firefox.exe"  # Update this path
 
 
 def selenium_request(url):
     """Makes the request using selenium instead of the requests library.
     This gets around a lot of anti-scraping checks
     """
-    driver_path = "C:\\Webdriver\\chromedriver.exe"
+    #driver_path = "C:\\Webdriver\\chromedriver.exe"
+    driver_path = "C:\\Webdriver\\geckodriver.exe"
 
     # Create a new instance of the Chrome driver
     service = Service(driver_path)
-    driver = webdriver.Chrome(service=service)
+    driver = webdriver.Firefox(service=service, options=options)
 
     # Make the request
     # This will open an instance of Chrome

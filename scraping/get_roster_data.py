@@ -28,6 +28,10 @@ RETURNING_LOOKUP = {
     "UTAH-STATE2024": {
         "returning_minutes": 0.0,
         "returning_points": 0.0
+    },
+    "KENTUCKY2025": {
+        "returning_minutes": 0.1,
+        "returning_points": 0.0
     }
 }
 
@@ -48,7 +52,8 @@ def calculate_weighted_avg(info, stats, feature):
     total = 0
     for player in list(stats["Player"]):
         # If there is info missing of the player, skip them (they probably didn't play much anyways)
-        if math.isnan(info.loc[info['Player'] == player, feature].values[0]) or \
+        if not info.loc[info['Player'] == player, feature].values or\
+                math.isnan(info.loc[info['Player'] == player, feature].values[0]) or \
                 math.isnan(stats.loc[stats['Player'] == player, "MP"].values[0]):
             continue
         # Player value of feature * (minutes played / team minutes played)
@@ -83,10 +88,18 @@ def get_url_name(name):
         url_name = 'california-davis'
     elif name == "UC-SANTA-BARBARA":
         url_name = 'california-santa-barbara'
+    elif name == "UC-SAN-DIEGO":
+        url_name = 'california-san-diego'
     elif name == "LITTLE-ROCK":
         url_name = "arkansas-little-rock"
     elif name == "TCU":
         url_name = "texas-christian"
+    elif name == "OMAHA":
+        url_name = "nebraska-omaha"
+    elif name == "MCNEESE":
+        url_name = "mcneese-state"
+    elif name == "SIU-EDWARDSVILLE":
+        url_name = "southern-illinois-edwardsville"
     else:
         url_name = name.lower().replace("(", "").replace(")", "").replace("&", "")
     return url_name
@@ -123,7 +136,12 @@ def get_roster_stats(teams, year):
             response = smart_request(f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}.html")
             # team_roster = str(response.content)
             team_roster_df = pd.read_html(response)
-            team_roster_info_df = team_roster_df[0]
+            # Find the offset of DFs. Sometimes there are scores at the top
+            for df_idx in range(0,len(team_roster_df)):
+                if len(team_roster_df[df_idx]) > 10:
+                    offset = df_idx
+                    break
+            team_roster_info_df = team_roster_df[offset]
             if len(team_roster_df) > 10:  # Some teams have conference stats and season
                 team_roster_adv_df = team_roster_df[-2]  # Get the advanced stats
             else:  # Others just have season totals
@@ -148,9 +166,11 @@ def get_roster_stats(teams, year):
             # Get returning points and minutes
             try:
                 team_row["returning_minutes"] = float(re.findall(r'(\d+(?:\.\d+)?)% of minutes played and',
-                                                             response.content.decode('utf-8'))[0])
+                                                                 response)[0])
+                                                             # response.content.decode('utf-8'))[0])
                 team_row["returning_points"] = float(re.findall(r'(\d+(?:\.\d+)?)% of scoring return from ',
-                                                            response.content.decode('utf-8'))[0])
+                                                                response)[0])
+                                                            # response.content.decode('utf-8'))[0])
             except IndexError:
                 # Sometimes its missing. Check if we calculated it manually
                 team_row["returning_minutes"] = RETURNING_LOOKUP[team + str(year)]["returning_minutes"]

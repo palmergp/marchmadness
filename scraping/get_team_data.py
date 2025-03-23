@@ -130,21 +130,29 @@ def get_team_stats(year, force=False):
         pickle.dump(opp_adv_school_stats, f)
         f.close()
 
-
     # Convert to dataframes
     school_stats_df = pd.read_html(school_stats)
     adv_school_stats_df = pd.read_html(adv_school_stats)
     opp_school_stats_df = pd.read_html(opp_school_stats)
     adv_opp_school_stats_df = pd.read_html(opp_adv_school_stats)
-    dataframes = [school_stats_df, adv_school_stats_df,opp_school_stats_df,adv_opp_school_stats_df]
+    full_dataframes = [school_stats_df, adv_school_stats_df, opp_school_stats_df, adv_opp_school_stats_df]
+    # Grab the longest df
+    # Iterate over the list of lists
+    dataframes = []
+    for sublist in full_dataframes:
+        # Find the DataFrame with the maximum number of rows in the current sublist
+        longest_df = max(sublist, key=lambda df: len(df))
+        # Append the longest DataFrame to the new list
+        dataframes.append(longest_df)
+
     # Create a dataframe with ALL data
     full_school_stats = pd.DataFrame()
     # Start with school stats
-    for i in range(0,len(dataframes)):
-        for (first, sub) in dataframes[i][0]:
+    for i in range(0, len(dataframes)):
+        for (first, sub) in dataframes[i]:  # Used to be dataframes[i][0]
             # If it is the basic school stats, get the overall numbers
             if first == "Unnamed: 1_level_0" and i == 0 and sub == "School":
-                column_data = dataframes[i][0][first][sub][dataframes[i][0][first][sub] != "School"].dropna()
+                column_data = dataframes[i][first][sub][dataframes[i][first][sub] != "School"].dropna()
                 full_school_stats[sub] = column_data
                 full_school_stats[sub] = full_school_stats[sub].str.upper()
                 full_school_stats[sub] = full_school_stats[sub].str.replace("\\xa0NCAA", "", regex=True)
@@ -156,12 +164,12 @@ def get_team_stats(year, force=False):
                 full_school_stats[sub] = full_school_stats[sub].str.replace(".", "", regex=True)
             elif first == "Overall" and i == 0:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = dataframes[i][first][sub].fillna("0")
                 column_data = column_data[column_data.apply(has_number)]
                 full_school_stats[NAME_LOOKUP[sub]] = pd.to_numeric(column_data)
             elif first == "Points" and i == 0:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = dataframes[i][first][sub].fillna("0")
                 column_data = column_data[column_data.apply(has_number)]
                 if sub == "Tm.":
                     full_school_stats["points"] = pd.to_numeric(column_data)
@@ -169,12 +177,12 @@ def get_team_stats(year, force=False):
                     full_school_stats["opp_points"] = pd.to_numeric(column_data)
             elif first in ["Totals", "School Advanced"]:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = dataframes[i][first][sub].fillna("0")
                 column_data = column_data[column_data.apply(has_number)]
                 full_school_stats[NAME_LOOKUP[sub]] = pd.to_numeric(column_data)
             elif first in ["Opponent", "Opponent Advanced"]:
                 # Remove any rows that do not have a number
-                column_data = dataframes[i][0][first][sub].fillna("0")
+                column_data = dataframes[i][first][sub].fillna("0")
                 column_data = column_data[column_data.apply(has_number)]
                 full_school_stats["opp_" + NAME_LOOKUP[sub]] = pd.to_numeric(column_data)
 

@@ -38,7 +38,13 @@ def get_schedule_stats(teams, year):
             link = f"https://www.sports-reference.com/cbb/schools/{url_team}/men/{year}-schedule.html"
             response = smart_request(link)
             #team_schedule = str(response.content)
-            team_schedule_df = pd.read_html(response)[1]
+            team_schedule_df_full = pd.read_html(response)
+            # Find the offset of DFs. Sometimes there are scores at the top
+            for df_idx in range(0, len(team_schedule_df_full)):
+                if len(team_schedule_df_full[df_idx]) > 10:
+                    offset = df_idx
+                    break
+            team_schedule_df = team_schedule_df_full[offset]
             # Fill nan opponents
             team_schedule_df["Opponent"] = team_schedule_df["Opponent"].fillna("None")
             # Remove any games where the winner isnt listed (this should only happen midseason)
