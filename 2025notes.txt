@@ -1,0 +1,44 @@
+v25_3_12 Neural Net has best CV at 1240 avg, 1340 median. min/max 560/1680, 278 std
+v25_3_9 Stacking is second at 1220 avg, 1220 median, min/max 560/1730, 295 std
+v25_3_6 Neural net might be best at 1248 avg, 1290 median, min/max 580/1650, 297 std
+
+I attempted to fix the kenpom data so that the statistics dont include NCAA tournament stats. In doing so,
+I created some truly awful models (v25_7 and v25_8). Not really sure what went wrong but they clearly suck. Unless
+I take the time to do a real deep dive, I should remove all the kenpom data and repull for each year (except 2025)
+
+Final notes update. Somehow the v25_7s are better now without much change. The v25_8s are quite good but they also
+almost exclusively pick favorites, which this year ended up being pretty good. Not sure if it will work in the future.
+
+Of the ones using the non-historical kenpom data, v25.3.12 technically did the best, but it also did pretty poorly
+outside of correctly picking florida to win it all. Stacking 25.6.1 did pretty well in the early stages before failing
+to get the final four and champion correctly.
+
+In the future, somethings to explore are:
+ - Try making a featureset thats made as differentials between the two teams instead of the raw value. This gets rid
+   of the "underdog and favorite" labels. Less features but probably more focused. Could potentially remove "underdog"
+   and favorite concept entirely and return to the teamA/teamB setup.
+
+ - Try making a separate model that classifies a team by their most likely round exit. Then add this as a feature to
+   the bigger model.
+
+ - Try adding every matchup where the seeds are the same to the training data twice, changing which team is the favorite
+   and which is the underdog
+
+When training new models, you want to run bracket_score_CV. You may want to update that so that in the output you can
+see the scores per round. Might be interesting to see how much is coming from getting the winner correct. Could return
+to the split model concept again.
+
+Here are the pool winning scores seen for 2025:
+QKT: 1580
+Discovery: 1440
+Family: 1540
+
+2024:
+QKT:1290
+Discovery: 1340
+Family:740
+
+2023:
+QKT: 760
+Discovery: 730
+Family:1050

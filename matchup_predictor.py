@@ -51,7 +51,7 @@ class MatchupPredictor:
                 self.features = [x.replace("Team1", "favorite_") for x in self.features]
                 self.features = [x.replace("Team2", "underdog_") for x in self.features]
 
-    def predict(self, first_team, first_seed, second_team, second_seed, round, year):
+    def predict(self, first_team, first_seed, second_team, second_seed, round, year, same_seed=False):
         """Predicts a matchup
         Input:
             - first_team: (str) the name of the first team in the matchup
@@ -83,8 +83,7 @@ class MatchupPredictor:
             result = -1
             return result
         # Make sure team 1 is the lower seed (better team)
-        # If they are the same seed, flip a coin
-        if first_seed < second_seed or (first_seed == second_seed and random.randint(1, 2) == 1):
+        if first_seed < second_seed or same_seed:
             team1 = first_team
             team2 = second_team
             team1_seed = first_seed
@@ -96,6 +95,9 @@ class MatchupPredictor:
             team2_data = second_data
             team2_schedule = second_schedule
         else:
+            # If they are the same seed, run it twice and average the results
+            if first_seed == second_seed:
+                first_result, first_probs = self.predict(first_team, first_seed, second_team, second_seed, round, year, same_seed=True)
             team2 = first_team
             team1 = second_team
             team2_seed = first_seed
@@ -113,14 +115,6 @@ class MatchupPredictor:
         # Get player and schedule stats
         team1_data = pd.concat([team1_data, team1_roster, team1_schedule])
         team2_data = pd.concat([team2_data, team2_roster, team2_schedule])
-        # for rost_stat in team1_roster.index:
-        #     team1_data[rost_stat] = team1_roster[rost_stat]
-        # for sch_stat in team1_schedule.index:
-        #     team1_data[sch_stat] = team1_schedule[sch_stat]
-        # for rost_stat in team2_roster.index:
-        #     team2_data[rost_stat] = team2_roster[rost_stat]
-        # for sch_stat in team2_schedule.index:
-        #     team2_data[sch_stat] = team2_schedule[sch_stat]
         # Get Bracket features
         predict_data = []
         for feat in self.features:
@@ -167,7 +161,7 @@ class MatchupPredictor:
             result = -1
         # From classifier in predict
         # Only show if upset
-        if self.explainer is not None and winner_probs[0] <= winner_probs[1] and self.show_plots:
+        if self.explainer is not None and winner_probs[0] <= winner_probs[1] and self.show_plots and not same_seed:
             df = pd.DataFrame([predict_data], columns=self.features)
             df = df.astype("float64")  # final is the df of scaled features
             shap_values = self.explainer(df)
@@ -176,9 +170,36 @@ class MatchupPredictor:
             f.set_title(f"Left ({team1_seed}) {team1}, Right ({team2_seed}) {team2}".title())
             plt.tight_layout()
             plt.show()
+
+        if same_seed:  # If same_seed is raised, then this is the recursive call
+            return result, winner_probs
+        elif not same_seed and team1_seed == team2_seed:
+            # If same seed is not raised, but the two teams are the same seed, then this is the end
+            # and the values should be averaged for a final result
+            final_probs = [(winner_probs[0] + first_probs[1]) / 2, (winner_probs[1] + first_probs[0]) / 2]
+            print("\n-------------------------------------")
+            if final_probs[0] > final_probs[1]:
+                winner_name = team1
+                print("The winner will be {}".format(team1))
+                print(
+                    "Probability split:\n\t{}: {}\n\t{}: {}".format(team1, final_probs[0], team2, final_probs[1]))
+            elif final_probs[0] <= final_probs[1]:
+                winner_name = team2
+                print("The winner will be {}".format(team2))
+                print(
+                    "Probability split:\n\t{}: {}\n\t{}: {}".format(team1, final_probs[0], team2, final_probs[1]))
+            else:
+                winner_name = ""
+                print("Error: Returned value was unexpected!!")
+            # Check if winner was input as team one or two
+            if winner_name == first_team:
+                result = 1
+            elif winner_name == second_team:
+                result = 2
+            else:
+                result = -1
         print("-------------------------------------\n")
         print("Preparing for next prediction...\n")
-
         return result
 
     def set_year(self, year):
@@ -217,133 +238,10 @@ class MatchupPredictor:
             print(result)
 
 
-    def main_old(self, year):
-        print(f"Starting {year} March Madness Predictor!")
-        print(f"Loading {year} team data...")
-        all_teams = get_team_stats(year)
-        print("Team Data loaded")
-        while True:
-            # Get team 1 info
-            not_loaded = True
-            while not_loaded:
-                first = input("Team1 Name: ")
-                first_seed_true = int(input("Team1 Seed: "))
-                try:
-                    print("Fetching team stats...")
-                    first_data_true = all_teams.loc[reformat_name(first)]
-                    first_roster_true = get_roster_stats([reformat_name(first)], year).loc[reformat_name(first)]
-                    first_schedule_true = get_schedule_stats([reformat_name(first)], year).loc[reformat_name(first)]
-                    print("Successfully loaded {} stats for {}".format(year, first))
-                    not_loaded = False
-                except KeyError as e:
-                    print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(first))
-                    print(all_teams)
-                    print(e)
-            # Get Team2 info
-            not_loaded = True
-            while not_loaded:
-                second = input("Team2 Name: ")
-                second_seed_true = int(input("Team2 Seed: "))
-                try:
-                    second_data_true = all_teams.loc[reformat_name(second)]
-                    second_roster_true = get_roster_stats([reformat_name(second)], year).loc[reformat_name(second)]
-                    second_schedule_true = get_schedule_stats([reformat_name(second)], year).loc[reformat_name(second)]
-                    print("Successfully loaded {} stats for {}".format(year, second))
-                    not_loaded = False
-                except KeyError as e:
-                    print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(second))
-                    print(all_teams)
-                    print(e)
-            round_num = int(input("Round: "))
-            print("Formatting data for prediction")
-
-            # Make sure team 1 is the lower seed
-            if first_seed_true <= second_seed_true:
-                team1 = first
-                team2 = second
-                team1_seed = first_seed_true
-                team1_roster = first_roster_true
-                team1_data = first_data_true
-                team1_schedule = first_schedule_true
-                team2_seed = second_seed_true
-                team2_roster = second_roster_true
-                team2_data = second_data_true
-                team2_schedule = second_schedule_true
-            else:
-                team2=first
-                team1=second
-                team2_seed = first_seed_true
-                team2_roster = first_roster_true
-                team2_data = first_data_true
-                team2_schedule = first_schedule_true
-                team1_seed = second_seed_true
-                team1_roster = second_roster_true
-                team1_data = second_data_true
-                team1_schedule = second_schedule_true
-            print("{} {} is being used as the underdog and {} {}  is being used as the favorite".format(team2_seed,team2,team1_seed,team1))
-            # Get player and schedule stats
-            for rost_stat in team1_roster.index:
-                team1_data[rost_stat] = team1_roster[rost_stat]
-            for sch_stat in team1_schedule.index:
-                team1_data[sch_stat] = team1_schedule[sch_stat]
-            for rost_stat in team2_roster.index:
-                team2_data[rost_stat] = team2_roster[rost_stat]
-            for sch_stat in team2_schedule.index:
-                team2_data[sch_stat] = team2_schedule[sch_stat]
-
-            # Get Bracket features
-            predict_data = []
-            for feat in self.features:
-                if feat == "Round":
-                    predict_data.append(round_num)
-                elif feat == "favorite_seed" or feat == "team1_seed":
-                    predict_data.append(team1_seed)
-                elif feat == "underdog_seed" or feat == "team2_seed":
-                    predict_data.append(team2_seed)
-                elif feat == "SeedDiff":
-                    predict_data.append(abs(team1_seed - team2_seed))
-                else:
-                    if "favorite" in feat:
-                        predict_data.append(team1_data[feat.replace("favorite_","")])
-                    else:
-                        predict_data.append(team2_data[feat.replace("underdog_","")])
-            # If it was a scaled model, scale the features
-            if self.scaler:
-                predict_data = self.scaler.transform([predict_data])[0]
-            # Make prediction
-            print("Making prediction")
-            winner_probs = self.model.predict_proba([predict_data])[0]
-            # load feature names
-            #with open(r"C:\Users\gppal\PycharmProjects\marchmadness\models\models23\v23_0_0\featurenames.pickle", "rb") as f:
-            #    pickle.load(f)
-            print("\n-------------------------------------")
-            if winner_probs[0] > winner_probs[1]:
-                print("The winner will be {}".format(team1))
-                print("Probability split:\n\t{}: {}\n\t{}: {}".format(team1, winner_probs[0], team2, winner_probs[1]))
-            elif winner_probs[0] <= winner_probs[1]:
-                print("The winner will be {}".format(team2))
-                print("Probability split:\n\t{}: {}\n\t{}: {}".format(team1, winner_probs[0], team2, winner_probs[1]))
-            else:
-                print("Error: Returned value was unexpected!!")
-            # From classifier in predict
-            # Only show if upset
-            if self.explainer is not None and winner_probs[0] <= winner_probs[1]:
-                df = pd.DataFrame([predict_data], columns=self.features)
-                df = df.astype("float64")  # final is the df of scaled features
-                shap_values = self.explainer(df)
-                plt.figure()  # plt is matplotlib
-                f = shap.plots.waterfall(shap_values[0], show=False)
-                f.set_title(f"Left ({team1_seed}) {team1}, Right ({team2_seed}) {team2}".title())
-                plt.tight_layout()
-                plt.show()
-            print("-------------------------------------\n")
-            print("Preparing for next prediction...\n")
-
-
 if __name__ == '__main__':
-    version = "v25_7_0"
+    version = "v25_3_12"
     path = f"models/models25/{version}/"
-    model_pkg = f"KernelSVM_{version}.package"
+    model_pkg = f"Neural_Network_{version}.package"
     mp = MatchupPredictor(path+model_pkg, features=path+"featurenames.pickle", show_plots=True)
     now = datetime.now()
     mp.main()

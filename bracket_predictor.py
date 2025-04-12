@@ -33,11 +33,16 @@ class BracketPredictor:
             )
             self.bracket = pd.concat([self.bracket.iloc[:51], new_row, self.bracket.iloc[51:]]).reset_index(drop=True)
         # Reformat the bracket to be in the correct order
-        new_order = list(range(0, 15)) + list(range(45, 60)) + list(range(15, 45)) + list(range(60, 63))
-        # Reindex the DataFrame
-        self.bracket = self.bracket.reindex(new_order).reset_index(drop=True)
+        if len(self.bracket) == 32:  # Only the first round is shown
+            new_order = list(range(16, 32)) + list(range(0,16))
+            # new_order = list(range(0,7) + list(range(21, 31) + list(range(7, 21))))
+        else:  # Otherwise, the full bracket is available
+            new_order = list(range(0, 15)) + list(range(45, 60)) + list(range(15, 45)) + list(range(60, 63))
+            # Reindex the DataFrame
+        if year != 2025:
+            self.bracket = self.bracket.reindex(new_order).reset_index(drop=True)
 
-    def main(self, tourney_over):
+    def main(self, tourney_over, create_bracket):
         """
         Makes a prediction for every matchup that happens in a tournament. Uses previous predictions to set up matchups
         in future rounds.
@@ -86,6 +91,7 @@ class BracketPredictor:
                     raise Exception
         total_points = 0
         picked_winner = False
+        per_round_points = []
         if tourney_over:
             # Check how many points it would have gotten
             for r in range(2, 8):
@@ -99,12 +105,22 @@ class BracketPredictor:
                 # Get all teams predicted in this round
                 predicted_teams = [x["team"] for x in finished_bracket[r]]
                 # Compare to see how many points
-                total_points = total_points + len(set(actual_teams) & set(predicted_teams)) * 10 * (2**(r-2))
+                correct_teams = list(set(actual_teams) & set(predicted_teams))
+                round_points = len(correct_teams) * 10 * (2**(r-2))
+                per_round_points.append(round_points)
+                total_points = total_points + round_points
+                # Update the team names to highlight correctly chosen teams
+                finished_bracket[r] = [
+                    {**item, "team": f"*{item['team']}*"} if item["team"] in correct_teams else item
+                    for item in finished_bracket[r]
+                ]
+
                 # See if it got the winner right
                 if r == 7 and actual_teams[0] == predicted_teams[0]:
                     picked_winner = True
             print(f"Model got {total_points} points")
-        else:
+            print(f"Per Round Breakdown: {per_round_points}")
+        if create_bracket:
             # Output the results in a file for input into pool
             # Combine "seed" and "team" into a single string and add "Round" header
             formatted_data = []
@@ -133,11 +149,11 @@ class BracketPredictor:
 
 
 if __name__ == '__main__':
-    version = "v25_7_0"
+    version = "v25_8_2"
     path = f"models/models25/{version}/"
     # path = "nonsense/"
     model_pkg = f"KernelSVM_{version}.package"
     # model_pkg = "fav_picker.package"
-    tourney_over = False
+    tourney_over = True
     bp = BracketPredictor(path+model_pkg, 2025)
-    bp.main(tourney_over)
+    bp.main(tourney_over, create_bracket=True)
