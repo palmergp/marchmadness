@@ -33,7 +33,7 @@ make it so that you can upload a single file and it will predict the full bracke
 that.
 
 ## Data Sources
-Data is scrapped from the sportsreference.com page
+Data is scrapped from the sportsreference.com page as well as the kenpom site
 
 # Features
 This section details the various features used for a classification. There are 4 main types of features:
