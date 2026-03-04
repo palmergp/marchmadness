@@ -3,7 +3,7 @@ excluded and rerun until all years have been tested. Finally, it will train on A
 from the rotations. In theory, the one that did the best across all is the one that should be used"""
 import copy
 import yaml
-from trainer import train
+from parallel_trainer import train
 import os
 from bracket_predictor import BracketPredictor
 import pandas as pd
@@ -12,7 +12,7 @@ import pandas as pd
 with open("./configs/trainer_config.yml", 'r') as file:
     config = yaml.safe_load(file)
 
-years = list(range(2011, 2025))
+years = list(range(2011, 2026))
 # Loop through each year
 count = 0
 point_totals = [[] for _ in config["model_names"]] + [[] for _ in config["meta_models"]]
@@ -30,6 +30,7 @@ for test_year in years:
           active_years,
           config["meta_models"],
           config["model_stacks"],
+          config["rounds"],
           config["tuning"],
           config["scoring"],
           False,
@@ -44,7 +45,7 @@ for test_year in years:
     for idx in range(0, len(file_names)):
         # Create a bracket predictor
         bp = BracketPredictor(outpath_full + "/" + file_names[idx], test_year)
-        total_points, picked_winner = bp.main(True)
+        total_points, picked_winner = bp.main(True, False)
         point_totals[idx].append(total_points)  # We're trusting that the indices line up every time. Not great
 
     count += 1
@@ -76,6 +77,7 @@ train(config["data"],
       config["training_years"],
       config["meta_models"],
       config["model_stacks"],
+      config["rounds"],
       config["tuning"],
       config["scoring"],
       False,

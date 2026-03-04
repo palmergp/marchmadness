@@ -1,0 +1,14 @@
+For this year, the big effort I'd like to do is create to separate models. One for the early rounds (1,2) and one for
+the late rounds (3-6).
+
+To do this, I think it will be easier to make the models their own class that inherits from scikit learn instead of
+using them directly
+
+Things I'm confused on coming back:
+- Looks like Im supposed to train using bracket_score_CVs, Should probably put that in the README
+- I have no idea what featureset is the best one from last time around. I know I did a lot of feature analysis but have
+  no idea which of those sets was a good one and which was bad
+- I can't tell if the kenpom data is good or not. I know I messed with it but unsure if its in a bad state or not.
+- I dont remember what was the best scoring option
+
+518s

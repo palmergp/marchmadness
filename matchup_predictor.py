@@ -18,16 +18,26 @@ import pandas as pd
 
 class MatchupPredictor:
 
-    def __init__(self, model, features=None, show_plots=False):
-        """Creates a Matchup Predictor by loading a model for predicting"""
+    def __init__(self, model, late_model=None, round_split=None, features=None, show_plots=False):
+        """Creates a Matchup Predictor by loading a model for predicting
+        Inputs:
+            - Model: (str) path to the model package to be used for predictions
+            - late_model: (str) path to the model package to be used for late predictions. Optional. Only used if split model.
+                          if left blank, model will be used for all predictions
+            - round_split: (int) indicates the highest round that should be included in the early model. For example, if
+                          round_split=2, rounds 1 and 2 will use model while rounds 3-6 will use late_model
+            - features: (str) path to features file. Only used for old model types
+            - show_plots: (bool) flag to indicate if shap plots should be generated with each predicted upset
+        """
         self.data = None
-        self.show_plots=show_plots
+        self.show_plots = show_plots
+        self.round_split = round_split
+        # Load the primary model
         with open(model, "rb") as f:
             if "package" in model:
                 package = pickle.load(f)
                 self.model = package["model"]
                 # From classifier in init
-                self.explainer = None
                 df = package["bg_dist_samp"]
                 f = lambda x: self.model.predict_proba(x)[:, 1]
                 self.explainer = shap.Explainer(f, df)
@@ -50,6 +60,57 @@ class MatchupPredictor:
                 # Check if naming convention used "team1/team2" instead of favorite/underdog
                 self.features = [x.replace("Team1", "favorite_") for x in self.features]
                 self.features = [x.replace("Team2", "underdog_") for x in self.features]
+        # Load the late model if it exists
+        if late_model:
+            with open(late_model, "rb") as f:
+                package = pickle.load(f)
+                self.late_model = package["model"]
+                # From classifier in init
+                df = package["bg_dist_samp"]
+                f = lambda x: self.late_model.predict_proba(x)[:, 1]
+                self.late_explainer = shap.Explainer(f, df)
+                self.late_features = package["feature_names"]
+                if "scaler" in package:
+                    self.late_scaler = package["scaler"]
+                else:
+                    self.late_scaler = None
+        else:
+            self.late_model = None
+            self.late_explainer = None
+            self.late_scaler = None
+            self.late_features = None
+
+    def get_model(self, round=None):
+        """Returns the correct model given a particular matchup. Used for split classifiers. If round is left blank,
+        model will always be returned"""
+        if self.round_split and round > self.round_split:
+            return self.late_model
+        else:
+            return self.model
+
+    def get_explainer(self, round=None):
+        """Returns the correct explainer given a particular matchup. Used for split classifiers. If round is left blank,
+        explainer will always be returned"""
+        if self.round_split and round > self.round_split:
+            return self.late_explainer
+        else:
+            return self.explainer
+
+    def get_features(self, round=None):
+        """Returns the correct features given a particular matchup. Used for split classifiers. If round is left blank,
+        features will always be returned"""
+        if self.round_split and round > self.round_split:
+            return self.late_features
+        else:
+            return self.features
+
+    def get_scaler(self, round=None):
+        """Returns the correct scaler given a particular matchup. Used for split classifiers. If round is left blank,
+        scaler will always be returned"""
+        if self.round_split and round > self.round_split:
+            return self.late_scaler
+        else:
+            return self.scaler
 
     def predict(self, first_team, first_seed, second_team, second_seed, round, year, same_seed=False):
         """Predicts a matchup
@@ -117,7 +178,7 @@ class MatchupPredictor:
         team2_data = pd.concat([team2_data, team2_roster, team2_schedule])
         # Get Bracket features
         predict_data = []
-        for feat in self.features:
+        for feat in self.get_features(round):
             if feat == "Round":
                 predict_data.append(round)
             elif feat == "favorite_seed" or feat == "team1_seed":
@@ -132,11 +193,11 @@ class MatchupPredictor:
                 else:
                     predict_data.append(team2_data[feat.replace("underdog_", "")])
         # If it was a scaled model, scale the features
-        if self.scaler:
-            predict_data = self.scaler.transform([predict_data])[0]
+        if self.get_scaler(round):
+            predict_data = self.get_scaler(round).transform([predict_data])[0]
         # Make prediction
         print("Making prediction")
-        winner_probs = self.model.predict_proba([predict_data])[0]
+        winner_probs = self.get_model(round).predict_proba([predict_data])[0]
         print("\n-------------------------------------")
         if winner_probs[0] > winner_probs[1]:
             winner_name = team1
@@ -161,10 +222,10 @@ class MatchupPredictor:
             result = -1
         # From classifier in predict
         # Only show if upset
-        if self.explainer is not None and winner_probs[0] <= winner_probs[1] and self.show_plots and not same_seed:
-            df = pd.DataFrame([predict_data], columns=self.features)
+        if self.get_explainer(round) is not None and winner_probs[0] <= winner_probs[1] and self.show_plots and not same_seed:
+            df = pd.DataFrame([predict_data], columns=self.get_features(round))
             df = df.astype("float64")  # final is the df of scaled features
-            shap_values = self.explainer(df)
+            shap_values = self.get_explainer(round)(df)
             plt.figure()  # plt is matplotlib
             f = shap.plots.waterfall(shap_values[0], show=False)
             f.set_title(f"Left ({team1_seed}) {team1}, Right ({team2_seed}) {team2}".title())

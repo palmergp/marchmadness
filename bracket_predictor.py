@@ -46,7 +46,9 @@ class BracketPredictor:
         """
         Makes a prediction for every matchup that happens in a tournament. Uses previous predictions to set up matchups
         in future rounds.
-        :param tourney_over (bool) indicates if tournament is over and can be scored or not:
+        :param
+            - tourney_over (bool) indicates if tournament is over and can be scored or not
+            - create_bracket (bool) indicates if a CSV should be created showing the full bracket results
         :return:
             - total_points (int) - total points from bracket
             - picked_winner (bool) - boolean indicating if the winner was correctly predicted
@@ -154,6 +156,6 @@ if __name__ == '__main__':
     # path = "nonsense/"
     model_pkg = f"KernelSVM_{version}.package"
     # model_pkg = "fav_picker.package"
-    tourney_over = True
-    bp = BracketPredictor(path+model_pkg, 2025)
-    bp.main(tourney_over, create_bracket=True)
+    tourney_over = False
+    bp = BracketPredictor(path+model_pkg, 2026)
+    bp.main(tourney_over, create_bracket=False)

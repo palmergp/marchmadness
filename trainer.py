@@ -45,7 +45,7 @@ def create_model(model_name, short_p_grid=False):
                       'max_iter': [1000],
                       'learning_rate_init': [0.1],
                       'learning_rate': ['adaptive'],
-                      'hidden_layer_sizes': [50,],
+                      'hidden_layer_sizes': [50, ],
                       'early_stopping': [False],
                       'alpha': [0.001],
                       'activation': ['tanh']
@@ -180,7 +180,8 @@ def create_model(model_name, short_p_grid=False):
 
 
 def train(datapath, featurepath, model_set, outpath, model_names, training_years=[],
-          meta_models=[], model_stacks=[], tuning=True, scoring="accuracy", feature_analysis=False, bracket_stats=True):
+          meta_models=[], model_stacks=[], rounds=None, tuning=True, scoring="accuracy",
+          feature_analysis=False, bracket_stats=True):
     """The train function performs the training process based on the input provided
     Input:
         - datapath: (str) path to the data file containing all feature data
@@ -201,6 +202,8 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
                         - GradientBoost
                         - KernelSVM
         - training_years: (list) list of years to include in training
+        - rounds: (int) Indicates which rounds should be included in the training process. Useful when creating a split
+                        model
         - tuning: (bool) flag indicating whether hyperparameter tuning should be done or not,
         - scoring: (str) Indicates what scoring method should be used for hypertuning. Options:
             - accuracy
@@ -209,6 +212,8 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
         - bracket_stats: (bool) flag indicating whether scores should be calculated for each year in training
     """
     start_time = time.time()
+    if rounds is None:
+        rounds = [1, 2, 3, 4, 5, 6]
     # Set outpath
     outpath_full = f"./{outpath}{model_set}"
 
@@ -228,8 +233,9 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
             if fname != "SeedDiff":
                 all_featurenames.append(prefix + fname)
 
+    # Keep only the data
+    train_data = data.loc[data['year'].isin(training_years) & data['round'].isin(rounds)]
     # Remove any features not in the featurenames file
-    train_data = data[data['year'].isin(training_years)]
     filtered_data = train_data[train_data.columns.intersection(all_featurenames)]
 
     # Change labels from strings to ints
@@ -394,7 +400,8 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
     results, model_names = [list(t) for t in tuples]
     print("\nAccuracies:")
     for i in range(0, len(model_names)):
-        print(f"\t{model_names[i]} - CV Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}")
+        print(
+            f"\t{model_names[i]} - CV Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}")
 
     # Save off models
     if model_set:
@@ -412,8 +419,9 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
         # Save accuracies
         with open(outpath_full + "/accuracy.txt", "w") as f:
             for i in range(0, len(model_names)):
-                #f.write("{}: {}\n".format(model_names[i], results[i]))
-                f.write(f"\t{model_names[i]} - Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}\n")
+                # f.write("{}: {}\n".format(model_names[i], results[i]))
+                f.write(
+                    f"\t{model_names[i]} - Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}\n")
                 f.write(f"\t\tParams: {params[model_names[i]]}\n")
 
         # Save config
@@ -438,7 +446,7 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
         # Save it to a CSV
         create_bracket_stat_csv(outpath_full, all_stats)
 
-    print(f'Total Train Time: {time.time()-start_time}s')
+    print(f'Total Train Time: {time.time() - start_time}s')
 
 
 if __name__ == '__main__':
@@ -453,6 +461,7 @@ if __name__ == '__main__':
           config["training_years"],
           config["meta_models"],
           config["model_stacks"],
+          config["rounds"],
           config["tuning"],
           config["scoring"],
           config["feature_analysis"],

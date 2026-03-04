@@ -1,7 +1,7 @@
 feature_list: featuresets/featuresets25/v25_2_5/featurenames_selected.json
 data: scraping/data/training_data.pckl
-version: v25_8_2
-outpath: models/models25/
+version: v26_0_1_late
+outpath: models/models26/
 tuning: true
 scoring: recall
 feature_analysis: true
@@ -20,6 +20,13 @@ training_years:
   - 2022
   - 2023
   - 2024
+rounds:
+#  - 1
+#  - 2
+  - 3
+  - 4
+  - 5
+  - 6
 model_names:
   - Gaussian_Naive_Bayes
   - Neural_Network
