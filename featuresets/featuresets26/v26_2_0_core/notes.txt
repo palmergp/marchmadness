@@ -1,0 +1,1 @@
+Supposedly the best features for a linear based model like logistic regression. 50 performed the best

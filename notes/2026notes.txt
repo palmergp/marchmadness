@@ -10,5 +10,12 @@ Things I'm confused on coming back:
   no idea which of those sets was a good one and which was bad
 - I can't tell if the kenpom data is good or not. I know I messed with it but unsure if its in a bad state or not.
 - I dont remember what was the best scoring option
+__________________
+I've done a bunch of stuff now using Copilot advice. I now have a curated set of features that supposedly will be the
+best for a particular model. These will then be used for a monte carlo simulation that will find the best bracket
+using probabilities and expected scores
 
-518s
+From the analysis, it seems RandomForest with top 80 features and the Kernel SVM with top 30 features are the models
+to proceed with
+
+I dont think im doing the split classifier once again. One day I'll implement that but for now Im running out of time.

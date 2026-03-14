@@ -1,0 +1,1 @@
+Same as v26_1_0 but without the basic stats. Only diff and composite

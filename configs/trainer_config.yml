@@ -1,11 +1,11 @@
-feature_list: featuresets/featuresets25/v25_2_5/featurenames_selected.json
+feature_list: featuresets/featuresets26/v26_2_0_nn/featurenames_selected_top60.json
 data: scraping/data/training_data.pckl
-version: v26_0_1_late
+version: v26_2_0_nn60
 outpath: models/models26/
 tuning: true
 scoring: recall
-feature_analysis: true
-bracket_scores: true
+feature_analysis: false
+bracket_scores: false
 training_years:
   - 2011
   - 2012
@@ -20,32 +20,33 @@ training_years:
   - 2022
   - 2023
   - 2024
+  - 2025
 rounds:
-#  - 1
-#  - 2
+  - 1
+  - 2
   - 3
   - 4
   - 5
   - 6
 model_names:
-  - Gaussian_Naive_Bayes
+#  - Gaussian_Naive_Bayes
   - Neural_Network
-  - Logistic_Regression
-  - Linear_SVC
-  - KNN
-  - Gaussian_RBF
-  - Decision_Tree
-  - Random_Forest
-  - Adaboost
-  - GradientBoost
+#  - Logistic_Regression
+#  - Linear_SVC
+#  - KNN
+#  - Gaussian_RBF
+#  - Decision_Tree
+#  - Random_Forest
+#  - Adaboost
+#  - GradientBoost
   - KernelSVM
 meta_models:
-  - Neural_Network
+#  - Neural_Network
   #- Logistic_Regression
   #- Random_Forest
   #- Adaboost
   #- GradientBoost
 model_stacks:
-  - all
+#  - all
   #- top5_accuracy
   #- top5_auc

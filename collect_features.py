@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 import pickle
 import pandas as pd
@@ -119,6 +120,7 @@ name_dict = {
     "mount saint marys": "MOUNT-ST-MARYS"
 }
 
+
 def reformat_name(name):
     """Fixes names with multiple spellings"""
     try:
@@ -138,6 +140,125 @@ def reformat_name(name):
     return name.upper()
 
 
+def calculate_combo_features(game_row):
+    """Given a game row full of both team's stats, return the custom calculated statistics"""
+    combo_features = {}
+    # Add the difference features
+    for col in game_row.columns:
+        if col.startswith("favorite_") and not isinstance(game_row[col][0], str):
+            base = col.replace("favorite_", "")
+            dog_col = f"underdog_{base}"
+
+            if dog_col in game_row.columns:
+                diff_name = f"{base}_diff"
+                combo_features[diff_name] = game_row[dog_col] - game_row[col]
+    # Add matchup synergy features
+    # Offensive rebounding vs defensive rebounding
+    combo_features["underdog_ORB_synergy"] = (
+            game_row["underdog_offensive_rebound_percentage"] -
+            game_row["favorite_opp_offensive_rebound_percentage"]
+    )
+
+    # Turnover pressure vs ball security
+    combo_features["underdog_tov_synergy"] = (
+            game_row["underdog_opp_turnover_percentage"] -
+            game_row["favorite_turnover_percentage"]
+    )
+
+    # Three-point shooting vs three-point defense
+    combo_features["underdog_3pt_synergy"] = (
+            game_row["underdog_three_point_field_goal_percentage"] -
+            game_row["favorite_opp_three_point_field_goal_percentage"]
+    )
+
+    # Pace advantage (positive = underdog speeds up the game)
+    combo_features["underdog_tempo_advantage"] = (
+            game_row["underdog_pace"] - game_row["favorite_pace"]
+    )
+
+    # Efficiency mismatch
+    combo_features["underdog_efficiency_synergy"] = (
+            game_row["underdog_ORtg"] - game_row["favorite_DRtg"]
+    )
+
+    # Variance (3PA rate)
+    combo_features["underdog_variance_synergy"] = (
+            game_row["underdog_three_point_attempt_rate"] -
+            game_row["favorite_three_point_attempt_rate"]
+    )
+
+    # Schedule toughness mismatch
+    combo_features["underdog_recent_efficiency_synergy"] = (
+            game_row["underdog_last_10_win_percentage"] * game_row["underdog_NetRtg"]
+            - game_row["favorite_last_10_win_percentage"] * game_row["favorite_NetRtg"]
+    )
+    combo_features["underdog_physicality_synergy"] = (
+                                                             game_row["underdog_weighted_avg_weight"] -
+                                                             game_row["favorite_weighted_avg_weight"]
+                                                     ) + (
+                                                             game_row["underdog_offensive_rebound_percentage"] -
+                                                             game_row["favorite_opp_offensive_rebound_percentage"]
+                                                     )
+    combo_features["underdog_chaos_factor"] = (
+            game_row["underdog_opp_turnover_percentage"] +
+            game_row["underdog_three_point_attempt_rate"] -
+            game_row["favorite_turnover_percentage"]
+    )
+    combo_features["favorite_control_factor"] = (
+            game_row["favorite_pace"] -
+            game_row["underdog_pace"] +
+            game_row["favorite_turnover_percentage"]
+    )
+    # Add four factor features
+    combo_features["favorite_four_factor_score"] = (
+            0.4 * game_row["favorite_effective_field_goal_percentage"] +
+            0.25 * game_row["favorite_turnover_percentage"] +
+            0.2 * game_row["favorite_offensive_rebound_percentage"] +
+            0.15 * game_row["favorite_free_throws_per_field_goal_attempt"]
+    )
+
+    combo_features["underdog_four_factor_score"] = (
+            0.4 * game_row["underdog_effective_field_goal_percentage"] +
+            0.25 * game_row["underdog_turnover_percentage"] +
+            0.2 * game_row["underdog_offensive_rebound_percentage"] +
+            0.15 * game_row["underdog_free_throws_per_field_goal_attempt"]
+    )
+    combo_features["favorite_def_four_factor_score"] = (
+            0.4 * game_row["favorite_opp_effective_field_goal_percentage"] +
+            0.25 * game_row["favorite_opp_turnover_percentage"] +
+            0.2 * game_row["favorite_opp_offensive_rebound_percentage"] +
+            0.15 * game_row["favorite_opp_free_throws_per_field_goal_attempt"]
+    )
+
+    combo_features["underdog_def_four_factor_score"] = (
+            0.4 * game_row["underdog_opp_effective_field_goal_percentage"] +
+            0.25 * game_row["underdog_opp_turnover_percentage"] +
+            0.2 * game_row["underdog_opp_offensive_rebound_percentage"] +
+            0.15 * game_row["underdog_opp_free_throws_per_field_goal_attempt"]
+    )
+    combo_features["favorite_3pt_volatility"] = (
+            game_row["favorite_three_point_attempt_rate"] *
+            (1 - game_row["favorite_three_point_field_goal_percentage"])
+    )
+
+    combo_features["underdog_3pt_volatility"] = (
+            game_row["underdog_three_point_attempt_rate"] *
+            (1 - game_row["underdog_three_point_field_goal_percentage"])
+    )
+    combo_features["favorite_paint_dominance"] = (
+            game_row["favorite_two_point_field_goal_percentage"] -
+            game_row["favorite_opp_two_point_field_goal_percentage"] +
+            game_row["favorite_offensive_rebound_percentage"]
+    )
+
+    combo_features["underdog_paint_dominance"] = (
+            game_row["underdog_two_point_field_goal_percentage"] -
+            game_row["underdog_opp_two_point_field_goal_percentage"] +
+            game_row["underdog_offensive_rebound_percentage"]
+    )
+    return combo_features
+
+
 def collect_features(recalculate=False):
     """This function compiles the features for all games to be used as training data
     Input:
@@ -152,6 +273,7 @@ def collect_features(recalculate=False):
     full_path = os.path.join(absolute_path, "scraping")
     full_path = os.path.join(full_path, "data")
     filename = os.path.join(full_path, f"training_data.pckl")
+    feature_filename = os.path.join(full_path, f"full_featurenames.json")
     # See if the training data already exists
     if os.path.isfile(filename) and not recalculate:
         with open(filename, "rb") as f:
@@ -234,8 +356,29 @@ def collect_features(recalculate=False):
                     team_row = team_row.add_prefix(team["type"] + "_")
                     # Append to the game row
                     game_row = pd.concat([game_row, team_row], axis=1)
-                # Add the seed diff feature and the year
-                game_row = game_row.assign(seed_diff=game_row['underdog_seed'] - game_row['favorite_seed'])
+                # Before proceeding, use kenpom as tiebreaker when seeds are the same
+                if int(game["winning_team_seed"]) == int(game["losing_team_seed"]) and game_row["underdog_kenpomRank"][0] < game_row["favorite_kenpomRank"][0]:
+                    rename_map = {}
+                    for col in game_row.columns:
+                        if col.startswith("favorite_"):
+                            new_name = col.replace("favorite_", "underdog_", 1)
+                            rename_map[col] = new_name
+                        elif col.startswith("underdog_"):
+                            new_name = col.replace("underdog_", "favorite_", 1)
+                            rename_map[col] = new_name
+                    game_row = game_row.rename(columns=rename_map)
+                    if game_row["favorite_label"][0] == "upset":
+                        game_row["favorite_label"][0] = "expected"
+                        game_row["underdog_label"][0] = "expected"
+                    elif game_row["favorite_label"][0] == "expected":
+                        game_row["favorite_label"][0] = "upset"
+                        game_row["underdog_label"][0] = "upset"
+                # Calculate diff, synergy, and composite features
+                combo_features = calculate_combo_features(game_row)
+                # Add into dataframe
+                game_row = pd.concat([game_row, pd.DataFrame([combo_features])], axis=1)
+
+                # Add the year
                 game_row = game_row.assign(year=year)
                 # Add the round
                 game_row = game_row.assign(round=game["round"])
@@ -244,6 +387,31 @@ def collect_features(recalculate=False):
         # Save training data
         with open(filename, "wb") as f:
             pickle.dump(training_data, f)
+        # Save Full Feature list
+        all_cols = training_data.columns.to_list()
+        feature_names = {
+            "individual_stats": [],
+            "difference_stats": [],
+            "synergy_stats": [],
+            "other": []
+        }
+        all_cols = [x for x in all_cols if x not in ["year", "favorite_label", "underdog_label"]]
+        for col in all_cols:
+            if col in combo_features:
+                if "diff" in col:
+                    feature_names["difference_stats"].append(col)
+                else:
+                    feature_names["synergy_stats"].append(col)
+            else:
+                if "favorite" in col or "underdog" in col:
+                    basic_name = col.replace("favorite_","").replace("underdog_","")
+                    if basic_name not in feature_names["individual_stats"]:
+                        feature_names["individual_stats"].append(basic_name)
+                else:
+                    feature_names["other"].append(col)
+
+        with open(feature_filename, "w") as f:
+            json.dump(feature_names, f, indent=2)
     return training_data
             
 

@@ -26,7 +26,7 @@ def collect_bracket_stats(model):
             # COVID...
             continue
         predictor.set_year(year)
-        total_points, picked_winner = predictor.main(True, False)
+        total_points, picked_winner, finished_bracket = predictor.main(True, False)
         all_totals.append(total_points)
 
     # Get stats

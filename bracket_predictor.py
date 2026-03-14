@@ -4,13 +4,28 @@ from nonsense.favorite_picker import FavoritePicker
 from matchup_predictor import MatchupPredictor
 from scraping.get_tournament_data import get_tournament_data
 import csv
+import random
+
 
 class BracketPredictor:
     """Goes through a tournament and predicts all matchups"""
 
-    def __init__(self, model, year):
-        self.predictor = MatchupPredictor(model)
+    def __init__(self, model, year, probabilistic=False, silent=False):
+        """
+        Inputs:
+        :param model: model to be used for predictions
+        :param year: what year are we simulating
+        :param probabilistic: boolean flag to indicate if the prediction should be probabilistic or if the most likely
+        winner should be chosen
+        """
+        self.predictor = MatchupPredictor(model=model, silent=silent)
         self.set_year(year)
+        self.probabilistic = probabilistic
+        self.silent = silent
+
+    def controlled_print(self, msg):
+        if not self.silent:
+            print(msg)
 
     def set_year(self, year):
         """Changes the year that is being predicted"""
@@ -70,7 +85,7 @@ class BracketPredictor:
         # once the first round is done, start doing the rest of matchups, even if they didnt actually happen
         for r in range(1, 7):
             for i in range(0, len(finished_bracket[r]), 2):
-                result = self.predictor.predict(
+                result, winner_probs = self.predictor.predict(
                     first_team=finished_bracket[r][i]["team"],
                     first_seed=finished_bracket[r][i]["seed"],
                     second_team=finished_bracket[r][i+1]["team"],
@@ -78,6 +93,16 @@ class BracketPredictor:
                     round=r,
                     year=self.year
                 )
+                if self.probabilistic:
+                    # If we are doing probabilistic prediction, use the winner probs to choose the winner instead of
+                    # picking the higher prob team
+                    if random.random() >= winner_probs[0]:
+                        # If the random number was greater than the odds of team 1 to win, then team 2 wins
+                        result = 2
+                    else:
+                        # Otherwise, team 1 wins
+                        result = 1
+
                 if result == 1:
                     finished_bracket[r+1].append({
                         "team": finished_bracket[r][i]["team"],
@@ -120,8 +145,8 @@ class BracketPredictor:
                 # See if it got the winner right
                 if r == 7 and actual_teams[0] == predicted_teams[0]:
                     picked_winner = True
-            print(f"Model got {total_points} points")
-            print(f"Per Round Breakdown: {per_round_points}")
+            self.controlled_print(f"Model got {total_points} points")
+            self.controlled_print(f"Per Round Breakdown: {per_round_points}")
         if create_bracket:
             # Output the results in a file for input into pool
             # Combine "seed" and "team" into a single string and add "Round" header
@@ -146,16 +171,94 @@ class BracketPredictor:
             with open("output.csv", "w", newline="") as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerows(transposed_data)
-            print("Bracket saved!")
-        return total_points, picked_winner
+            self.controlled_print("Bracket saved!")
+        return total_points, picked_winner, finished_bracket
+
+
+class EfficientBracketPredictor(BracketPredictor):
+    """Its the same as the bracket predictor but after doing a prediction, the result is saved in memory. That way,
+    if the matchup needs a prediction again (like in the montecarlo), only a dictionary look up is needed
+    This always does the probabilistic prediction
+    """
+
+    def __init__(self, model, year):
+        super().__init__(model, year, probabilistic=False, silent=True)
+        self.saved_predictions = {}  # Used to keep track of predictions that were already made in the past
+        # Create the initial bracket so that only needs to be done once
+        self.starting_bracket = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: []}
+        for index, game in self.bracket[self.bracket["round"] == 1].iterrows():
+            self.starting_bracket[1].append({
+                "team": game["winning_team"],
+                "seed": game["winning_team_seed"]
+            })
+            self.starting_bracket[1].append({
+                "team": game["losing_team"],
+                "seed": game["losing_team_seed"]
+            })
+        # Update the saved predictions to have every team in there
+        for t in self.starting_bracket[1]:
+            self.saved_predictions[t["team"]] = {}
+            for t2 in self.starting_bracket[1]:
+                self.saved_predictions[t["team"]][t2["team"]] = {}
+
+
+    def main(self, tourney_over, create_bracket):
+        # This needs to be able to pull in the round one matchups and figure out matchups from there
+        # Cannot use anything after round 1 since missed picks affect future matchups
+        finished_bracket = self.starting_bracket.copy()
+
+        # once the first round is done, start doing the rest of matchups, even if they didnt actually happen
+        for r in range(1, 7):
+            for i in range(0, len(finished_bracket[r]), 2):
+                # Try a look up first
+                winner_probs = self.saved_predictions[finished_bracket[r][i]["team"]][finished_bracket[r][i + 1]["team"]]
+                if not winner_probs:
+                    # We havent done this one yet so do a real prediction
+                    result, winner_probs = self.predictor.predict(
+                        first_team=finished_bracket[r][i]["team"],
+                        first_seed=finished_bracket[r][i]["seed"],
+                        second_team=finished_bracket[r][i + 1]["team"],
+                        second_seed=finished_bracket[r][i + 1]["seed"],
+                        round=r,
+                        year=self.year
+                    )
+                    winner_probs = winner_probs[0]
+                    # Save the results for future predictions
+                    self.saved_predictions[finished_bracket[r][i]["team"]][finished_bracket[r][i + 1]["team"]] = float(winner_probs)
+                else:
+                    print("Using saved prediction!")
+                # Use the winner probs to choose the winner instead of picking the higher prob team
+                if random.random() >= winner_probs:
+                    # If the random number was greater than the odds of team 1 to win, then team 2 wins
+                    result = 2
+                else:
+                    # Otherwise, team 1 wins
+                    result = 1
+
+                if result == 1:
+                    finished_bracket[r + 1].append({
+                        "team": finished_bracket[r][i]["team"],
+                        "seed": finished_bracket[r][i]["seed"]
+                    })
+                elif result == 2:
+                    finished_bracket[r + 1].append({
+                        "team": finished_bracket[r][i + 1]["team"],
+                        "seed": finished_bracket[r][i + 1]["seed"]
+                    })
+                else:
+                    print(
+                        f"Error! Unable to predict {finished_bracket[r][i]['team']} vs {finished_bracket[r][i + 1]['team']}")
+                    raise Exception
+
+        return 0, False, finished_bracket
 
 
 if __name__ == '__main__':
-    version = "v25_8_2"
+    version = "v25_3_12"
     path = f"models/models25/{version}/"
     # path = "nonsense/"
     model_pkg = f"KernelSVM_{version}.package"
     # model_pkg = "fav_picker.package"
-    tourney_over = False
-    bp = BracketPredictor(path+model_pkg, 2026)
-    bp.main(tourney_over, create_bracket=False)
+    tourney_over = True
+    bp = BracketPredictor(path+model_pkg, 2025)
+    bp.main(tourney_over, create_bracket=True)

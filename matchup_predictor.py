@@ -1,7 +1,7 @@
 import pickle
 import random
 
-from collect_features import reformat_name
+from collect_features import reformat_name, calculate_combo_features
 from nonsense.favorite_picker import FavoritePicker
 import json
 from scraping.get_team_data import get_team_stats
@@ -18,7 +18,7 @@ import pandas as pd
 
 class MatchupPredictor:
 
-    def __init__(self, model, late_model=None, round_split=None, features=None, show_plots=False):
+    def __init__(self, model, late_model=None, round_split=None, features=None, show_plots=False, silent=False):
         """Creates a Matchup Predictor by loading a model for predicting
         Inputs:
             - Model: (str) path to the model package to be used for predictions
@@ -28,10 +28,12 @@ class MatchupPredictor:
                           round_split=2, rounds 1 and 2 will use model while rounds 3-6 will use late_model
             - features: (str) path to features file. Only used for old model types
             - show_plots: (bool) flag to indicate if shap plots should be generated with each predicted upset
+            - silent: (bool) flag to indicate if printing should occur
         """
         self.data = None
         self.show_plots = show_plots
         self.round_split = round_split
+        self.silent = silent
         # Load the primary model
         with open(model, "rb") as f:
             if "package" in model:
@@ -80,6 +82,14 @@ class MatchupPredictor:
             self.late_scaler = None
             self.late_features = None
 
+        # load full feature list for feature type reference
+        with open("C:\\Users\\gppal\\PycharmProjects\\marchmadness\\scraping\\data\\full_featurenames.json", "r") as f:
+            self.full_featurelist = json.load(f)
+
+    def controlled_print(self, msg):
+        if not self.silent:
+            print(msg)
+
     def get_model(self, round=None):
         """Returns the correct model given a particular matchup. Used for split classifiers. If round is left blank,
         model will always be returned"""
@@ -112,7 +122,7 @@ class MatchupPredictor:
         else:
             return self.scaler
 
-    def predict(self, first_team, first_seed, second_team, second_seed, round, year, same_seed=False):
+    def predict(self, first_team, first_seed, second_team, second_seed, round, year):
         """Predicts a matchup
         Input:
             - first_team: (str) the name of the first team in the matchup
@@ -128,15 +138,15 @@ class MatchupPredictor:
         """
         try:
             # Try to load data
-            print("Fetching team stats...")
+            self.controlled_print("Fetching team stats...")
             first_data = self.data.loc[reformat_name(first_team)]
             first_roster = get_roster_stats([reformat_name(first_team)], year).loc[reformat_name(first_team)]
             first_schedule = get_schedule_stats([reformat_name(first_team)], year).loc[reformat_name(first_team)]
-            print("Successfully loaded {} stats for {}".format(year, first_team))
+            self.controlled_print("Successfully loaded {} stats for {}".format(year, first_team))
             second_data = self.data.loc[reformat_name(second_team)]
             second_roster = get_roster_stats([reformat_name(second_team)], year).loc[reformat_name(second_team)]
             second_schedule = get_schedule_stats([reformat_name(second_team)], year).loc[reformat_name(second_team)]
-            print("Successfully loaded {} stats for {}".format(year, second_team))
+            self.controlled_print("Successfully loaded {} stats for {}".format(year, second_team))
         except KeyError as e:
             print("Unable to load {}. Make sure it is spelled like it is in the following list:".format(first_team))
             print(self.data)
@@ -144,7 +154,7 @@ class MatchupPredictor:
             result = -1
             return result
         # Make sure team 1 is the lower seed (better team)
-        if first_seed < second_seed or same_seed:
+        if first_seed < second_seed:
             team1 = first_team
             team2 = second_team
             team1_seed = first_seed
@@ -155,10 +165,7 @@ class MatchupPredictor:
             team2_roster = second_roster
             team2_data = second_data
             team2_schedule = second_schedule
-        else:
-            # If they are the same seed, run it twice and average the results
-            if first_seed == second_seed:
-                first_result, first_probs = self.predict(first_team, first_seed, second_team, second_seed, round, year, same_seed=True)
+        else:  # Otherwise, second_seed >= first_seed
             team2 = first_team
             team1 = second_team
             team2_seed = first_seed
@@ -169,7 +176,20 @@ class MatchupPredictor:
             team1_roster = second_roster
             team1_data = second_data
             team1_schedule = second_schedule
-        print(
+            # If they are the same seed, check kenpom to see if they should be flipped
+            if first_seed == second_seed and team1_data["kenpomRank"] < team2_data["kenpomRank"]:
+                team1 = first_team
+                team2 = second_team
+                team1_seed = first_seed
+                team1_roster = first_roster
+                team1_data = first_data
+                team1_schedule = first_schedule
+                team2_seed = second_seed
+                team2_roster = second_roster
+                team2_data = second_data
+                team2_schedule = second_schedule
+
+        self.controlled_print(
             "{} {} is being used as the underdog and {} {}  is being used as the favorite".format(team2_seed, team2,
                                                                                                   team1_seed,
                                                                                                   team1))
@@ -178,6 +198,7 @@ class MatchupPredictor:
         team2_data = pd.concat([team2_data, team2_roster, team2_schedule])
         # Get Bracket features
         predict_data = []
+        combo_stats = {}
         for feat in self.get_features(round):
             if feat == "Round":
                 predict_data.append(round)
@@ -185,29 +206,42 @@ class MatchupPredictor:
                 predict_data.append(team1_seed)
             elif feat == "underdog_seed" or feat == "team2_seed":
                 predict_data.append(team2_seed)
-            elif feat == "SeedDiff":
-                predict_data.append(abs(team1_seed - team2_seed))
-            else:
+            elif feat.replace("favorite_", "").replace("underdog_", "") in self.full_featurelist["individual_stats"]:
                 if "favorite" in feat:
                     predict_data.append(team1_data[feat.replace("favorite_", "")])
                 else:
                     predict_data.append(team2_data[feat.replace("underdog_", "")])
+            else:
+                # if we made it to the else, the individual stats have finished and we need to calculate combo features
+                # We only need to do this once though
+                if not combo_stats:
+                    # Make a game row combining the two teams
+                    fav_data = team1_data.add_prefix("favorite_")
+                    dog_data = team1_data.add_prefix("underdog_")
+                    game_row = pd.DataFrame([pd.concat([fav_data, dog_data])])
+                    combo_stats = calculate_combo_features(game_row)
+                    # Add in seed diff because I'm dumb and split that out and instead of refactoring Im just doing this
+                    combo_stats["seed_diff"] = team2_seed - team1_seed
+
+                # Then we can add the combo stat to the predict data
+                predict_data.append(combo_stats[feat])
+
         # If it was a scaled model, scale the features
         if self.get_scaler(round):
             predict_data = self.get_scaler(round).transform([predict_data])[0]
         # Make prediction
-        print("Making prediction")
-        winner_probs = self.get_model(round).predict_proba([predict_data])[0]
-        print("\n-------------------------------------")
+        self.controlled_print("Making prediction")
+        winner_probs = list(self.get_model(round).predict_proba([predict_data])[0])
+        self.controlled_print("\n-------------------------------------")
         if winner_probs[0] > winner_probs[1]:
             winner_name = team1
-            print("The winner will be {}".format(team1))
-            print(
+            self.controlled_print("The winner will be {}".format(team1))
+            self.controlled_print(
                 "Probability split:\n\t{}: {}\n\t{}: {}".format(team1, winner_probs[0], team2, winner_probs[1]))
         elif winner_probs[0] <= winner_probs[1]:
             winner_name = team2
-            print("The winner will be {}".format(team2))
-            print(
+            self.controlled_print("The winner will be {}".format(team2))
+            self.controlled_print(
                 "Probability split:\n\t{}: {}\n\t{}: {}".format(team1, winner_probs[0], team2, winner_probs[1]))
         else:
             winner_name = ""
@@ -222,7 +256,7 @@ class MatchupPredictor:
             result = -1
         # From classifier in predict
         # Only show if upset
-        if self.get_explainer(round) is not None and winner_probs[0] <= winner_probs[1] and self.show_plots and not same_seed:
+        if self.get_explainer(round) is not None and winner_probs[0] <= winner_probs[1] and self.show_plots:
             df = pd.DataFrame([predict_data], columns=self.get_features(round))
             df = df.astype("float64")  # final is the df of scaled features
             shap_values = self.get_explainer(round)(df)
@@ -231,37 +265,9 @@ class MatchupPredictor:
             f.set_title(f"Left ({team1_seed}) {team1}, Right ({team2_seed}) {team2}".title())
             plt.tight_layout()
             plt.show()
-
-        if same_seed:  # If same_seed is raised, then this is the recursive call
-            return result, winner_probs
-        elif not same_seed and team1_seed == team2_seed:
-            # If same seed is not raised, but the two teams are the same seed, then this is the end
-            # and the values should be averaged for a final result
-            final_probs = [(winner_probs[0] + first_probs[1]) / 2, (winner_probs[1] + first_probs[0]) / 2]
-            print("\n-------------------------------------")
-            if final_probs[0] > final_probs[1]:
-                winner_name = team1
-                print("The winner will be {}".format(team1))
-                print(
-                    "Probability split:\n\t{}: {}\n\t{}: {}".format(team1, final_probs[0], team2, final_probs[1]))
-            elif final_probs[0] <= final_probs[1]:
-                winner_name = team2
-                print("The winner will be {}".format(team2))
-                print(
-                    "Probability split:\n\t{}: {}\n\t{}: {}".format(team1, final_probs[0], team2, final_probs[1]))
-            else:
-                winner_name = ""
-                print("Error: Returned value was unexpected!!")
-            # Check if winner was input as team one or two
-            if winner_name == first_team:
-                result = 1
-            elif winner_name == second_team:
-                result = 2
-            else:
-                result = -1
-        print("-------------------------------------\n")
-        print("Preparing for next prediction...\n")
-        return result
+        self.controlled_print("-------------------------------------\n")
+        self.controlled_print("Preparing for next prediction...\n")
+        return result, winner_probs
 
     def set_year(self, year):
         """Loads the data for a given year to be used for predictions"""
@@ -283,8 +289,8 @@ class MatchupPredictor:
         # Verify there are no NaNs as this would indicate the kenpom name didnt match up properly
         nan_rows = self.data[self.data['NetRtg'].isna()]
         if len(nan_rows) > 0:
-            print("Some names are potentially off!!")
-            print(nan_rows)
+            self.controlled_print("Some names are potentially off!!")
+            self.controlled_print(nan_rows)
 
     def main(self):
         year = int(input("Enter the tournament year: "))
@@ -295,8 +301,8 @@ class MatchupPredictor:
             second_team = input("Team2 Name: ")
             second_seed = int(input("Team2 Seed: "))
             round = int(input("Round: "))
-            result = self.predict(first_team, first_seed, second_team, second_seed, round, year)
-            print(result)
+            result, winner_probs = self.predict(first_team, first_seed, second_team, second_seed, round, year)
+            self.controlled_print(result)
 
 
 if __name__ == '__main__':

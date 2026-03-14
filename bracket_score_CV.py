@@ -15,7 +15,9 @@ with open("./configs/trainer_config.yml", 'r') as file:
 years = list(range(2011, 2026))
 # Loop through each year
 count = 0
-point_totals = [[] for _ in config["model_names"]] + [[] for _ in config["meta_models"]]
+point_totals = [[] for _ in config["model_names"]]
+if config["meta_models"]:
+    point_totals = point_totals + + [[] for _ in config["meta_models"]]
 for test_year in years:
     print(f"Test year: {test_year}")
     if test_year == 2020:
@@ -45,7 +47,7 @@ for test_year in years:
     for idx in range(0, len(file_names)):
         # Create a bracket predictor
         bp = BracketPredictor(outpath_full + "/" + file_names[idx], test_year)
-        total_points, picked_winner = bp.main(True, False)
+        total_points, picked_winner, bracket = bp.main(True, False)
         point_totals[idx].append(total_points)  # We're trusting that the indices line up every time. Not great
 
     count += 1

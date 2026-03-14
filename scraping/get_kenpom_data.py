@@ -20,7 +20,7 @@ archive_link = {
     2011: "https://web.archive.org/web/20110311233233/http://kenpom.com/"
 }
 
-def get_kenpom_stats(year, force=False):
+def get_kenpom_stats(year, force=False, use_archive=False):
     """Loads the kenpom html and pulls out relevant features.
     The Kenpom site does not allow for webscraping so data must be pulled manually
     This can be done by going to the site in a browser and saving the webpage to scraping/data/kenpom_html
@@ -42,7 +42,7 @@ def get_kenpom_stats(year, force=False):
         print(f"Loading kenpom html from {year}")
         # with open(f"{full_path}/kenpom_html/{year} Pomeroy College Basketball Ratings.html", "r") as f:
         #    kenpom_html = f.read()
-        if year in archive_link:
+        if year in archive_link and use_archive:
             kenpom_html = smart_request(archive_link[year])
         else:
             kenpom_html = smart_request(f"https://kenpom.com/index.php?y={year}")
@@ -78,4 +78,4 @@ if __name__ == "__main__":
     for year in range(2011,2025):
         if year == 2020:
             continue
-        get_kenpom_stats(year, True)
+        get_kenpom_stats(year=year, force=True, use_archive=False)
