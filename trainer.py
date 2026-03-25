@@ -7,6 +7,7 @@ import time
 from datetime import datetime
 import warnings
 import numpy as np
+from sklearn.calibration import CalibratedClassifierCV
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
@@ -21,8 +22,8 @@ from sklearn.model_selection import cross_val_score, train_test_split, GridSearc
 from sklearn.feature_selection import SelectKBest, chi2, f_classif
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
-import seaborn as sns
-from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score
+from joblib import Parallel, delayed
+from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score, log_loss
 import matplotlib.pyplot as plt
 from model_bracket_stats import collect_bracket_stats, create_bracket_stat_csv
 
@@ -179,9 +180,49 @@ def create_model(model_name, short_p_grid=False):
     return clf, p_grid
 
 
+def train_single_model(m, X_train, y_train, scaled_training_data, train_labels,
+                       featurenames, scaler, tuning, scoring, calibrate):
+    print(f"{datetime.now()}: Starting {m}")
+    model_package = {}
+    clf, p_grid = create_model(m)
+
+    if tuning and p_grid:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=ConvergenceWarning)
+            param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring=scoring)
+            param_search.fit(X_train, y_train)
+            clf = param_search.best_estimator_
+            best_params = param_search.best_params_
+        params = best_params
+    else:
+        clf.fit(X_train, y_train)
+        params = "Default"
+
+    if m in ["Random_Forest", "GradientBoost", "Adaboost", "Neural_Network"] and calibrate:
+        print(f"Calibrating {m}")
+        calibrated = CalibratedClassifierCV(
+            base_estimator=clf,
+            method="isotonic",   # or "sigmoid"
+            cv=5
+        )
+        calibrated.fit(X_train, y_train)
+        clf = calibrated   # replace the model with the calibrated version
+
+
+    model_package["bg_dist_samp"] = pd.DataFrame(scaled_training_data, columns=featurenames)
+    model_package["model"] = clf
+    model_package["feature_names"] = featurenames
+    model_package["scaler"] = scaler
+
+    scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
+    mean_score = scores.mean()
+
+    return m, model_package, params, mean_score
+
+
 def train(datapath, featurepath, model_set, outpath, model_names, training_years=[],
           meta_models=[], model_stacks=[], rounds=None, tuning=True, scoring="accuracy",
-          feature_analysis=False, bracket_stats=True):
+          feature_analysis=False, bracket_stats=True, calibrate=True):
     """The train function performs the training process based on the input provided
     Input:
         - datapath: (str) path to the data file containing all feature data
@@ -210,6 +251,7 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
             - roc_auc
         - feature analysis: (bool) flag indicating whether to do feature analysis
         - bracket_stats: (bool) flag indicating whether scores should be calculated for each year in training
+        - calibrate: (bool) flag indicating whether the random forest should be calibrated
     """
     start_time = time.time()
     if rounds is None:
@@ -227,11 +269,31 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
     with open(datapath, 'rb') as f:
         data = pickle.load(f)
 
-    all_featurenames = ["SeedDiff"]
-    for prefix in ["favorite_", "underdog_"]:
-        for fname in featurenames_short:
-            if fname != "SeedDiff":
-                all_featurenames.append(prefix + fname)
+    # Legacy feature list loading
+    if isinstance(featurenames_short, list):
+        all_featurenames = ["SeedDiff"]
+        for prefix in ["favorite_", "underdog_"]:
+            for fname in featurenames_short:
+                if fname != "SeedDiff":
+                    all_featurenames.append(prefix + fname)
+    elif isinstance(featurenames_short, dict):
+        all_featurenames = []
+        for category in featurenames_short:
+            # If its an individual stat, add both the favorite and underdog version
+            if category == "individual_stats":
+                for prefix in ["favorite_", "underdog_"]:
+                    for fname in featurenames_short[category]:
+                        if "favorite_" not in fname and "underdog_" not in fname:
+                            all_featurenames.append(prefix + fname)
+                        else:
+                            # If favorite_ or underdog_ is in there already, no need to add it
+                            all_featurenames.append(fname)
+            # Otherwise, just add the stat to the list
+            else:
+                for fname in featurenames_short[category]:
+                    all_featurenames.append(fname)
+    else:
+        print("Feature type is not a supported type!!!!")
 
     # Keep only the data
     train_data = data.loc[data['year'].isin(training_years) & data['round'].isin(rounds)]
@@ -287,94 +349,90 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
     X_train, X_test, y_train, y_test = train_test_split(scaled_training_data, train_labels, test_size=0.20,
                                                         random_state=42)
 
-    results = []
-    params = {}
+    # Train the single models in parallel
+    results_list = Parallel(n_jobs=-1, verbose=10)(
+        delayed(train_single_model)(
+            m,
+            X_train,
+            y_train,
+            scaled_training_data,
+            train_labels,
+            featurenames,
+            scaler,
+            tuning,
+            scoring,
+            calibrate
+        )
+        for m in model_names
+    )
+
     models = {}
-    # Train the single models
-    for m in model_names:
-        model_package = {}
-        print(f"{datetime.now()}: Starting {m}")
-        clf, p_grid = create_model(m)
+    params = {}
+    results = []
 
-        if tuning and p_grid:
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore", category=ConvergenceWarning)
-                param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring=scoring)
-                param_search.fit(X_train, y_train)
-
-            # Store the best model and its performance
-            clf = param_search.best_estimator_
-            print(f"Best Parameters: {param_search.best_params_}")
-            params[m] = param_search.best_params_
-        else:
-            model = clf.fit(X_train, y_train)
-            params[m] = "Default"
-
-        # Get the bg_dist_samp and save it to the package for shap
-        model_package["bg_dist_samp"] = pd.DataFrame(scaled_training_data, columns=featurenames)
-
-        model_package["model"] = clf
-        model_package["feature_names"] = featurenames
-        model_package["scaler"] = scaler
+    # Reconstruct
+    for m, model_package, best_params, mean_score in results_list:
         models[m] = model_package
-        scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
-        results.append(scores.mean())
+        params[m] = best_params
+        results.append(mean_score)
 
     # Train stacked models
-    for m in meta_models:
-        base_models = []
-        for stack in model_stacks:
-            stack = stack.lower()
-            # The all stack uses every model we've created this time around
-            if stack == "all":
-                base_models = [(m, models[m]["model"]) for m in models]
-            # The top5_accuracy uses 5 models with the highest accuracy
-            elif stack == "top5_accuracy":
-                print("TOP5 ACCURACY NOT IMPLEMENTED")
-            # The top5_roc uses 5 models with the highest ROC AUC
-            elif stack == "top5_auc":
-                print("TOP5_AUC NOT IMPLEMENTED")
+    if meta_models:
+        for meta in meta_models:
+            base_models = []
+            for stack in model_stacks:
+                stack = stack.lower()
+                # The all stack uses every model we've created this time around
+                if stack == "all":
+                    base_models = [(m, models[m]["model"]) for m in models]
+                # The top5_accuracy uses 5 models with the highest accuracy
+                elif stack == "top5_accuracy":
+                    print("TOP5 ACCURACY NOT IMPLEMENTED")
+                # The top5_roc uses 5 models with the highest ROC AUC
+                elif stack == "top5_auc":
+                    print("TOP5_AUC NOT IMPLEMENTED")
 
-            # If a valid base model configuration was chosen, train the stacking model
-            if base_models:
-                # Make the name of the model
-                stack_name = f"stack_{stack}_{m}"
-                # Add the name to the model names list
-                model_names.append(stack_name)
-                print(f"{datetime.now()}: Starting {stack_name}")
-                # Create the meta model
-                clf, p_grid = create_model(m, True)
-                clf = StackingClassifier(estimators=base_models, final_estimator=clf, cv=5)
-                # Perform hyperparameter tuning if flag is raised
-                with warnings.catch_warnings():  # When tuning, lots of warnings happen so we want to suppress them
-                    warnings.simplefilter("ignore")
-                    if tuning and p_grid:
-                        # Update p_grid to work with stacking model
-                        p_grid = {'final_estimator__' + key: value for key, value in p_grid.items()}
-                        # Begin tuning
-                        param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring=scoring)
-                        param_search.fit(X_train, y_train)
+                # If a valid base model configuration was chosen, train the stacking model
+                if base_models:
+                    # Make the name of the model
+                    stack_name = f"stack_{stack}_{meta}"
+                    # Add the name to the model names list
+                    model_names.append(stack_name)
+                    print(f"{datetime.now()}: Starting {stack_name}")
+                    # Create the meta model
+                    clf, p_grid = create_model(meta, True)
+                    clf = StackingClassifier(estimators=base_models, final_estimator=clf, cv="prefit")
+                    # Perform hyperparameter tuning if flag is raised
+                    with warnings.catch_warnings():  # When tuning, lots of warnings happen so we want to suppress them
+                        warnings.simplefilter("ignore")
+                        if tuning and p_grid:
+                            # Update p_grid to work with stacking model
+                            p_grid = {'final_estimator__' + key: value for key, value in p_grid.items()}
+                            # Begin tuning
+                            param_search = RandomizedSearchCV(clf, p_grid, cv=5, scoring=scoring)
+                            param_search.fit(X_train, y_train)
 
-                        # Store the best model and its performance
-                        clf = param_search.best_estimator_
-                        print(f"Best Parameters: {param_search.best_params_}")
-                        params[stack_name] = param_search.best_params_
-                    else:
-                        clf.fit(X_train, y_train)
-                        params[stack_name] = "Default"
+                            # Store the best model and its performance
+                            clf = param_search.best_estimator_
+                            print(f"Best Parameters: {param_search.best_params_}")
+                            params[stack_name] = param_search.best_params_
+                        else:
+                            clf.fit(X_train, y_train)
+                            params[stack_name] = "Default"
 
-                # Create the model package
-                model_package = {"bg_dist_samp": pd.DataFrame(scaled_training_data, columns=featurenames), "model": clf,
-                                 "feature_names": featurenames, "scaler": scaler}
-                models[stack_name] = model_package
-                scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
-                results.append(scores.mean())
+                    # Create the model package
+                    model_package = {"bg_dist_samp": pd.DataFrame(scaled_training_data, columns=featurenames), "model": clf,
+                                     "feature_names": featurenames, "scaler": scaler}
+                    models[stack_name] = model_package
+                    scores = cross_val_score(clf, scaled_training_data, train_labels, cv=5, scoring='f1_macro')
+                    results.append(scores.mean())
 
     # Plot ROC Curves
     if "upset" in y_test:
         y_test = [1 if x == "upset" else 0 for x in y_test]
     auc = {}
     acc = {}
+    lloss = {}
     plt.clf()  # clear figure
     for m in models:
         try:
@@ -386,9 +444,11 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
             acc[m] = test_accuracy
             roc_auc = roc_auc_score(y_test, yHat[:, 1])
             auc[m] = roc_auc
+            lloss[m] = log_loss(y_test, yHat[:, 1])
         except ValueError:
             acc[m] = -1
             auc[m] = -1
+            lloss[m] = -1
     plt.title("ROC Curve")
     plt.legend()
     plt.savefig(f"{outpath_full}/ROC.png")
@@ -401,7 +461,7 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
     print("\nAccuracies:")
     for i in range(0, len(model_names)):
         print(
-            f"\t{model_names[i]} - CV Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}")
+            f"\t{model_names[i]} - CV Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}, Log Loss: {lloss[model_names[i]]}")
 
     # Save off models
     if model_set:
@@ -421,7 +481,7 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
             for i in range(0, len(model_names)):
                 # f.write("{}: {}\n".format(model_names[i], results[i]))
                 f.write(
-                    f"\t{model_names[i]} - Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}\n")
+                    f"\t{model_names[i]} - Accuracy: {results[i]}, Test Accuracy: {acc[model_names[i]]}, Test ROC: {auc[model_names[i]]}, Log Loss: {lloss[model_names[i]]}\n")
                 f.write(f"\t\tParams: {params[model_names[i]]}\n")
 
         # Save config
@@ -450,20 +510,22 @@ def train(datapath, featurepath, model_set, outpath, model_names, training_years
 
 
 if __name__ == '__main__':
+    # Its probably better to run bracket_CV_score instead of this since that gives more insight into performance
     # Load the config'
     with open("./configs/trainer_config.yml", 'r') as file:
         config = yaml.safe_load(file)
-    train(config["data"],
-          config["feature_list"],
-          config["version"],
-          config["outpath"],
-          config["model_names"],
-          config["training_years"],
-          config["meta_models"],
-          config["model_stacks"],
-          config["rounds"],
-          config["tuning"],
-          config["scoring"],
-          config["feature_analysis"],
-          config["bracket_scores"]
+    train(datapath=["data"],
+          featurepath=["feature_list"],
+          model_set=["version"],
+          outpath=["outpath"],
+          model_names=["model_names"],
+          training_years=["training_years"],
+          meta_models=["meta_models"],
+          model_stacks=["model_stacks"],
+          rounds=config["rounds"],
+          tuning=config["tuning"],
+          scoring=config["scoring"],
+          feature_analysis=config["feature_analysis"],
+          bracket_stats=config["bracket_scores"],
+          calibrate=config["calibrate"]
           )

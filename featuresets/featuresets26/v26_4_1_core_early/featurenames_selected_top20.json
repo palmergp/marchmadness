@@ -1,0 +1,28 @@
+{
+  "individual_stats": [
+    "underdog_opp_offensive_rebound_percentage",
+    "favorite_opp_free_throw_percentage",
+    "underdog_def_four_factor_score",
+    "underdog_AvgOppNetRtg",
+    "favorite_margin_of_vict_ranked",
+    "underdog_opp_points_per_ranked",
+    "underdog_top_per_percentage",
+    "underdog_AvgOppORtg",
+    "favorite_opp_points_per_game"
+  ],
+  "difference_stats": [
+    "weighted_avg_weight_diff",
+    "weighted_avg_exp_diff",
+    "opp_offensive_rating_diff",
+    "pace_diff",
+    "opp_turnover_percentage_diff",
+    "opp_three_point_attempt_rate_diff",
+    "block_percentage_diff"
+  ],
+  "synergy_stats": [
+    "underdog_ORB_synergy",
+    "underdog_physicality_synergy",
+    "underdog_3pt_synergy"
+  ],
+  "other": []
+}

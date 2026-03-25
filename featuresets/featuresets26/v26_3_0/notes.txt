@@ -1,0 +1,1 @@
+25_2_0 but with a selected set of diff and all the synergy metrics. diff selected based on mutual info > 0.3

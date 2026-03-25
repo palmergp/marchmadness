@@ -10,15 +10,20 @@ import random
 class BracketPredictor:
     """Goes through a tournament and predicts all matchups"""
 
-    def __init__(self, model, year, probabilistic=False, silent=False):
+    def __init__(self, model, year, probabilistic=False, silent=False, late_model=None):
         """
         Inputs:
         :param model: model to be used for predictions
         :param year: what year are we simulating
         :param probabilistic: boolean flag to indicate if the prediction should be probabilistic or if the most likely
         winner should be chosen
+        :param silent: boolean flag indicating if print statements should happen or not
+        :param late_model: path to the late model if using split model
         """
-        self.predictor = MatchupPredictor(model=model, silent=silent)
+        if late_model:
+            self.predictor = MatchupPredictor(model=model, silent=silent, late_model=late_model, round_split=2)
+        else:
+            self.predictor = MatchupPredictor(model=model, silent=silent)
         self.set_year(year)
         self.probabilistic = probabilistic
         self.silent = silent
@@ -175,90 +180,13 @@ class BracketPredictor:
         return total_points, picked_winner, finished_bracket
 
 
-class EfficientBracketPredictor(BracketPredictor):
-    """Its the same as the bracket predictor but after doing a prediction, the result is saved in memory. That way,
-    if the matchup needs a prediction again (like in the montecarlo), only a dictionary look up is needed
-    This always does the probabilistic prediction
-    """
-
-    def __init__(self, model, year):
-        super().__init__(model, year, probabilistic=False, silent=True)
-        self.saved_predictions = {}  # Used to keep track of predictions that were already made in the past
-        # Create the initial bracket so that only needs to be done once
-        self.starting_bracket = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: []}
-        for index, game in self.bracket[self.bracket["round"] == 1].iterrows():
-            self.starting_bracket[1].append({
-                "team": game["winning_team"],
-                "seed": game["winning_team_seed"]
-            })
-            self.starting_bracket[1].append({
-                "team": game["losing_team"],
-                "seed": game["losing_team_seed"]
-            })
-        # Update the saved predictions to have every team in there
-        for t in self.starting_bracket[1]:
-            self.saved_predictions[t["team"]] = {}
-            for t2 in self.starting_bracket[1]:
-                self.saved_predictions[t["team"]][t2["team"]] = {}
-
-
-    def main(self, tourney_over, create_bracket):
-        # This needs to be able to pull in the round one matchups and figure out matchups from there
-        # Cannot use anything after round 1 since missed picks affect future matchups
-        finished_bracket = self.starting_bracket.copy()
-
-        # once the first round is done, start doing the rest of matchups, even if they didnt actually happen
-        for r in range(1, 7):
-            for i in range(0, len(finished_bracket[r]), 2):
-                # Try a look up first
-                winner_probs = self.saved_predictions[finished_bracket[r][i]["team"]][finished_bracket[r][i + 1]["team"]]
-                if not winner_probs:
-                    # We havent done this one yet so do a real prediction
-                    result, winner_probs = self.predictor.predict(
-                        first_team=finished_bracket[r][i]["team"],
-                        first_seed=finished_bracket[r][i]["seed"],
-                        second_team=finished_bracket[r][i + 1]["team"],
-                        second_seed=finished_bracket[r][i + 1]["seed"],
-                        round=r,
-                        year=self.year
-                    )
-                    winner_probs = winner_probs[0]
-                    # Save the results for future predictions
-                    self.saved_predictions[finished_bracket[r][i]["team"]][finished_bracket[r][i + 1]["team"]] = float(winner_probs)
-                else:
-                    print("Using saved prediction!")
-                # Use the winner probs to choose the winner instead of picking the higher prob team
-                if random.random() >= winner_probs:
-                    # If the random number was greater than the odds of team 1 to win, then team 2 wins
-                    result = 2
-                else:
-                    # Otherwise, team 1 wins
-                    result = 1
-
-                if result == 1:
-                    finished_bracket[r + 1].append({
-                        "team": finished_bracket[r][i]["team"],
-                        "seed": finished_bracket[r][i]["seed"]
-                    })
-                elif result == 2:
-                    finished_bracket[r + 1].append({
-                        "team": finished_bracket[r][i + 1]["team"],
-                        "seed": finished_bracket[r][i + 1]["seed"]
-                    })
-                else:
-                    print(
-                        f"Error! Unable to predict {finished_bracket[r][i]['team']} vs {finished_bracket[r][i + 1]['team']}")
-                    raise Exception
-
-        return 0, False, finished_bracket
-
-
 if __name__ == '__main__':
-    version = "v25_3_12"
-    path = f"models/models25/{version}/"
-    # path = "nonsense/"
-    model_pkg = f"KernelSVM_{version}.package"
-    # model_pkg = "fav_picker.package"
-    tourney_over = True
-    bp = BracketPredictor(path+model_pkg, 2025)
+    version = "v26_5_0_tree_early_top80"
+    path = f"models/models26/{version}/"
+    model_pkg = f"Random_Forest_{version}.package"
+    late_version = "v26_5_0_tree_late_top80"
+    late_model_path = f"models/models26/{late_version}/"
+    late_model_pkg = f"Random_Forest_{late_version}.package"
+    tourney_over = False
+    bp = BracketPredictor(model=path+model_pkg, year=2026, late_model=late_model_path+late_model_pkg)
     bp.main(tourney_over, create_bracket=True)

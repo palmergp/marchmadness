@@ -43,24 +43,7 @@
     "NonConfNetRtg_diff"
   ],
   "synergy_stats": [
-    "underdog_ORB_synergy",
-    "underdog_tov_synergy",
-    "underdog_3pt_synergy",
-    "underdog_tempo_advantage",
-    "underdog_efficiency_synergy",
-    "underdog_variance_synergy",
-    "underdog_recent_efficiency_synergy",
-    "underdog_physicality_synergy",
-    "underdog_chaos_factor",
-    "favorite_control_factor",
-    "favorite_four_factor_score",
-    "underdog_four_factor_score",
-    "favorite_def_four_factor_score",
-    "underdog_def_four_factor_score",
-    "favorite_3pt_volatility",
-    "underdog_3pt_volatility",
-    "favorite_paint_dominance",
-    "underdog_paint_dominance"
+    "underdog_recent_efficiency_synergy"
   ],
   "other": [
   ]

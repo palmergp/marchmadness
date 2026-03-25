@@ -1,0 +1,2 @@
+These are the core features (for linear models) based on the output of the feature selector.
+These come from just the round one matchups

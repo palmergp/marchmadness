@@ -102,9 +102,11 @@ bad_features_diff = [
     "games_played_diff"
 ]
 
-def load_training_data(path, label_col, season_col=None):
+def load_training_data(path, label_col, rounds=[1,2,3,4,5,6],season_col=None):
     with open(path, 'rb') as f:
         df = pickle.load(f)
+    df = df[df["round"].isin(rounds)]
+
     y = df[label_col]
     # Remove unneeded columns
     bad_features_full = []
@@ -204,8 +206,8 @@ def yearly_stability(df, feature_cols, label_col, season_col):
     return stab_df.sort_values("stability_score", ascending=False)
 
 
-def run_feature_analysis(path, label_col, season_col=None, outdir="feature_analysis_output"):
-    X, y, seasons = load_training_data(path, label_col, season_col)
+def run_feature_analysis(path, label_col, rounds=[1,2,3,4,5,6], season_col=None, outdir="feature_analysis_output"):
+    X, y, seasons = load_training_data(path, label_col, rounds, season_col)
     with open(path, 'rb') as f:
         df = pickle.load(f)
 
@@ -399,10 +401,11 @@ def build_ranked_feature_sets(results, outdir):
     }
 
 
-outdir = "C:\\Users\\gppal\\PycharmProjects\\marchmadness\\featureanalysis\\feature_analysis_output"
+outdir = "C:\\Users\\gppal\\PycharmProjects\\marchmadness\\featureanalysis\\feature_analysis_output_early"
 results = run_feature_analysis(
     path="C:\\Users\\gppal\\PycharmProjects\\marchmadness\\scraping\\data\\training_data.pckl",
     label_col="favorite_label",
+    rounds=[1],
     season_col="year",
     outdir=outdir
 )
@@ -417,3 +420,5 @@ ranked_sets = build_ranked_feature_sets(results, outdir)
 # Write the ranked sets to a pickle file
 with open(outdir+"\\ranked_sets.pkl", "wb") as f:
     pickle.dump(ranked_sets, f)
+
+print("Done")

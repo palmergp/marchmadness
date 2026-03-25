@@ -32,6 +32,14 @@ RETURNING_LOOKUP = {
     "KENTUCKY2025": {
         "returning_minutes": 0.1,
         "returning_points": 0.0
+    },
+    "CENTRAL-FLORIDA2026": {
+        "returning_minutes": 0.1,
+        "returning_points": 0.0
+    },
+    "MIAMI-FL2026": {
+        "returning_minutes": 0.0,
+        "returning_points": 0.0
     }
 }
 
@@ -48,7 +56,7 @@ def convert_height(height):
 
 def calculate_weighted_avg(info, stats, feature):
     """Calculates the average of an info feature, weighted by a player's minutes played"""
-    total_mp = stats["MP"].sum()
+    total_mp = stats["MP"][0:-1].sum()  # Last column is totals so drop that
     total = 0
     for player in list(stats["Player"]):
         # If there is info missing of the player, skip them (they probably didn't play much anyways)
@@ -100,6 +108,8 @@ def get_url_name(name):
         url_name = "mcneese-state"
     elif name == "SIU-EDWARDSVILLE":
         url_name = "southern-illinois-edwardsville"
+    elif name == "SAINT-MARYS":
+        url_name = "saint-marys-ca"
     else:
         url_name = name.lower().replace("(", "").replace(")", "").replace("&", "")
     return url_name
@@ -138,7 +148,7 @@ def get_roster_stats(teams, year):
             team_roster_df = pd.read_html(response)
             # Find the offset of DFs. Sometimes there are scores at the top
             for df_idx in range(0,len(team_roster_df)):
-                if len(team_roster_df[df_idx]) > 10:
+                if "Class" in team_roster_df[df_idx] and "Player" in team_roster_df[df_idx] and "Weight" in team_roster_df[df_idx] and "Height" in team_roster_df[df_idx]:
                     offset = df_idx
                     break
             team_roster_info_df = team_roster_df[offset]
@@ -172,6 +182,7 @@ def get_roster_stats(teams, year):
                                                                 response)[0])
                                                             # response.content.decode('utf-8'))[0])
             except IndexError:
+                print("Using manually calculated returning minutes")
                 # Sometimes its missing. Check if we calculated it manually
                 team_row["returning_minutes"] = RETURNING_LOOKUP[team + str(year)]["returning_minutes"]
                 team_row["returning_points"] = RETURNING_LOOKUP[team + str(year)]["returning_points"]

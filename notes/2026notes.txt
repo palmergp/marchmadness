@@ -19,3 +19,66 @@ From the analysis, it seems RandomForest with top 80 features and the Kernel SVM
 to proceed with
 
 I dont think im doing the split classifier once again. One day I'll implement that but for now Im running out of time.
+
+_________________________
+Vibes Monte carlo works. Not sure if the bracket it outputs is any better than the normal technique
+
+The models output by Copilots suggested features are truly awful. Only usable ones are the GradientBoost and the
+LogisticRegression. Even then, not convinced they are actually better than what I had before. Thinking of
+
+__________________________________________
+The monte carlo runs typically make the model pick less upsets but the model already avoids upsets so not sure how
+beneficial that is. I guess there's something to be said about mainly picking favorites for maximizing points
+
+Models I'd still like to train:
+- Same set of features as 25_2_0 but as exclusively diff features and composites. This is 2_1_1
+- 25_2_0 but with a selected set of diff metrics and composites based on mutual info > 3.0. This is 2_3_0
+- Redo 26_2_0_nn but with the corrected 2025 heights and weights
+    - Probably want to do monte carlo for this too so that its the full recommendation
+____________________________________
+TODO:
+- Enter the monte carlo calibrated random forest 26_2_0_80tree into ESPN. Should be output in the morning
+- Enter calibrated Adaboost 26_2_0 into ESPN. Just need to run BracketPredictor using that model
+- Retrain to match exactly 25_3_12 and do a Neural Net, then enter into ESPN. Will want to kick this off in the morning
+- If there's time, monte carlo one of the 26_0_0 models. Probably the KernelSVM
+- Choose one of the entered brackets to be my real bracket
+_________________________________
+There's a bug with McNeese and St Marys. For some reason, McNeese has been McNeese State in all other years but this
+year the data wants it McNeese. For St Marys, it was SAINT MARYS CA in the past but now it needs to be SAINT MARYS. This
+is going to be a problem when 2026 gets included into the training data.
+
+Here are the models that have been entered along with some stats for each:
+- NeuralNet25_3_12
+    - Performed well last year. Tuned for f1_weighted
+    - Bracket CV: 1240avg, 1340median
+    - Accuracy: 0.7289631000966427, Test Accuracy: 0.7926829268292683, Test ROC: 0.8377609108159393
+- KernelSVM26_0_0
+    - Using the same features as most models from last year. Tuned for recall
+    - Bracket CV: 1136.43avg, 1120median
+    - Accuracy: 0.6908050847944185, Test Accuracy: 0.8022598870056498, Test ROC: 0.8178740157480315, Log Loss: 0.4563817104988083
+- Monte Carlo Calibrated Random Forest 26_2_0 Top80Tree
+    - This model follows all the suggestions of copilot. Its god awful
+    - Bracket Scores (not even CV): 393avg, 296median
+    - Accuracy: 0.6797544879944392, Test Accuracy: 0.751412429378531, Test ROC: 0.7799212598425197, Log Loss: 0.5081171814924035
+- Calibrated Adaboost 26_2_0 Top80Tree
+    - The best performing of the models using Copilot's suggestions. Still not great
+    - Bracket Scores (not CV): 1125avg, 1175median
+    - Accuracy: 0.6912585918823948, Test Accuracy: 0.7740112994350282, Test ROC: 0.7714173228346456, Log Loss: 0.5014926851454494
+- Linear SVC 26_4_0
+    - Using the same features as most models from last year. Tuned for f1_weighted
+    - Bracket CV: 1132.86avg, 1170.0median
+    - Accuracy: Accuracy: 0.6296750230656442, Test Accuracy: 0.7344632768361582, Test ROC: 0.7786614173228347, Log Loss: 0.4895707072080085
+- Split 2_4_1: KernalSVM Early, Linear_SVC late
+    - Early model only trained on first two rounds. Late model only trained on final four rounds. Tuned for ROC
+    - Stats:
+        - Early: Accuracy: 0.6752787259917963, Test Accuracy: 0.762962962962963, Test ROC: 0.8339473684210527, Log Loss: 0.4472191966120142
+        - Late: Accuracy: 0.6463261532018236, Test Accuracy: 0.7142857142857143, Test ROC: 0.7639257294429708, Log Loss: 0.5196592548968564
+- Logistic Regression 26_2_0 Core50:
+    - Best performing Logistic Regression model following Copilot suggestions
+    - Accuracy: 0.6428962461121961, Test Accuracy: 0.751412429378531, Test ROC: 0.7560629921259843, Log Loss: 0.5456570102745196
+- EarlyKernelSVM 26_4_1:
+    - I built this before I realized the split model was only using the early model
+    - Accuracy: 0.6752787259917963, Test Accuracy: 0.762962962962963, Test ROC: 0.8339473684210527, Log Loss: 0.4472191966120142
+- Neural Network 26_4_2Late
+    - Random late model. Expected to be really bad and it is
+    - Accuracy: 0.6012424961297358, Test Accuracy: 0.7380952380952381, Test ROC: 0.7771883289124668, Log Loss: 3.8941244943356925

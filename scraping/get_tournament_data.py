@@ -114,6 +114,4 @@ def get_tournament_data(year):
 
 
 if __name__ == "__main__":
-    for i in range(2010, 2011):
-        if i != 2020:
-            a = get_tournament_data(i)
+    a = get_tournament_data(2026)

@@ -1,0 +1,19 @@
+{
+  "individual_stats": [
+    "underdog_opp_offensive_rebound_percentage",
+    "favorite_opp_free_throw_percentage",
+    "underdog_def_four_factor_score"
+  ],
+  "difference_stats": [
+    "weighted_avg_weight_diff",
+    "weighted_avg_exp_diff",
+    "opp_offensive_rating_diff",
+    "pace_diff"
+  ],
+  "synergy_stats": [
+    "underdog_ORB_synergy",
+    "underdog_physicality_synergy",
+    "underdog_3pt_synergy"
+  ],
+  "other": []
+}

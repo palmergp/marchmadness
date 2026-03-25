@@ -18,11 +18,16 @@ name_dict = {
     "Miami (Fla.)": "MIAMI-FL",
     "Stephen F. Austin": "STEPHEN-F-AUSTIN",
     "UC Berkeley": "CALIFORNIA",
-    "St. Mary's (Cal.)": "SAINT-MARYS-CA",
-    "saint marys": "SAINT-MARYS-CA",
-    "Saint Marys": "SAINT-MARYS-CA",
-    "Saint Mary's": "SAINT-MARYS-CA",
-    "St. Mary's": "SAINT-MARYS-CA",
+    "St. Mary's (Cal.)": "SAINT-MARYS",
+    "saint marys": "SAINT-MARYS",
+    "Saint Marys": "SAINT-MARYS",
+    "Saint Mary's": "SAINT-MARYS",
+    "St. Mary's": "SAINT-MARYS",
+    # "St. Mary's (Cal.)": "SAINT-MARYS-CA",
+    # "saint marys": "SAINT-MARYS-CA",
+    # "Saint Marys": "SAINT-MARYS-CA",
+    # "Saint Mary's": "SAINT-MARYS-CA",
+    # "St. Mary's": "SAINT-MARYS-CA",
     "Mount St. Mary's": "MOUNT-ST-MARYS",
     "Penn": "PENNSYLVANIA",
     "Long Island": "LONG-ISLAND-UNIVERSITY",
@@ -58,6 +63,8 @@ name_dict = {
     "BYU": "BRIGHAM-YOUNG",
     "byu": "BRIGHAM-YOUNG",
     "Miami (FL)": "MIAMI-FL",
+    "Miami (OH)": "MIAMI-OH",
+    "Miami-OH": "MIAMI-OH",
     "Pitt": "PITTSBURGH",
     "Ole Miss": "MISSISSIPPI",
     "ole miss": "MISSISSIPPI",
@@ -95,9 +102,14 @@ name_dict = {
     "UT Rio Grande Valley": "TEXAS-RIO-GRANDE-VALLEY",
     "sdsu": "SAN-DIEGO-STATE",
     "SDSU": "SAN-DIEGO-STATE",
-    "mcneese": "MCNEESE-STATE",
-    "Mcneese": "MCNEESE-STATE",
-    "McNeese": "MCNEESE-STATE",
+    "mcneese": "MCNEESE",
+    "Mcneese": "MCNEESE",
+    "McNeese": "MCNEESE",
+    "McNeese State": "MCNEESE",
+    # "mcneese": "MCNEESE-STATE",
+    # "Mcneese": "MCNEESE-STATE",
+    # "McNeese": "MCNEESE-STATE",
+    # "McNeese State": "MCNEESE-STATE",
     "Texas San Antonio": "UTSA",
     "NC Asheville": "UNC-ASHEVILLE",
     "North Carolina St.": "NC-STATE",
@@ -117,7 +129,9 @@ name_dict = {
     "Virginia Military Inst": "VMI",
     "SIUE": "SIU-EDWARDSVILLE",
     "siue": "SIU-EDWARDSVILLE",
-    "mount saint marys": "MOUNT-ST-MARYS"
+    "mount saint marys": "MOUNT-ST-MARYS",
+    "TCU": "TEXAS-CHRISTIAN",
+    "CA Baptist": "CALIFORNIA-BAPTIST"
 }
 
 
@@ -151,110 +165,110 @@ def calculate_combo_features(game_row):
 
             if dog_col in game_row.columns:
                 diff_name = f"{base}_diff"
-                combo_features[diff_name] = game_row[dog_col] - game_row[col]
+                combo_features[diff_name] = game_row[dog_col][0] - game_row[col][0]
     # Add matchup synergy features
     # Offensive rebounding vs defensive rebounding
     combo_features["underdog_ORB_synergy"] = (
-            game_row["underdog_offensive_rebound_percentage"] -
-            game_row["favorite_opp_offensive_rebound_percentage"]
+            game_row["underdog_offensive_rebound_percentage"][0] -
+            game_row["favorite_opp_offensive_rebound_percentage"][0]
     )
 
     # Turnover pressure vs ball security
     combo_features["underdog_tov_synergy"] = (
-            game_row["underdog_opp_turnover_percentage"] -
-            game_row["favorite_turnover_percentage"]
+            game_row["underdog_opp_turnover_percentage"][0] -
+            game_row["favorite_turnover_percentage"][0]
     )
 
     # Three-point shooting vs three-point defense
     combo_features["underdog_3pt_synergy"] = (
-            game_row["underdog_three_point_field_goal_percentage"] -
-            game_row["favorite_opp_three_point_field_goal_percentage"]
+            game_row["underdog_three_point_field_goal_percentage"][0] -
+            game_row["favorite_opp_three_point_field_goal_percentage"][0]
     )
 
     # Pace advantage (positive = underdog speeds up the game)
     combo_features["underdog_tempo_advantage"] = (
-            game_row["underdog_pace"] - game_row["favorite_pace"]
+            game_row["underdog_pace"][0] - game_row["favorite_pace"][0]
     )
 
     # Efficiency mismatch
     combo_features["underdog_efficiency_synergy"] = (
-            game_row["underdog_ORtg"] - game_row["favorite_DRtg"]
+            game_row["underdog_ORtg"][0] - game_row["favorite_DRtg"][0]
     )
 
     # Variance (3PA rate)
     combo_features["underdog_variance_synergy"] = (
-            game_row["underdog_three_point_attempt_rate"] -
-            game_row["favorite_three_point_attempt_rate"]
+            game_row["underdog_three_point_attempt_rate"][0] -
+            game_row["favorite_three_point_attempt_rate"][0]
     )
 
     # Schedule toughness mismatch
     combo_features["underdog_recent_efficiency_synergy"] = (
-            game_row["underdog_last_10_win_percentage"] * game_row["underdog_NetRtg"]
-            - game_row["favorite_last_10_win_percentage"] * game_row["favorite_NetRtg"]
+            game_row["underdog_last_10_win_percentage"][0] * game_row["underdog_NetRtg"][0]
+            - game_row["favorite_last_10_win_percentage"][0] * game_row["favorite_NetRtg"][0]
     )
     combo_features["underdog_physicality_synergy"] = (
-                                                             game_row["underdog_weighted_avg_weight"] -
-                                                             game_row["favorite_weighted_avg_weight"]
+                                                             game_row["underdog_weighted_avg_weight"][0] -
+                                                             game_row["favorite_weighted_avg_weight"][0]
                                                      ) + (
-                                                             game_row["underdog_offensive_rebound_percentage"] -
-                                                             game_row["favorite_opp_offensive_rebound_percentage"]
+                                                             game_row["underdog_offensive_rebound_percentage"][0] -
+                                                             game_row["favorite_opp_offensive_rebound_percentage"][0]
                                                      )
     combo_features["underdog_chaos_factor"] = (
-            game_row["underdog_opp_turnover_percentage"] +
-            game_row["underdog_three_point_attempt_rate"] -
-            game_row["favorite_turnover_percentage"]
+            game_row["underdog_opp_turnover_percentage"][0] +
+            game_row["underdog_three_point_attempt_rate"][0] -
+            game_row["favorite_turnover_percentage"][0]
     )
     combo_features["favorite_control_factor"] = (
-            game_row["favorite_pace"] -
-            game_row["underdog_pace"] +
-            game_row["favorite_turnover_percentage"]
+            game_row["favorite_pace"][0] -
+            game_row["underdog_pace"][0] +
+            game_row["favorite_turnover_percentage"][0]
     )
     # Add four factor features
     combo_features["favorite_four_factor_score"] = (
-            0.4 * game_row["favorite_effective_field_goal_percentage"] +
-            0.25 * game_row["favorite_turnover_percentage"] +
-            0.2 * game_row["favorite_offensive_rebound_percentage"] +
-            0.15 * game_row["favorite_free_throws_per_field_goal_attempt"]
+            0.4 * game_row["favorite_effective_field_goal_percentage"][0] +
+            0.25 * game_row["favorite_turnover_percentage"][0] +
+            0.2 * game_row["favorite_offensive_rebound_percentage"][0] +
+            0.15 * game_row["favorite_free_throws_per_field_goal_attempt"][0]
     )
 
     combo_features["underdog_four_factor_score"] = (
-            0.4 * game_row["underdog_effective_field_goal_percentage"] +
-            0.25 * game_row["underdog_turnover_percentage"] +
-            0.2 * game_row["underdog_offensive_rebound_percentage"] +
-            0.15 * game_row["underdog_free_throws_per_field_goal_attempt"]
+            0.4 * game_row["underdog_effective_field_goal_percentage"][0] +
+            0.25 * game_row["underdog_turnover_percentage"][0] +
+            0.2 * game_row["underdog_offensive_rebound_percentage"][0] +
+            0.15 * game_row["underdog_free_throws_per_field_goal_attempt"][0]
     )
     combo_features["favorite_def_four_factor_score"] = (
-            0.4 * game_row["favorite_opp_effective_field_goal_percentage"] +
-            0.25 * game_row["favorite_opp_turnover_percentage"] +
-            0.2 * game_row["favorite_opp_offensive_rebound_percentage"] +
-            0.15 * game_row["favorite_opp_free_throws_per_field_goal_attempt"]
+            0.4 * game_row["favorite_opp_effective_field_goal_percentage"][0] +
+            0.25 * game_row["favorite_opp_turnover_percentage"][0] +
+            0.2 * game_row["favorite_opp_offensive_rebound_percentage"][0] +
+            0.15 * game_row["favorite_opp_free_throws_per_field_goal_attempt"][0]
     )
 
     combo_features["underdog_def_four_factor_score"] = (
-            0.4 * game_row["underdog_opp_effective_field_goal_percentage"] +
-            0.25 * game_row["underdog_opp_turnover_percentage"] +
-            0.2 * game_row["underdog_opp_offensive_rebound_percentage"] +
-            0.15 * game_row["underdog_opp_free_throws_per_field_goal_attempt"]
+            0.4 * game_row["underdog_opp_effective_field_goal_percentage"][0] +
+            0.25 * game_row["underdog_opp_turnover_percentage"][0] +
+            0.2 * game_row["underdog_opp_offensive_rebound_percentage"][0] +
+            0.15 * game_row["underdog_opp_free_throws_per_field_goal_attempt"][0]
     )
     combo_features["favorite_3pt_volatility"] = (
-            game_row["favorite_three_point_attempt_rate"] *
-            (1 - game_row["favorite_three_point_field_goal_percentage"])
+            game_row["favorite_three_point_attempt_rate"][0] *
+            (1 - game_row["favorite_three_point_field_goal_percentage"][0])
     )
 
     combo_features["underdog_3pt_volatility"] = (
-            game_row["underdog_three_point_attempt_rate"] *
-            (1 - game_row["underdog_three_point_field_goal_percentage"])
+            game_row["underdog_three_point_attempt_rate"][0] *
+            (1 - game_row["underdog_three_point_field_goal_percentage"][0])
     )
     combo_features["favorite_paint_dominance"] = (
-            game_row["favorite_two_point_field_goal_percentage"] -
-            game_row["favorite_opp_two_point_field_goal_percentage"] +
-            game_row["favorite_offensive_rebound_percentage"]
+            game_row["favorite_two_point_field_goal_percentage"][0] -
+            game_row["favorite_opp_two_point_field_goal_percentage"][0] +
+            game_row["favorite_offensive_rebound_percentage"][0]
     )
 
     combo_features["underdog_paint_dominance"] = (
-            game_row["underdog_two_point_field_goal_percentage"] -
-            game_row["underdog_opp_two_point_field_goal_percentage"] +
-            game_row["underdog_offensive_rebound_percentage"]
+            game_row["underdog_two_point_field_goal_percentage"][0] -
+            game_row["underdog_opp_two_point_field_goal_percentage"][0] +
+            game_row["underdog_offensive_rebound_percentage"][0]
     )
     return combo_features
 

@@ -1,0 +1,2 @@
+Early features as chosen by feature selector for a neural net
+early is for round one only

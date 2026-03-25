@@ -1,11 +1,12 @@
-feature_list: featuresets/featuresets26/v26_2_0_nn/featurenames_selected_top60.json
+feature_list: featuresets/featuresets26/v26_5_0_tree_late/featurenames_selected_top80.json
 data: scraping/data/training_data.pckl
-version: v26_2_0_nn60
+version: v26_5_0_tree_late_top80
 outpath: models/models26/
 tuning: true
-scoring: recall
+scoring: recall  # accuracy, roc_auc, recall, f1_weighted, neg_log_loss
 feature_analysis: false
 bracket_scores: false
+calibrate: false  # Determines if Random Forest should be calibrated or not
 training_years:
   - 2011
   - 2012
@@ -23,23 +24,23 @@ training_years:
   - 2025
 rounds:
   - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
+#  - 2
+#  - 3
+#  - 4
+#  - 5
+#  - 6
 model_names:
 #  - Gaussian_Naive_Bayes
-  - Neural_Network
+#  - Neural_Network
 #  - Logistic_Regression
 #  - Linear_SVC
 #  - KNN
 #  - Gaussian_RBF
-#  - Decision_Tree
-#  - Random_Forest
-#  - Adaboost
-#  - GradientBoost
-  - KernelSVM
+  - Decision_Tree
+  - Random_Forest
+  - Adaboost
+  - GradientBoost
+#  - KernelSVM
 meta_models:
 #  - Neural_Network
   #- Logistic_Regression

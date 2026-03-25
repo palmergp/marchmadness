@@ -93,7 +93,10 @@ class MatchupPredictor:
     def get_model(self, round=None):
         """Returns the correct model given a particular matchup. Used for split classifiers. If round is left blank,
         model will always be returned"""
-        if self.round_split and round > self.round_split:
+        if round > 2:
+            print("here")
+        if self.round_split is not None and round > self.round_split:
+            print("Using late model")
             return self.late_model
         else:
             return self.model
@@ -101,7 +104,7 @@ class MatchupPredictor:
     def get_explainer(self, round=None):
         """Returns the correct explainer given a particular matchup. Used for split classifiers. If round is left blank,
         explainer will always be returned"""
-        if self.round_split and round > self.round_split:
+        if self.round_split is not None and round > self.round_split:
             return self.late_explainer
         else:
             return self.explainer
@@ -109,7 +112,7 @@ class MatchupPredictor:
     def get_features(self, round=None):
         """Returns the correct features given a particular matchup. Used for split classifiers. If round is left blank,
         features will always be returned"""
-        if self.round_split and round > self.round_split:
+        if self.round_split is not None and round > self.round_split:
             return self.late_features
         else:
             return self.features
@@ -117,7 +120,7 @@ class MatchupPredictor:
     def get_scaler(self, round=None):
         """Returns the correct scaler given a particular matchup. Used for split classifiers. If round is left blank,
         scaler will always be returned"""
-        if self.round_split and round > self.round_split:
+        if self.round_split is not None and round > self.round_split:
             return self.late_scaler
         else:
             return self.scaler
@@ -190,7 +193,7 @@ class MatchupPredictor:
                 team2_schedule = second_schedule
 
         self.controlled_print(
-            "{} {} is being used as the underdog and {} {}  is being used as the favorite".format(team2_seed, team2,
+            "{} {} is being used as the underdog and {} {} is being used as the favorite".format(team2_seed, team2,
                                                                                                   team1_seed,
                                                                                                   team1))
         # Get player and schedule stats
@@ -267,7 +270,13 @@ class MatchupPredictor:
             plt.show()
         self.controlled_print("-------------------------------------\n")
         self.controlled_print("Preparing for next prediction...\n")
-        return result, winner_probs
+        # Create a winner_probs_ordered where the first team's odds are always first whether they are favorite or not
+        if first_team != team1:
+            winner_probs_ordered = [winner_probs[1], winner_probs[0]]
+        else:
+            winner_probs_ordered = [winner_probs[0], winner_probs[1]]
+
+        return result, winner_probs_ordered
 
     def set_year(self, year):
         """Loads the data for a given year to be used for predictions"""
@@ -306,9 +315,9 @@ class MatchupPredictor:
 
 
 if __name__ == '__main__':
-    version = "v25_3_12"
-    path = f"models/models25/{version}/"
-    model_pkg = f"Neural_Network_{version}.package"
+    version = "v26_2_0_caltree80"
+    path = f"models/models26/{version}/"
+    model_pkg = f"Adaboost_{version}.package"
     mp = MatchupPredictor(path+model_pkg, features=path+"featurenames.pickle", show_plots=True)
     now = datetime.now()
     mp.main()

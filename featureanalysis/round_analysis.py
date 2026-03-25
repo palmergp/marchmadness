@@ -18,8 +18,8 @@ with open(datapath, 'rb') as f:
 print("Finished loading")
 
 # Modify the data
-early = data[data["round"].isin([1, 2])]
-late = data[data["round"].isin([3, 4, 5, 6])]
+early = data[data["round"].isin([2])]
+late = data[data["round"].isin([3,4,5,6])]
 
 # Get relevant features
 feature_path = "C:\\Users\\gppal\\PycharmProjects\\marchmadness\\featuresets\\featuresets25\\v25_2_0\\featurenames_selected.json"
@@ -44,6 +44,20 @@ ks_df = ks_df.sort_values("ks_stat", ascending=False)
 print("KS DF")
 print(ks_df)
 
+ks = ks_df["ks_stat"]
+
+summary = {
+    "mean": ks.mean(),
+    "median": ks.median(),
+    "p25": ks.quantile(0.25),
+    "p75": ks.quantile(0.75),
+    "count_gt_0.1": (ks > 0.1).sum(),
+    "count_gt_0.2": (ks > 0.2).sum(),
+    "count_gt_0.3": (ks > 0.3).sum(),
+    "total_features": len(ks)
+}
+print(summary)
+
 sns.set(style="whitegrid")
 
 # Explicit, stable color mapping
@@ -63,7 +77,7 @@ for col in feature_cols:
         common_norm=False,
         alpha=0.5
     )
-    plt.title(f"{col} — Rounds 1–2")
+    plt.title(f"{col} — Rounds 1")
 
     # Late rounds subplot
     plt.subplot(1, 2, 2)
@@ -76,7 +90,7 @@ for col in feature_cols:
         common_norm=False,
         alpha=0.5
     )
-    plt.title(f"{col} — Rounds 3–6")
+    plt.title(f"{col} — Rounds 2")
 
     plt.suptitle(f"Distribution of {col} by Label and Round Group", fontsize=14)
     plt.tight_layout()
