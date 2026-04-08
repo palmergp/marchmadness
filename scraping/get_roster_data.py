@@ -110,6 +110,8 @@ def get_url_name(name):
         url_name = "southern-illinois-edwardsville"
     elif name == "SAINT-MARYS":
         url_name = "saint-marys-ca"
+    elif name == "PRAIRIE-VIEW-A&M":
+        url_name = "prairie-view"
     else:
         url_name = name.lower().replace("(", "").replace(")", "").replace("&", "")
     return url_name

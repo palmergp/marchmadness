@@ -181,12 +181,12 @@ class BracketPredictor:
 
 
 if __name__ == '__main__':
-    version = "v26_5_0_tree_early_top80"
+    version = "v26_5_0_core_early_top20"
     path = f"models/models26/{version}/"
-    model_pkg = f"Random_Forest_{version}.package"
-    late_version = "v26_5_0_tree_late_top80"
+    model_pkg = f"Logistic_Regression_{version}.package"
+    late_version = "v26_5_0_core_late_top15"
     late_model_path = f"models/models26/{late_version}/"
-    late_model_pkg = f"Random_Forest_{late_version}.package"
-    tourney_over = False
+    late_model_pkg = f"Logistic_Regression_{late_version}.package"
+    tourney_over = True
     bp = BracketPredictor(model=path+model_pkg, year=2026, late_model=late_model_path+late_model_pkg)
     bp.main(tourney_over, create_bracket=True)

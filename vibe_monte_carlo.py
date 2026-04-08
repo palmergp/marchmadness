@@ -14,12 +14,12 @@ from datetime import datetime
 # Configuration
 # -----------------------------
 year = 2026
-version = "v26_5_0_tree_early_top80"
+version = "v26_5_0_core_early_top20"
 path = f"models/models26/{version}/"
-model_pkg = f"Random_Forest_{version}.package"
+model_pkg = f"Logistic_Regression_{version}.package"
 model_path = path + model_pkg
-late_version = "v26_5_0_tree_late_top80"
-late_model_pkg = f"Random_Forest_{late_version}.package"
+late_version = "v26_5_0_core_late_top15"
+late_model_pkg = f"Logistic_Regression_{late_version}.package"
 late_model_path = f"models/models26/{late_version}/" + late_model_pkg
 
 # -----------------------------
@@ -110,7 +110,7 @@ except FileNotFoundError:
     predict_start = datetime.now()
     total_time = 0
     for team1 in teams:
-        time_remaining = ((datetime.now() - predict_start).seconds / count) * (len(teams) - count) if count > 0 else "unknown"
+        time_remaining = ((datetime.now() - predict_start).total_seconds() / count) * (len(teams) - count) if count > 0 else "unknown"
         count += 1
         print(f"Starting {count} of {len(teams)}. {time_remaining} seconds remaining")
         for team2 in teams:
@@ -227,13 +227,21 @@ def build_optimal_bracket(template, id_results, points, team_seeds, mode="total"
     :return:
     """
     optimal = {}
+    # round_lambda = {
+    #     1: 0.95,
+    #     2: 0.9,
+    #     3: 0.8,
+    #     4: 0.7,
+    #     5: 0.6,
+    #     6: 0.5
+    # }
     round_lambda = {
-        1: 0.95,
-        2: 0.9,
-        3: 0.8,
-        4: 0.7,
-        5: 0.6,
-        6: 0.5
+        1: 1,
+        2: 0.1,
+        3: 0.1,
+        4: 0.1,
+        5: 0.1,
+        6: 0.1
     }
 
     # Round 1
@@ -247,7 +255,7 @@ def build_optimal_bracket(template, id_results, points, team_seeds, mode="total"
         s2 = team_seeds[id_to_team[t2]]
 
         # compute priors
-        p1_prior = seed_prior(min(s1,s2), max(s1,s2))
+        p1_prior = seed_prior(min(s1, s2), max(s1, s2))
         p2_prior = 1 - p1_prior
 
         # blend by round
@@ -397,7 +405,7 @@ if __name__ == "__main__":
         team_to_id=team_to_id,
         points=points
     )
-    print("Bracket Score Total:", bracket_score_total)
+    print(f"Bracket Score Total: {bracket_score_total}, {score_by_round_total}")
     bracket_score_round, score_by_round_round = score_bracket(
         optimal_ids=optimal_ids_total,
         df=df,

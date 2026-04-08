@@ -93,8 +93,6 @@ class MatchupPredictor:
     def get_model(self, round=None):
         """Returns the correct model given a particular matchup. Used for split classifiers. If round is left blank,
         model will always be returned"""
-        if round > 2:
-            print("here")
         if self.round_split is not None and round > self.round_split:
             print("Using late model")
             return self.late_model

@@ -1,0 +1,29 @@
+{
+  "individual_stats": [
+    "underdog_opp_true_shooting_percentage",
+    "underdog_top_per_percentage",
+    "underdog_steal_percentage",
+    "favorite_weighted_avg_weight",
+    "favorite_three_point_field_goal_percentage",
+    "favorite_opp_free_throw_percentage",
+    "underdog_opp_three_point_attempt_rate",
+    "favorite_weighted_avg_height",
+    "favorite_ranked_win_percentage",
+    "underdog_returning_minutes",
+    "underdog_strength_of_schedule",
+    "favorite_returning_minutes",
+    "favorite_free_throw_percentage",
+    "underdog_AvgOppORtg",
+    "favorite_total_rebound_percentage"
+  ],
+  "difference_stats": [
+    "steal_percentage_diff",
+    "last_10_win_percentage_diff",
+    "free_throw_percentage_diff",
+    "free_throw_attempt_rate_diff"
+  ],
+  "synergy_stats": [
+    "underdog_recent_efficiency_synergy"
+  ],
+  "other": []
+}
