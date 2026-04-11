@@ -3,7 +3,7 @@ excluded and rerun until all years have been tested. Finally, it will train on A
 from the rotations. In theory, the one that did the best across all is the one that should be used"""
 import copy
 import yaml
-from parallel_trainer import train
+from trainer import train
 import os
 from bracket_predictor import BracketPredictor
 import pandas as pd

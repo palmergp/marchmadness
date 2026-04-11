@@ -82,3 +82,30 @@ Here are the models that have been entered along with some stats for each:
 - Neural Network 26_4_2Late
     - Random late model. Expected to be really bad and it is
     - Accuracy: 0.6012424961297358, Test Accuracy: 0.7380952380952381, Test ROC: 0.7771883289124668, Log Loss: 3.8941244943356925
+
+-----------------------------------------
+Wrap Up Notes
+
+Best combo of models would have been LogisticRegression26_2_0Core50 or Calibrated Adaboost as early (first round only)
+and the Linear SVC 26_4_0 as late for a total of 1330. Linear SVC 26_4_0 was best overall of the ones I submitted which
+got 1300 points. The 2_4_1 split also correctly picked Michigan so it got 1180.
+
+QKT Winning Score: 1250
+Discovery Winning Score: 1380
+Family Winning Score: 1180 (Me)
+
+Known bug: The 2026 data has the name of McNeese and St Marys off from the rest of data. That will need to be fixed
+before next round of training. Should investigate why that happened to. I should fix that now but I wont. Sorry future
+me.
+
+Copilot made lots of suggestions this year on new features and how to determine the beset feature sets. I'm not quite
+sure how great those features are. They at least seemed to be helpful for the first round.
+
+Im also not quite sure how useful the monte carlo is. In theory it seems useful but I didn't explore it enough to really
+know.
+
+If I were to put minimal effort next year, I'd probably retrain the 26_2_0 Logistic Regression with 2026 data, use that
+for the first round, and then retrain Linear SVC 26_4_0 with 2026 data and use that for the rest.
+
+I also never fully fleshed out the copilot suggested features along with the round splits (26_5_0 models). I didn't see
+it all the way to a monte carlo using those models. The initial results didn't seem to make them all that exciting.

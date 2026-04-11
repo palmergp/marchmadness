@@ -183,7 +183,7 @@ class BracketPredictor:
 if __name__ == '__main__':
     version = "v26_5_0_core_early_top20"
     path = f"models/models26/{version}/"
-    model_pkg = f"Logistic_Regression_{version}.package"
+    model_pkg = f"Linear_SVC_{version}.package"
     late_version = "v26_5_0_core_late_top15"
     late_model_path = f"models/models26/{late_version}/"
     late_model_pkg = f"Logistic_Regression_{late_version}.package"

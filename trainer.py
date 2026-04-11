@@ -514,14 +514,14 @@ if __name__ == '__main__':
     # Load the config'
     with open("./configs/trainer_config.yml", 'r') as file:
         config = yaml.safe_load(file)
-    train(datapath=["data"],
-          featurepath=["feature_list"],
-          model_set=["version"],
-          outpath=["outpath"],
-          model_names=["model_names"],
-          training_years=["training_years"],
-          meta_models=["meta_models"],
-          model_stacks=["model_stacks"],
+    train(datapath=config["data"],
+          featurepath=config["feature_list"],
+          model_set=config["version"],
+          outpath=config["outpath"],
+          model_names=config["model_names"],
+          training_years=config["training_years"],
+          meta_models=config["meta_models"],
+          model_stacks=config["model_stacks"],
           rounds=config["rounds"],
           tuning=config["tuning"],
           scoring=config["scoring"],
